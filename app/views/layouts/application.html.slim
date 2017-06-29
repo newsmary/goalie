@@ -24,18 +24,12 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          = link_to "Project name", "#", class: "navbar-brand"
+          = link_to "Project name", root_path, class: "navbar-brand"
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav
-            li.active
-              a href="#"
-                | Home
-            li
-              a href="#about"
+            li class="#{"active" if action_name == "about"}"
+              a href="#{about_path}"
                 | About
-            li
-              a href="#contact"
-                | Contact
     .container
       - flash.each do |name, msg|
         = content_tag :div, class: "alert alert-#{ name == :error ? "danger" : "success" } alert-dismissable", role: "alert" do
