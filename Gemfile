@@ -8,6 +8,10 @@ end
 
 gem 'slim-rails'
 
+#override variables via .env
+gem 'dotenv-rails', :groups => [:development, :test]
+
+
 #gem 'bootstrap-rails'
 gem 'bootstrap-generators'
 
@@ -44,8 +48,17 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
+  gem 'cucumber-rails', :require => false
+  gem 'cucumber' #our testing framework
+  gem 'selenium-webdriver' #usual, firefox driver
+  gem 'phantomjs'
+  gem 'poltergeist' #headless driver
+  gem 'rspec' #gives us a few nice methods like "page.should"
+  gem 'pry' # for command line debugging
+  gem 'capybara-screenshot'
+  gem 'firefox'
   gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 group :development do
