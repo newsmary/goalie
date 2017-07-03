@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  body: MyText
+  quarter: MyString
+  team: one
+
+two:
+  body: MyText
+  quarter: MyString
+  team: two

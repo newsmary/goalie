@@ -1,0 +1,35 @@
+.page-header
+  = link_to new_goal_path, class: 'btn btn-primary' do
+    span.glyphicon.glyphicon-plus
+    |  New Goal
+  h1
+    | Listing goals
+
+.table-responsive
+  table.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th
+          | Body
+        th
+          | Quarter
+        th
+          | Team
+        th
+        th
+        th
+    tbody
+      - @goals.each do | goal |
+        tr
+          td
+            = goal.body
+          td
+            = goal.quarter
+          td
+            = link_to goal.team.name, goal.team
+          td
+            = link_to 'Show', goal
+          td
+            = link_to 'Edit', edit_goal_path(goal)
+          td
+            = link_to 'Destroy', goal, method: :delete, data: { confirm: 'Are you sure?' }

@@ -1,0 +1,22 @@
+.page-header
+  = link_to goals_path, class: 'btn btn-default' do 
+    span.glyphicon.glyphicon-list-alt
+    |  Back 
+  = link_to edit_goal_path(@goal), class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-pencil
+    |  Edit 
+  h1
+    | Show goal
+dl.dl-horizontal
+  dt
+    | Body:
+  dd
+    = @goal.body
+  dt
+    | Quarter:
+  dd
+    = @goal.quarter
+  dt
+    | Team:
+  dd
+    = @goal.team
