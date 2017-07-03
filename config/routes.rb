@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  #resources :goals
+  resources :teams
+  resources :goals
   get '/about', to: 'home#about'
   root 'home#index'
 
