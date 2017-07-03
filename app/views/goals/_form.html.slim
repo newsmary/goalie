@@ -18,7 +18,10 @@
     = f.label :quarter, class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_field :quarter, class: "form-control"
-      /= #f.hidden_field :team_id, @team.id
+  .form-group
+    = f.label :team, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :team_id, class: "form-control"
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"

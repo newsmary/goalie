@@ -1,10 +1,10 @@
 .page-header
-  = link_to teams_path, class: 'btn btn-default' do 
+  = link_to teams_path, class: 'btn btn-default' do
     span.glyphicon.glyphicon-list-alt
-    |  Back 
-  = link_to edit_team_path(@team), class: 'btn btn-primary' do 
+    |  Back
+  = link_to edit_team_path(@team), class: 'btn btn-primary' do
     span.glyphicon.glyphicon-pencil
-    |  Edit 
+    |  Edit
   h1
     | Show team
 dl.dl-horizontal
@@ -20,3 +20,8 @@ dl.dl-horizontal
     | Body:
   dd
     = @team.body
+
+  H2 Goals
+
+  - @team.goals.each do |g|
+    = link_to g.body, g

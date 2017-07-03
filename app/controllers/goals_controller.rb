@@ -14,8 +14,17 @@ class GoalsController < ApplicationController
 
   # GET /goals/new
   def new
-    @team = Team.first
     @goal = Goal.new
+    
+    #attempt to find a team if we've passed in an ID
+    #TODO: friendly IDs
+    begin
+      team = Team.find(params[:team]) if params[:team]
+    rescue ActiveRecord::RecordNotFound
+      team = nil
+    end
+
+    @goal.team = team
   end
 
   # GET /goals/1/edit
