@@ -27,12 +27,13 @@ html
           = link_to "Project name", root_path, class: "navbar-brand"
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav
-            li class="#{"active" if action_name == "teams"}"
+            li class="#{"active" if controller_name == "teams"}"
               a href="#{teams_path}"
                 | Teams
-            li class="#{"active" if action_name == "goals"}"
-              a href="#{goals_path}"
-                | Goals
+            /
+              li class="#{"active" if controller_name == "goals"}"
+                a href="#{goals_path}"
+                  | Goals
             li class="#{"active" if action_name == "about"}"
               a href="#{about_path}"
                 | About

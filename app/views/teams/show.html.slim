@@ -1,27 +1,23 @@
+.breadcrumb
+  a =link_to :Teams, teams_path
+
 .page-header
-  = link_to teams_path, class: 'btn btn-default' do
-    span.glyphicon.glyphicon-list-alt
-    |  Back
   = link_to edit_team_path(@team), class: 'btn btn-primary' do
     span.glyphicon.glyphicon-pencil
     |  Edit
   h1
-    | Show team
-dl.dl-horizontal
-  dt
-    | Name:
-  dd
-    = @team.name
-  dt
-    | Url:
-  dd
-    = @team.url
-  dt
-    | Body:
-  dd
-    = @team.body
+    =@team.name
+  p =@team.body
+  p =link_to "Learn more", @team.url unless @team.url.to_s.empty?
 
-  H2 Goals
-
+H3 Goals
+ul
   - @team.goals.each do |g|
-    = link_to g.body, g
+    li = link_to g.body, g
+
+/=link_to "New Goal", new_goal_path(team: @team), class: "btn btn-primary"
+
+br
+= link_to  new_goal_path(team: @team), class: 'btn btn-primary' do
+  span.glyphicon.glyphicon-plus
+  |  New Goal

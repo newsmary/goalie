@@ -1,12 +1,4 @@
 .page-header
-  = link_to teams_path, class: 'btn btn-default' do
-    span.glyphicon.glyphicon-list-alt
-    |  Back 
-  = link_to @team, class: 'btn btn-primary' do
-    span.glyphicon.glyphicon-info-sign
-    |  Show 
-  h1
-    | Editing 
-    | team
-
+  = link_to 'Destroy', @team, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
+  h1 Edit Team: #{@team.name}
 = render 'form'
