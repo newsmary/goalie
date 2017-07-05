@@ -15,7 +15,7 @@ class GoalsController < ApplicationController
   # GET /goals/new
   def new
     @goal = Goal.new
-    
+
     #attempt to find a team if we've passed in an ID
     #TODO: friendly IDs
     begin
@@ -79,6 +79,6 @@ class GoalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def goal_params
-      params.require(:goal).permit(:body, :quarter, :team_id)
+      params.require(:goal).permit(:name, :body, :quarter, :team_id)
     end
 end

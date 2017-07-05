@@ -1,2 +1,24 @@
-.page-header
-  border: none
+@media(min-width: 800px)
+  .navbar-brand
+    padding: 15px 15px 0 0
+
+@import "gel_typography.min"
+
+.nav li a
+  color: #333
+  font-weight: bold
+.nav li a:hover
+  border-bottom: 3px solid #900
+h1
+  @extend .gel-canon
+h2
+  @extend .gel-trafalgar
+  //@extend .gel-typography('canon')
+  //@include gel-typography('canon')
+
+ul.goals
+  padding: 0
+  li
+    @extend .gel-double-pica
+    line-height: 2.5rem
+    list-style-type: none

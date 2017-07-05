@@ -12,7 +12,8 @@ gem 'slim-rails'
 gem 'dotenv-rails', :groups => [:development, :test]
 
 
-#gem 'bootstrap-rails'
+#gem 'bootstrap'
+#gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
 gem 'bootstrap-generators'
 
 gem 'jquery-rails'
