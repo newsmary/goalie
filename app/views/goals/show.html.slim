@@ -4,7 +4,7 @@
     .row
       .col-xs-2
         == link_to "&laquo; Previous".html_safe, @goal.previous_goal if @goal.previous_goal
-      .col-xs-8 style="text-align: center"
+      .col-xs-8 
         == link_to @goal.parent.name, @goal.parent if @goal.parent
       .col-xs-2
         .pull-right
@@ -21,7 +21,7 @@
       - @goal.key_results.each do |kr|
         .col-sm-6
           .goal
-            h3 = link_to kr.name, kr
+            h3 = link_to truncate(kr.name, length: 120), kr
     = link_to  new_goal_path(parent: @goal), class: 'btn btn-primary' do
       span.glyphicon.glyphicon-plus
       |  Add a key result

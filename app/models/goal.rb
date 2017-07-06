@@ -23,7 +23,6 @@ class Goal < ApplicationRecord
       end
   end
 
-
   def previous_goal
       if(parent.present?)
         current_index = parent.children.to_a.index(self)
@@ -32,5 +31,4 @@ class Goal < ApplicationRecord
         end
       end
   end
-
 end

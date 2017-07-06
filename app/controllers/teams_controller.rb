@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: [:show, :edit, :update, :destroy]
+  before_action :set_team, only: [:show, :edit, :update, :destroy, :import_okrs]
 
   # GET /teams
   # GET /teams.json
@@ -20,6 +20,46 @@ class TeamsController < ApplicationController
   # GET /teams/1/edit
   def edit
   end
+
+
+  def import_okrs
+    text = params[:okr_text]
+    if(text)
+      #msg = Goal.import_okrs(params[:okr_text])
+
+      msg = ""
+
+      @team.goals.destroy_all
+      current_objective = nil
+      #strip out the "key result" and "grade" lines
+      text.gsub(/^\s*Key result(s?)\s*$/i,"").gsub(/^\s*Grade\s*$/i,"").gsub(/^\s*$/,'').split("\n").each do |line|
+        if(!line.empty?)
+          obj_regex = /^\s*Obj.+\s*:\s*/i
+
+          if obj_regex === line
+            current_objective = Goal.create!(team: @team, name: line.gsub(obj_regex,""))
+            @team.goals << current_objective
+          else
+            child_goal = Goal.create!(name: line, team: @team, parent: current_objective)
+            #binding.pry
+            current_objective.children << child_goal
+          end
+        end
+      end
+
+      @team.save!
+
+
+      if(msg.to_s.empty?)
+        redirect_to @team, notice: "Import successful."
+      else
+        redirect_to @team, flash: {:error=> msg}
+      end
+    else
+      redirect_to @team, flash: {:error=> "Oops, no CVS file specified."}
+    end
+  end
+
 
   # POST /teams
   # POST /teams.json

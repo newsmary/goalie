@@ -12,7 +12,7 @@
       - @team.objectives.each do |g|
         .col-sm-6
           .goal
-            h3 = link_to g.name, g
+            h3 = link_to truncate(g.name, length: 100), g
 
     /=link_to "New Goal", new_goal_path(team: @team), class: "btn btn-primary"
     = link_to  new_goal_path(team: @team), class: 'btn btn-primary' do
@@ -20,8 +20,15 @@
       |  New Objective
 
     /
-      h3 Import Objectives
+    h3 Import Objectives
+    p NOTE: this will destroy all existing goals for this team.
+    /
       = form_tag "", multipart: true, class: "form-inline noprint" do
       .form-group
         =file_field_tag :file, :class=>"form-control"
-      =submit_tag "Import", :class=>"btn btn-primary"
+    = form_tag import_okrs_team_path(@team), class: "form-inline" do
+      .form-group
+        =text_area_tag :okr_text,'', class: "form-control"
+      .form-group
+        | &nbsp;
+        =submit_tag "Import", :class=>"btn btn-primary"
