@@ -15,11 +15,12 @@ class GoalsController < ApplicationController
   # GET /goals/new
   def new
     @goal = Goal.new
-
+    @goal.parent = Goal.find_by_id(params[:parent])
     #attempt to find a team if we've passed in an ID
     #TODO: friendly IDs
     begin
       team = Team.find(params[:team]) if params[:team]
+      team = @goal.parent.team if @goal.parent
     rescue ActiveRecord::RecordNotFound
       team = nil
     end
@@ -79,6 +80,6 @@ class GoalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def goal_params
-      params.require(:goal).permit(:name, :body, :quarter, :team_id)
+      params.require(:goal).permit(:name, :parent_id, :body, :quarter, :team_id)
     end
 end

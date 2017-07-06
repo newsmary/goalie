@@ -3,6 +3,8 @@
     span.glyphicon.glyphicon-list-alt
     |  Back
   h1
-    | New Goal
-
+    - if @goal.parent
+      | New Key Result
+    - else
+      | New Objective
 = render 'form'

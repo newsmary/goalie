@@ -1,7 +1,20 @@
-.page-header
-  = link_to edit_goal_path(@goal), class: 'btn btn-primary' do
-    span.glyphicon.glyphicon-pencil
-    |  Edit
-  h4 = link_to @goal.team.name, @goal.team
-  h1 =@goal.name
-  p = @goal.body
+= render 'breadcrumb'
+.row
+  .col-sm-9
+    h4 = link_to @goal.team.name, @goal.team
+
+    - if @goal.next_goal
+      == link_to "Next Goal &raquo;".html_safe, @goal.next_goal
+    h1 =@goal.name
+    p = @goal.body
+
+    h2 Key Results
+    .row.key_results
+      - @goal.key_results.each do |kr|
+        .col-sm-6
+          .goal
+            h3 =link_to kr.name, kr
+
+    = link_to new_goal_path(parent: @goal), class: 'btn btn-primary' do
+        span.glyphicon.glyphicon-plus
+        |  Add a key result

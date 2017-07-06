@@ -1,23 +1,22 @@
 .breadcrumb
   a =link_to :Teams, teams_path
 
-.page-header
-  = link_to edit_team_path(@team), class: 'btn btn-primary' do
-    span.glyphicon.glyphicon-pencil
-    |  Edit
-  h1
-    =@team.name
-  p ==@team.body.gsub("\n","<BR>")
-  p =link_to "Learn more", @team.url unless @team.url.to_s.empty?
+.row
+  .col-sm-9
+    h1 =@team.name
+    p ==@team.body.gsub("\n","<BR>")
+    p =link_to "Learn more", @team.url unless @team.url.to_s.empty?
+    p =link_to "Edit Team", edit_team_path(@team)
+    H2 Objectives
+    ul.goals
+      - @team.objectives.each do |g|
+        li = link_to g.name, g
 
-H2 Objectives
-ul.goals
-  - @team.goals.each do |g|
-    li = link_to g.name, g
+    /=link_to "New Goal", new_goal_path(team: @team), class: "btn btn-primary"
 
-/=link_to "New Goal", new_goal_path(team: @team), class: "btn btn-primary"
+    br
+    = link_to  new_goal_path(team: @team), class: 'btn btn-primary' do
+      span.glyphicon.glyphicon-plus
+      |  New Objective
 
-br
-= link_to  new_goal_path(team: @team), class: 'btn btn-primary' do
-  span.glyphicon.glyphicon-plus
-  |  New Goal
+  .col-sm-3

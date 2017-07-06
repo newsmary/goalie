@@ -54,5 +54,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::FileUpdateChecker
 
   #allow console rendering from a host machine when using a vm
-  config.web_console.whitelisted_ips = '10.0.0.0/16'
+  config.web_console.whitelisted_ips = '172.18.0.0/16'
 end
