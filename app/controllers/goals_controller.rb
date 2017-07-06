@@ -65,9 +65,18 @@ class GoalsController < ApplicationController
   # DELETE /goals/1
   # DELETE /goals/1.json
   def destroy
+
+    if(!@goal.children.empty?)
+      redirect_to @goal, flash: {:error=> "Goals may only be deleted if they have no sub-goals. Please delete all sub-goals and try again."}
+      return
+    end
+
     @goal.destroy
+
+    redirect_url = (@goal.parent) ? @goal.parent : @goal.owner
+
     respond_to do |format|
-      format.html { redirect_to goals_url, notice: 'Goal was successfully destroyed.' }
+      format.html { redirect_to redirect_url, notice: 'Goal was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

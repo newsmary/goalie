@@ -45,3 +45,8 @@
       br
       br
       = link_to "Cancel", "javascript:history.go(-1)"
+      / only show destroy when editign (makes no sense when creating)
+      -if action_name == "edit"
+        br    
+        br
+        = link_to 'Destroy goal', @goal, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"

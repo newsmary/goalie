@@ -28,3 +28,6 @@
       br
       br
       = link_to "Cancel", "javascript:history.go(-1)"
+      br
+      br    
+      = link_to 'Destroy team', @team, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"

@@ -3,10 +3,11 @@
   .col-sm-9
     h4 = link_to @goal.team.name, @goal.team
 
-    - if @goal.next_goal
-      == link_to "Next Goal &raquo;".html_safe, @goal.next_goal
+    == link_to "&laquo; Previous Goal".html_safe, @goal.previous_goal if @goal.previous_goal
+    == link_to "Next Goal &raquo;".html_safe, @goal.next_goal if @goal.next_goal
     h1 =@goal.name
     p = @goal.body
+    =link_to "Edit this goal", edit_goal_path, class: "btn btn-primary"
 
     h2 Key Results
     .row.goals

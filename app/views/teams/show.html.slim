@@ -6,7 +6,7 @@
     h1 =@team.name
     p ==@team.body.gsub("\n","<BR>")
     p =link_to "Learn more", @team.url unless @team.url.to_s.empty?
-    p =link_to "Edit Team", edit_team_path(@team)
+    p =link_to "Edit this team", edit_team_path(@team), class: "btn btn-primary"
     H2 Objectives
     .row.goals
       - @team.objectives.each do |g|
@@ -18,3 +18,10 @@
     = link_to  new_goal_path(team: @team), class: 'btn btn-primary' do
       span.glyphicon.glyphicon-plus
       |  New Objective
+
+    /
+      h3 Import Objectives
+      = form_tag "", multipart: true, class: "form-inline noprint" do
+      .form-group
+        =file_field_tag :file, :class=>"form-control"
+      =submit_tag "Import", :class=>"btn btn-primary"
