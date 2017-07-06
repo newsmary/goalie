@@ -6,6 +6,11 @@ class Goal < ApplicationRecord
   belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id', optional: true
   #has_one :parent, :class_name=>'Goal', :foreign_key=>'parent_id'
 
+  #for now...
+  def owner
+    team
+  end
+
   #alias...
   def children
     key_results
