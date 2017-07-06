@@ -244,7 +244,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-generators
   byebug
-  capybara (~> 2.13)
+  capybara
   capybara-screenshot
   coffee-rails (~> 4.2)
   cucumber

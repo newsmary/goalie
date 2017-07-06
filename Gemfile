@@ -58,7 +58,8 @@ group :development, :test do
   gem 'pry' # for command line debugging
   gem 'capybara-screenshot'
   gem 'firefox'
-  gem 'capybara', '~> 2.13'
+  gem 'capybara' #nice DSL for talking to the browser in code.
+  #gem 'capybara', '~> 2.13'
   gem 'database_cleaner'
 end
 

@@ -16,6 +16,12 @@
       .col-sm-10
         p.label = link_to @goal.parent.name,@goal.parent
     =f.hidden_field :parent_id, :value=> @goal.parent.id
+  - if @goal.team
+    .form-group
+      = f.label :Team, class: "col-sm-2 control-label"
+      .col-sm-10
+        p.label = link_to @goal.team.name,@goal.team
+    =f.hidden_field :team_id, :value=> @goal.team.id
   .form-group
     = f.label :name, class: "col-sm-2 control-label"
     .col-sm-10
@@ -24,14 +30,15 @@
     = f.label :body, class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_area :body, class: "form-control"
-  .form-group
-    = f.label :quarter, class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.text_field :quarter, class: "form-control"
-  .form-group
-    = f.label :team, class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.text_field :team_id, class: "form-control"
+  /
+    .form-group
+      = f.label :quarter, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_field :quarter, class: "form-control"
+    .form-group
+      = f.label :team, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_field :team_id, class: "form-control"
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"
