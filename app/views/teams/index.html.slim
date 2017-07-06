@@ -1,8 +1,10 @@
 .page-header
-  = link_to new_team_path, class: 'btn btn-primary' do
-    span.glyphicon.glyphicon-plus
-    |  New Team
   h1 Teams
 
 - @teams.each do | team |
   h2 = link_to team.name, team
+br
+br
+= link_to new_team_path, class: 'btn btn-primary' do
+  span.glyphicon.glyphicon-plus
+  |  New Team
