@@ -9,11 +9,17 @@ body
 
 @import "gel_typography.min"
 
-.nav li a
-  color: #333
-  font-weight: bold
+.nav
+  li a
+    color: #333
+    font-weight: bold
+    border-bottom: 3px solid #f8f8f8
+  .active a
+    border-bottom: 3px solid #e7e7e7
 .nav li a:hover
   border-bottom: 3px solid #900
+
+
 h1
   @extend .gel-canon
   font-size: 4rem

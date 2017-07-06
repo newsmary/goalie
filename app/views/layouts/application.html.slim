@@ -27,7 +27,8 @@ html
             span.icon-bar
             span.icon-bar
           = link_to image_tag("bbc-blocks-dark.png"), root_path, class: "navbar-brand"
-        #navbar.collapse.navbar-collapse
+          = link_to "TV & Radio Goals", root_path, class: "navbar-brand"
+        #navbar.collapse.navbar-collapse.pull-right
           ul.nav.navbar-nav
             li class="#{"active" if controller_name == "teams"}"
               a href="#{teams_path}"
