@@ -19,9 +19,7 @@
     h2 Key Results
     .row.goals
       - @goal.key_results.each do |kr|
-        .col-sm-6
-          .goal
-            h3 = link_to truncate(kr.name, length: 120), kr
+        == render kr
     = link_to  new_goal_path(parent: @goal), class: 'btn btn-primary' do
       span.glyphicon.glyphicon-plus
       |  Add a key result

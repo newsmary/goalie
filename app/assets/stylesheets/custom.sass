@@ -1,6 +1,26 @@
+
+h1
+  /*@extend .gel-canon*/
+  font-size: 4rem
+  line-height: 4rem
+  font-weight: bold
+
+h2
+  /*@extend .gel-trafalgar*/
+h3
+  /*@extend .gel-double-pica*/
+  font-size: 2rem
+
 @media(min-width: 800px)
   .navbar-brand
     padding: 15px 15px 0 0
+@media(max-width: 800px)
+  .goal
+    height: 7rem
+  h3
+    font-size: 1.8rem
+  h2
+    font-size: 2.5rem
 
 body
   padding: 0
@@ -19,23 +39,11 @@ body
 .nav li a:hover
   border-bottom: 3px solid #900
 
-
-h1
-  @extend .gel-canon
-  font-size: 4rem
-  line-height: 4rem
-  font-weight: bold
-h2
-  @extend .gel-trafalgar
-h3
-  @extend .gel-double-pica
-
 ul
   padding: 0
   list-style-type: none
   @extend .gel-double-pica
   line-height: 2.5rem
-
 
 .form-group p.label
   display: block
@@ -50,16 +58,6 @@ ul
     color: #333
     display: block
     margin-top: 7.5px
-
-.goals
-  .goal
-    border-top: 3px solid #333
-    display: block
-    height: 10rem
-    background: #eee
-    margin-bottom: 3rem
-    h3
-      padding: 1rem 2rem 3rem 2rem
 
 aside
   border-top: 5px solid #009

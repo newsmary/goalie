@@ -9,10 +9,8 @@
     p =link_to "Edit this team", edit_team_path(@team)
     H2 Objectives
     .row.goals
-      - @team.objectives.each do |g|
-        .col-sm-6
-          .goal
-            h3 = link_to truncate(g.name, length: 100), g
+      - @team.objectives.each do |goal|
+        == render goal
 
     /=link_to "New Goal", new_goal_path(team: @team), class: "btn btn-primary"
     = link_to  new_goal_path(team: @team), class: 'btn btn-primary' do
