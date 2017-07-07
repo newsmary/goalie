@@ -2,7 +2,7 @@
 h1
   /*@extend .gel-canon*/
   font-size: 4rem
-  line-height: 4rem
+  line-height: 4.5rem
   font-weight: bold
 
 h2
@@ -10,6 +10,7 @@ h2
 h3
   /*@extend .gel-double-pica*/
   font-size: 2rem
+  line-height: 2.8rem
 
 @media(min-width: 800px)
   .navbar-brand
@@ -41,9 +42,10 @@ body
 
 ul
   padding: 0
-  list-style-type: none
-  @extend .gel-double-pica
-  line-height: 2.5rem
+  li
+    list-style-type: none
+    /*@extend .gel-double-pica*/
+    line-height: 2.5rem
 
 .form-group p.label
   display: block

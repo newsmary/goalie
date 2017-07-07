@@ -2,11 +2,9 @@
 .row
   .col-sm-9
     .row
-      .col-xs-2
+      .col-xs-6
         == link_to "&laquo; Previous".html_safe, @goal.previous_goal if @goal.previous_goal
-      .col-xs-8 
-        == link_to @goal.parent.name, @goal.parent if @goal.parent
-      .col-xs-2
+      .col-xs-6
         .pull-right
           == link_to "Next &raquo;".html_safe, @goal.next_goal if @goal.next_goal
     .row

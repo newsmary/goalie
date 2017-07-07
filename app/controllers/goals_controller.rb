@@ -85,6 +85,7 @@ class GoalsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_goal
       @goal = Goal.find(params[:id])
+      @team = @goal.team
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
