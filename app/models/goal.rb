@@ -11,24 +11,28 @@ class Goal < ApplicationRecord
     team
   end
 
+  def siblings
+    parent.present? ? parent.children : owner.objectives
+  end
+
   #alias...
   def children
     key_results
   end
 
   def next_goal
-      if(parent.present?)
-        current_index = parent.children.to_a.index(self)
-        parent.children.to_a[current_index+1]
-      end
+    if(siblings.count > 1)
+      current_index = siblings.to_a.index(self)
+      siblings.to_a[current_index+1]
+    else
+      nil
+    end
   end
 
   def previous_goal
-      if(parent.present?)
-        current_index = parent.children.to_a.index(self)
-        if(current_index > 0)
-          parent.children.to_a[current_index-1]
-        end
+      current_index = siblings.to_a.index(self)
+      if(current_index > 0)
+        siblings.to_a[current_index-1]
       end
   end
 end
