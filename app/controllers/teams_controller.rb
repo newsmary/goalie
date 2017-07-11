@@ -15,6 +15,7 @@ class TeamsController < ApplicationController
   # GET /teams/new
   def new
     @team = Team.new
+    @team.parent = Team.find_by_id(params[:parent])
   end
 
   # GET /teams/1/edit

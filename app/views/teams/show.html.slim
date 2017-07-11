@@ -5,13 +5,6 @@
     p ==@team.body.gsub("\n","<BR>")
     p =link_to "Learn more", @team.url unless @team.url.to_s.empty?
     p =link_to "Edit this team", edit_team_path(@team)
-    -unless @team.children.empty? 
-      H2 Sub-teams
-      ul.goals
-        - @team.children.each do |child|
-          li 
-            h4 =link_to child.name, child
-        
     H2 Objectives
     .row.goals
       - @team.objectives.each do |goal|
@@ -20,6 +13,17 @@
     = link_to  new_goal_path(team: @team), class: 'btn btn-primary' do
       span.glyphicon.glyphicon-plus
       |  New Objective
+    .row
+      .col-sm-12
+        H2 Sub-teams
+        -unless @team.children.empty? 
+          ul.goals
+            - @team.children.each do |child|
+              li 
+                h4 =link_to child.name, child
+        = link_to  new_team_path(parent: @team), class: 'btn btn-primary' do
+          span.glyphicon.glyphicon-plus
+          |  New sub-team
 
     /
     h3 Import Objectives

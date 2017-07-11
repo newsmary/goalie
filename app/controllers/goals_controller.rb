@@ -37,9 +37,11 @@ class GoalsController < ApplicationController
   def create
     @goal = Goal.new(goal_params)
 
+    redirect_url = @goal.parent.nil? ? @goal.owner : @goal.parent
+
     respond_to do |format|
       if @goal.save
-        format.html { redirect_to @goal, notice: 'Goal was successfully created.' }
+        format.html { redirect_to redirect_url, notice: 'Goal was successfully created.' }
         format.json { render :show, status: :created, location: @goal }
       else
         format.html { render :new }

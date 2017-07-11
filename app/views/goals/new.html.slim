@@ -1,10 +1,10 @@
-.page-header
-  = link_to goals_path, class: 'btn btn-default' do
-    span.glyphicon.glyphicon-list-alt
-    |  Back
-  h1
-    - if @goal.parent
-      | New Key Result
-    - else
-      | New Objective
-= render 'form'
+=render 'breadcrumb'
+.row
+  .col-md-8
+    .page-header
+      h1
+        - if @goal.parent
+          | New Key Result
+        - else
+          | New Objective
+    = render 'form'
