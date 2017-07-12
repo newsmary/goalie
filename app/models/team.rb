@@ -1,4 +1,6 @@
 class Team < ApplicationRecord
+  validates :name, presence: true, uniqueness: true
+
   default_scope{ order('name') }
   has_many :goals
   has_many :children, class_name: :Team, foreign_key: :parent_id, dependent: :nullify

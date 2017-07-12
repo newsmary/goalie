@@ -1,4 +1,5 @@
 class Goal < ApplicationRecord
+  validates :name, presence: true
   #belongs_to :goalable, polymorphic: true
   belongs_to :team
   #calling "Key Results" children to be more general

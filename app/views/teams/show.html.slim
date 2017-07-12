@@ -2,7 +2,7 @@
 .row
   .col-sm-9
     h1 =@team.name
-    p ==@team.body.gsub("\n","<BR>")
+    p ==@team.body.to_s.gsub("\n","<BR>")
     p =link_to "Learn more", @team.url unless @team.url.to_s.empty?
     p =link_to "Edit this team", edit_team_path(@team)
     H2 Objectives
