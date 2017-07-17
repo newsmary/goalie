@@ -17,6 +17,9 @@ gem 'truncate_html'
 
 #login, etc.
 gem 'devise'
+gem 'devise-bootstrap-views'
+
+#gem 'kaminari'
 
 #gem 'bootstrap'
 #gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'

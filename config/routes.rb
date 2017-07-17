@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   #resources :goals
   resources :teams do
     post 'import_okrs', on: :member

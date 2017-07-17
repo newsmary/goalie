@@ -14,7 +14,8 @@ A goal-setting and tracking platform.
 - Run `docker-compose build` to build it
 - Run `docker-compose up` to start rails
 - To run cucumber tests, etc, run `docker-compose run web bash` for an interactive bash shell
-- To shut down gracefully run `docker-compose down` if you just kill it, you'll have to log-in and remove the tmp/pids/puma.pid
+- To shut down gracefully, in another terminal window, run `docker-compose down` if you just kill it, you'll have to log-in and remove the tmp/pids/puma.pid
+- If you make changes to the Gemfile, run `docker-compose run web bundle`
 
 
 This README would normally document whatever steps are necessary to get the
