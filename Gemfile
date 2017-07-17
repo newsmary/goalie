@@ -12,6 +12,12 @@ gem 'slim-rails'
 gem 'dotenv-rails', :groups => [:development, :test]
 
 
+#for truncating html
+gem 'truncate_html'
+
+#login, etc.
+gem 'devise'
+
 #gem 'bootstrap'
 #gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
 gem 'bootstrap-generators'

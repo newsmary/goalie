@@ -9,6 +9,12 @@ A goal-setting and tracking platform.
 - Think about other kinds of OKRs (e.g. discipline)
 - Is there a hierarchy of teams? Can a team belong to another team? (e.g RW playback to iPlayer)
 
+# Local development
+- Install Docker
+- Run `docker-compose build` to build it
+- Run `docker-compose up` to start rails
+- To run cucumber tests, etc, run `docker-compose run web bash` for an interactive bash shell
+- To shut down gracefully run `docker-compose down` if you just kill it, you'll have to log-in and remove the tmp/pids/puma.pid
 
 
 This README would normally document whatever steps are necessary to get the

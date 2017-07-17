@@ -1,23 +1,26 @@
 
 h1
   /*@extend .gel-canon*/
-  font-size: 4rem
-  line-height: 4.5rem
+  font-size: 5rem
+  line-height: 5.2rem
   font-weight: bold
 
 h2
+  font-size: 2.5rem
   /*@extend .gel-trafalgar*/
-h3
-  /*@extend .gel-double-pica*/
-  font-size: 2rem
-  line-height: 2.8rem
+
+/* Use a narrower grid */
+@media (min-width: 1200px)
+  .container
+    max-width: 970px
 
 @media(min-width: 800px)
   .navbar-brand
     padding: 15px 15px 0 0
 @media(max-width: 800px)
-  .goal
-    height: 7rem
+  h1
+    font-size: 3rem
+    line-height: 3.5rem
   h3
     font-size: 1.8rem
   h2
@@ -62,6 +65,11 @@ ul
     margin-top: 7.5px
 
 aside
-  border-top: 5px solid #009
+  border-top: 10px solid #06a
+  margin-top: 20px
+  h2
+    margin-top: 1rem
   ul
-    list-style-type: none
+    li
+      font-size: 1.6rem
+      list-style-type: none
