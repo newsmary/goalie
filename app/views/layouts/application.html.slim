@@ -41,6 +41,17 @@ html
               a href="#{about_path}"
                 | About
     .container
+      .row
+        .col-sm-12.auth_nav
+          .pull-right
+            - if user_signed_in?
+              | Hello #{current_user.email}
+              | : 
+              =link_to "Sign out", destroy_user_session_path
+            - else
+              = link_to "Sign in", new_user_session_path
+              | &nbsp; || &nbsp; 
+              = link_to "Sign up", new_user_registration_path
       - flash.each do |name, msg|
         = content_tag :div, class: "alert alert-#{ name == :error.to_s ? "danger" : "success" } alert-dismissable", role: "alert" do
           button.close type="button" data-dismiss="alert"

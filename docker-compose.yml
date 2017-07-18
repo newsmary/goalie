@@ -13,7 +13,7 @@ services:
     volumes:
       - .:/myapp
       #share bundler cache so we can update it without rebuilding the image
-      - ./bundle_cache:/bundle
+      #- ./bundle_cache:/bundle
     ports:
       - "3000:3000"
     depends_on:

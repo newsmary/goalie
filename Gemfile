@@ -18,7 +18,7 @@ gem 'truncate_html'
 #login, etc.
 gem 'devise'
 gem 'devise-bootstrap-views'
-
+gem 'html2slim'
 #gem 'kaminari'
 
 #gem 'bootstrap'
