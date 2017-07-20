@@ -1,4 +1,9 @@
 FROM ruby:2.3.3
+
+#make sure we don't get tripped up by any inherited proxies
+RUN unset HTTP_PROXY
+RUN unset HTTPS_PROXY
+
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 
 ENV APP_HOME /myapp
