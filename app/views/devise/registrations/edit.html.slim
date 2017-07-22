@@ -1,13 +1,15 @@
 = bootstrap_devise_error_messages!
-.panel.panel-default.devise-bs
-  .panel-heading
-    h4
-      = t('.title', resource: resource_class.model_name.human , default: "Edit #{resource_name.to_s.humanize}")
-  .panel-body
+.row
+  .col-sm-6
+    h1 = t('.title', resource: resource_class.model_name.human , default: "Edit #{resource_name.to_s.humanize}")
+    hr
     = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
       .form-group
+        = f.label :name
+        = f.text_field :name, autofocus: true, class: 'form-control'
+      .form-group
         = f.label :email
-        = f.email_field :email, autofocus: true, class: 'form-control'
+        = f.email_field :email, class: 'form-control'
       .form-group
         = f.label :password
         i
@@ -26,9 +28,8 @@
           | )
         = f.password_field :current_password, class: 'form-control'
       = f.submit t('.update', default: 'Update'), class: 'btn btn-primary'
-p
-  = t('.unhappy', default: 'Unhappy')
-  | ? 
-  = link_to t('.cancel_my_account', default: 'Cancel my account'), registration_path(resource_name), data: { confirm: t('.are_you_sure', default: "Are you sure?") }, method: :delete
-  | .
-= link_to t('.back', default: 'Back'), :back
+    br
+    = link_to t('.back', default: 'Back'), :back
+    br
+    br
+    = link_to t('.cancel_my_account', default: 'Cancel my account'), registration_path(resource_name), data: { confirm: t('.are_you_sure', default: "Are you sure?") }, method: :delete, class: "btn btn-danger"

@@ -1,5 +1,8 @@
 Feature: Manage teams
 
+Background:
+    Given I sign in as a non-admin user
+
 Scenario: See teams
   Given I visit "/teams"
   Then I should see "Teams" within "h1"

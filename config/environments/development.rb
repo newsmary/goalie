@@ -59,4 +59,11 @@ Rails.application.configure do
   #Devise mailer default link...
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'docker.for.mac.localhost',
+    port:                 25,
+    domain:               'peterkappus.com',
+    enable_starttls_auto: false  }
+
 end

@@ -45,7 +45,7 @@ html
         .col-sm-12.auth_nav
           .pull-right
             - if user_signed_in?
-              | Hello #{current_user.email}
+              | Hello #{link_to current_user.name, edit_user_registration_path}
               | : 
               =link_to "Sign out", destroy_user_session_path
             - else
@@ -53,7 +53,8 @@ html
               | &nbsp; || &nbsp; 
               = link_to "Sign up", new_user_registration_path
       - flash.each do |name, msg|
-        = content_tag :div, class: "alert alert-#{ name == :error.to_s ? "danger" : "success" } alert-dismissable", role: "alert" do
+        - type =  (name == :error.to_s || name == :alert.to_s) ? "danger" : "success" 
+        = content_tag :div, class: "alert alert-#{type} alert-dismissable", role: "alert" do
           button.close type="button" data-dismiss="alert"
             span aria-hidden="true"
               | &times;
