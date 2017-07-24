@@ -1,9 +1,10 @@
 class Goal < ApplicationRecord
   validates :name, presence: true
+
   #belongs_to :goalable, polymorphic: true
   belongs_to :team
   #calling "Key Results" children to be more general
-  has_many :key_results, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
+  has_many :key_results, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify#, :order=>'created_at'
   belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id', optional: true
   #has_one :parent, :class_name=>'Goal', :foreign_key=>'parent_id'
 

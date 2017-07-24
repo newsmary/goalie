@@ -35,10 +35,12 @@ class TeamsController < ApplicationController
       #strip out the "key result" and "grade" lines
       text.gsub(/^\s*Key result(s?)\s*$/i,"").gsub(/^\s*Grade\s*$/i,"").gsub(/^\s*$/,'').split("\n").each do |line|
         if(!line.empty?)
-          obj_regex = /^\s*Obj.+\s*:\s*/i
+          obj_regex = /^\s*Obj.+?\s*?:\s*/i
 
           if obj_regex === line
-            current_objective = Goal.create!(team: @team, name: line.gsub(obj_regex,""))
+            name = line.gsub(obj_regex,"")
+            #puts "name: " + name
+            current_objective = Goal.create!(team: @team, name: name)
             @team.goals << current_objective
           else
             child_goal = Goal.create!(name: line, team: @team, parent: current_objective)
