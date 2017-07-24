@@ -1,12 +1,50 @@
+$footer_height:   60px
+
+html
+  position: relative
+  min-height: 100%
+body
+  /* Margin bottom by footer height */
+  margin-bottom: $footer_height
+  padding: 0
+  nav
+    margin-bottom: 0.5rem
+
+.push
+  padding-bottom: 3rem
+
+.footer
+  position: absolute
+  padding-top: 0.5rem
+  bottom: 0
+  width: 100%
+  /* Set the fixed height of the footer here */
+  height: $footer_height
+  background-color: #f5f5f5
+  p
+    margin-top: 10px
+
+ol.subteams
+  margin-bottom: 1rem
+  margin-top: 1.8rem
+  padding-left: 2rem
+  li
+    font-size: 1.8rem
+    line-height: 2rem
+    margin-bottom: 1.3rem
+
+
 
 h1
   /*@extend .gel-canon*/
   font-size: 5rem
   line-height: 5.2rem
   font-weight: bold
+  margin-top: 2rem
 
 h2
   font-size: 2.5rem
+  //margin-top: 4rem
   /*@extend .gel-trafalgar*/
 
 /* Use a narrower grid */
@@ -26,10 +64,6 @@ h2
   h2
     font-size: 2.5rem
 
-body
-  padding: 0
-  nav
-    margin-bottom: 0.5rem
 
 .auth_nav
   margin-bottom: 1rem
@@ -70,7 +104,7 @@ ul
 
 aside
   border-top: 10px solid #06a
-  margin-top: 20px
+  margin-top: 10px
   h2
     margin-top: 1rem
   ul

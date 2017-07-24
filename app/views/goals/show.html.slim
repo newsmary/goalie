@@ -9,18 +9,26 @@
           == link_to "Next &raquo;".html_safe, @goal.next_goal if @goal.next_goal
     .row
       .col-sm-12
-        H2 Objective
-        h1 = @goal.name
-        p = @goal.body
-        = link_to "Edit this goal", edit_goal_path
-    
-    h2 Key Results
-    == render @goal.key_results
-    .row
-      .col-sm-12
-        = link_to  new_goal_path(parent: @goal), class: 'btn btn-primary' do
-          span.glyphicon.glyphicon-plus
-          |  Add a key result
+        - if @goal.children.empty?
+          H2 Key Result
+        - else
+          H2 Objective
+.row
+  .col-sm-8
+    h1 style="margin-top: 0" = @goal.name
+    p = @goal.body
+    / = link_to "Edit this goal", edit_goal_path
+  
+    - if !@goal.key_results.empty?
+      h2 Key Results
+      ol.goal
+        == render @goal.key_results
+    /
+      .row
+        .col-sm-12
+          = link_to  new_goal_path(parent: @goal), class: 'btn btn-primary' do
+            span.glyphicon.glyphicon-plus
+            |  Add a key result
 
   .col-sm-4
     aside

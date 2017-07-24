@@ -40,7 +40,7 @@ html
             li class="#{"active" if action_name == "about"}"
               a href="#{about_path}"
                 | About
-    .container
+    .container.push
       .row
         .col-sm-12.auth_nav
           .pull-right
@@ -62,3 +62,9 @@ html
               | Close
           = msg
       = yield
+    footer.footer
+      .container
+        p 
+          = link_to "Home", root_path
+          '&nbsp;
+          = link_to "About", about_path

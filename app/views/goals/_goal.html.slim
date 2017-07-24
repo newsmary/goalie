@@ -1,29 +1,3 @@
-- cols = 2
-div class="col-sm-#{12/cols} subgoal-box" id="goal_#{goal.id}"
-  .row
-    .col-sm-12
-      .row
-        .col-xs-1
-          h3.number  =goal_counter+1
-        .col-xs-10.goal
-          /
-            .tiny_status
-              div class="#{goal.status}"
-                = goal.status.humanize.capitalize
-          h3 = link_to truncate_html(goal.name, length: 120).gsub(/^./,&:upcase), goal
-          //h3 = link_to goal.name.titlecase, goal
-          /
-            -if goal.owner
-              .owner =link_to goal.owner.name, goal.owner
-            -if goal.score.nil?
-              .owner.danger No progress reported
-            - else
-              .owner
-                =link_to "Latest progress: " + time_ago_in_words(goal.score.created_at) + " ago", "javascript:$('#update#{goal.id}').toggle()", {:title=>"See latest progress."}
-              div id="update#{goal.id}" style="display: none" =goal.score.reason
-            /.owner Due: #{goal.deadline.strftime("%h %Y")}
-            .smaller =pluralize(goal.children.count,"Subgoal") unless goal.children.empty?
-          /.tiny_status.pull-right ON TRACK
-
--if((goal_counter+1) % cols == 0)
-  .row
+li 
+  = link_to goal.name, goal
+  /= link_to truncate_html(goal.name, length: 120).gsub(/^./,&:upcase), goal

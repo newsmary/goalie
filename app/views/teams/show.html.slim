@@ -6,22 +6,31 @@
         h1 =@team.name
         p ==@team.body.to_s.gsub("\n","<BR>")
         p =link_to "Learn more", @team.url unless @team.url.to_s.empty?
-        p =link_to "Edit this team", edit_team_path(@team)
-        H2 Sub-teams
+        /p =link_to "Edit this team", edit_team_path(@team)
     -unless @team.children.empty? 
       .row.goals
-        - @team.children.each do |child|
-          .col-sm-6
-            h4 =link_to child.name, child
+        .col-sm-12
+          H2 Sub-teams
+          - i = 1
+          - @team.children.each_slice((@team.children.count/2.0).round).each do |slice|
+            .col-sm-6
+              ol.subteams start="#{i}"
+                - slice.each do |child|
+                  - i+=1
+                  li =link_to child.name, child
     .row
       .col-sm-12
         /
           = link_to  new_team_path(parent: @team), class: 'btn btn-primary' do
             span.glyphicon.glyphicon-plus
             |  Add sub-team
-        H2 Objectives
-    .row
-      == render @team.objectives
+        
+    -unless @team.objectives.empty?
+      .row
+        .col-sm-12
+          H2 Objectives
+          ol.goal
+            == render @team.objectives
     .row
       .col-sm-12
         /=link_to "New Goal", new_goal_path(team: @team), class: "btn btn-primary"
@@ -30,7 +39,7 @@
             span.glyphicon.glyphicon-plus
             |  New Objective
         /
-        h3 Import Objectives
+        h3 Import OKRs
         p NOTE: this will destroy all existing goals for this team.
         /
           = form_tag "", multipart: true, class: "form-inline noprint" do
@@ -46,6 +55,7 @@
     aside
       h2 Actions
       ul
+        li = link_to "Edit this team", edit_team_path(@team)
         li = link_to "Add a sub team", new_team_path(parent: @team)
         li = link_to "Add a new objective", new_goal_path(team: @team)
       
