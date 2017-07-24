@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, sign_out_via: [:get, :post, :delete]
+  devise_for :users, sign_out_via: [:get, :post, :delete], :controllers => { :registrations => "registrations" }
   #resources :goals
   resources :teams do
     post 'import_okrs', on: :member

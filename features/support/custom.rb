@@ -12,6 +12,11 @@ require 'capybara-screenshot'
 require 'capybara-screenshot/cucumber'
 require 'firefox'
 
+
+#for email tests
+require 'email_spec' # add this line if you use spork
+require 'email_spec/cucumber'
+
 #Capybara.register_driver :chrome do |app|
 #  Capybara::Selenium::Driver.new(app, :browser => :chrome)
 #end

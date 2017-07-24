@@ -1,0 +1,17 @@
+Feature: Make sure I can sign up, sign in, sign out, etc.
+
+
+Scenario: Make me sign in.
+  When I visit the homepage
+  Then I should see "Sign in"
+
+@wip
+Scenario: Let me sign up, and send me the confirmation email
+  When I visit the homepage
+  And I click on "Sign up"
+  And I fill in "user[name]" with "Peter Tester"
+  And I fill in "user[email]" with "peter.tester@bbc.co.uk"
+  And I fill in "user[password]" with "supersecret"
+  And I fill in "user[password_confirmation]" with "supersecret"
+  And I click on "Sign up" button
+  Then "peter.tester@bbc.co.uk" should receive an email with subject "Please confirm your email."

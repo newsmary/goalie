@@ -1,6 +1,9 @@
 FROM ruby:2.3.3
 
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs sendmail vim man
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs vim man
+
+#Nope, use sendmail on the host (port 25)
+#sendmail
 
 #make sure we don't get tripped up by any inherited proxies
 RUN unset HTTP_PROXY
