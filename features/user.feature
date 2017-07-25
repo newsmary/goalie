@@ -5,7 +5,6 @@ Scenario: Make me sign in.
   When I visit the homepage
   Then I should see "Sign in"
 
-@wip
 Scenario: Let me sign up, and send me the confirmation email
   When I visit the homepage
   And I click on "Sign up"
@@ -15,3 +14,7 @@ Scenario: Let me sign up, and send me the confirmation email
   And I fill in "user[password_confirmation]" with "supersecret"
   And I click on "Sign up" button
   Then "peter.tester@bbc.co.uk" should receive an email with subject "Please confirm your email."
+
+Scenario: Let me sign out
+  Given I sign in as a non-admin user
+  And I click "Sign out"

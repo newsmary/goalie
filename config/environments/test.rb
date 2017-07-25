@@ -43,6 +43,7 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   #Devise mailer default link...
-  config.action_mailer.default_url_options = { host: ENV['HOST'], port: 3000 }
+  config.action_mailer.default_url_options = { host: ENV['DEVISE_DEFAULT_LINK_HOST'], port: 3000 }
+
 
 end

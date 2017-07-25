@@ -8,9 +8,7 @@ When(/^I visit the teams page$/) do
 end
 
 Given(/^the team called "([^"]*)" has an objective to "([^"]*)"$/) do |team_name, goal_name|
-  t = Team.find(name: team_name)
-  t.goals << Goal.create!(name: goal_name)
-  t.save!
+  Team.find_by(name: team_name).objectives << Goal.create!(name: goal_name)
 end
 
 Given(/^I have a team called "([^"]*)" with an objective to "([^"]*)"$/) do |team_name, goal_name|

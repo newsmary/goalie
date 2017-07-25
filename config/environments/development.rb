@@ -57,7 +57,7 @@ Rails.application.configure do
   config.web_console.whitelisted_ips = '172.18.0.0/16'
 
   #Devise mailer default link...
-  config.action_mailer.default_url_options = { host: ENV['HOST'], port: 3000 }
+  config.action_mailer.default_url_options = { host: ENV['DEVISE_DEFAULT_LINK_HOST'], port: 3000 }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
