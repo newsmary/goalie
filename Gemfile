@@ -6,6 +6,9 @@ git_source(:github) do |repo_name|
 end
 
 
+#really only needed for production...
+gem 'sendgrid-ruby'
+
 gem 'slim-rails'
 
 #override variables via .env
