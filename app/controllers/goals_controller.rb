@@ -83,6 +83,10 @@ class GoalsController < ApplicationController
     end
   end
 
+  def search
+    @goals = Goal.all.search(params[:q]) if params[:q].present?    
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_goal

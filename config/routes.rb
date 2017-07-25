@@ -5,7 +5,11 @@ Rails.application.routes.draw do
     post 'import_okrs', on: :member
     #get 'import_okrs', on: :member
   end
-  resources :goals
+
+  resources :goals do
+    get 'search', on: :collection, as: :search
+  end
+
   get '/about', to: 'home#about'
   #root 'home#index'
   root 'teams#index'

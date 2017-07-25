@@ -7,7 +7,7 @@ end
 
 
 #really only needed for production...
-gem 'sendgrid-ruby'
+#gem 'sendgrid-ruby'
 
 gem 'slim-rails'
 

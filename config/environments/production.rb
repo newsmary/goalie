@@ -92,8 +92,9 @@ Rails.application.configure do
 
   #Devise mailer default link...
   #config.action_mailer.default_url_options = { host: "bbcgoals.herokuapp.com" }
-  config.action_mailer.default_url_options[:host] = "bbcgoals.herokuapp.com"
-  #config.action_mailer.default_url_options = { host: ENV["DEVISE_DEFAULT_LINK_HOST"] }
+  #config.action_mailer.default_url_options[:host] = "bbcgoals.herokuapp.com"
+  config.action_mailer.default_url_options = { :host => ENV['DEVISE_DEFAULT_LINK_HOST'] }
+#config.action_mailer.default_url_options = { host: ENV["DEVISE_DEFAULT_LINK_HOST"] }
   #config.action_mailer.default_url_options = { host: ENV["DEVISE_DEFAULT_LINK_HOST"] }
 
   # Setup the mailer config
