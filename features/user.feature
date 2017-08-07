@@ -15,6 +15,9 @@ Scenario: Let me sign up, and send me the confirmation email
   And I click on "Sign up" button
   Then "peter.tester@bbc.co.uk" should receive an email with subject "Please confirm your email."
 
-Scenario: Let me sign out
+Scenario: Sign in, see my username, then sign out, don't see username
   Given I sign in as a non-admin user
-  And I click "Sign out"
+  And I visit the homepage
+  Then I should see "Petronius"
+  When I click "Sign out"
+  Then I should NOT see "Petronius"

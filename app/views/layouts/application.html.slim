@@ -28,6 +28,12 @@ html
             span.icon-bar
           = link_to image_tag("bbc-blocks-dark.png"), root_path, class: "navbar-brand"
           = link_to "TV & Radio Goals", root_path, class: "navbar-brand", style: "margin-top: 3px"
+        -if signed_in?
+          form#search.navbar-form.navbar-right.site-search.form-inline method="get" action="#{search_goals_path}"
+            .form-group style="margin-right: 5px"
+              input#site-search-text.js-search-focus.form-control type="search" name="q" title="Search" role="search" placeholder="Search"
+            .form-group
+              input.btn.btn-default type="submit" value="Search"
         #navbar.collapse.navbar-collapse.pull-right
           ul.nav.navbar-nav
             li class="#{"active" if controller_name == "teams"}"

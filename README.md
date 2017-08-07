@@ -16,11 +16,18 @@ A goal-setting and tracking platform.
 - When you change the gemfile, you'll need to re-run the above.
 - Run `docker-compose up` to start rails
 - To run cucumber tests, etc, run `docker-compose run web bash` for an interactive bash shell
-- To shut down gracefully, in another terminal window, run `docker-compose down` if you just kill it, you'll have to log-in and remove the tmp/pids/puma.pid
+- To shut down gracefully, in another terminal window, run `docker-compose down`
 - To send emails, make sure you start the host's postfix server `sudo postfix start`
+
+## Troublshooting:
+- If you get a message that a server is already running (because you didn't gracefully shut down) just log into the machine `docker-compose run web bash` and `rm /tmp/pids/server.pids`
 
 
 #deploy to production
 - Use heroku
 - Set the "host" env variable
 - `heroku run rake db:migrate --app <APPNAME>`
+
+#testing
+Use cucumber...
+To test WIP tests in dev run `rake cucumber:wip`

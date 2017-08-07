@@ -78,7 +78,7 @@ end
 #STEPS DOWN HERE....
 
 #give us a step definition for "debug"
-Then(/debug/) do
+Then(/(?:I )?debug/) do
 	debug
 end
 

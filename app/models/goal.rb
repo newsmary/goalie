@@ -37,12 +37,17 @@ class Goal < ApplicationRecord
       end
   end
 
-  def self.search(words)
+=begin
+  #SOMEDAY... refactor the controller search into the model here...
+  #def self.search(words)
     if(words)
-      where('lower(name) LIKE ?',"%#{words.downcase}%") + User.where("lower(name) LIKE ? ","%#{words.downcase}%").collect{|u| u.goals}.flatten
+      #all matching goals and goals owned by matching users
+      #where('lower(name) LIKE ?',"%#{words.downcase}%") + User.where("lower(name) LIKE ? ","%#{words.downcase}%").collect{|u| u.goals}.flatten
+
     else
       all
     end
   end
-  
+=end
+
 end
