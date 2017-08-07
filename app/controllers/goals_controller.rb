@@ -1,5 +1,5 @@
 class GoalsController < ApplicationController
-  before_action :set_goal, only: [:show, :edit, :update, :destroy]
+  before_action :set_goal, only: [:show, :favorite, :edit, :update, :destroy]
 
   # GET /goals
   # GET /goals.json
@@ -10,6 +10,18 @@ class GoalsController < ApplicationController
   # GET /goals/1
   # GET /goals/1.json
   def show
+  end
+
+  def favorite
+    #toggle...
+    #already a favorite? ...Remove it
+    if(current_user.favorite_goals.include? @goal)
+      current_user.favorite_goals.delete @goal
+      redirect_to @goal, notice: "Successfully removed this goal from your favourites."
+    else
+      current_user.favorite_goals << @goal
+      redirect_to @goal, notice: "Successfully added this goal to your favourites."
+    end
   end
 
   # GET /goals/new

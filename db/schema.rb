@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721083520) do
+ActiveRecord::Schema.define(version: 20170807215142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "favorable_id"
+    t.string "favorable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["favorable_id"], name: "index_favorites_on_favorable_id"
+    t.index ["user_id", "favorable_id", "favorable_type"], name: "index_favorites_on_user_id_and_favorable_id_and_favorable_type", unique: true
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
 
   create_table "goals", force: :cascade do |t|
     t.text "body"
@@ -63,5 +74,6 @@ ActiveRecord::Schema.define(version: 20170721083520) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "favorites", "users"
   add_foreign_key "goals", "teams"
 end

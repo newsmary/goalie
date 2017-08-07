@@ -11,6 +11,10 @@ class Goal < ApplicationRecord
   belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id', optional: true
   #has_one :parent, :class_name=>'Goal', :foreign_key=>'parent_id'
 
+  has_many :favorites, :as => :favorable
+  has_many :fans, :through => :favorites, :source => :user
+
+
   #for now...
   def owner
     team

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :goals do
     get 'search', on: :collection, as: :search
+    get :favorite, on: :member
   end
 
   get '/about', to: 'home#about'

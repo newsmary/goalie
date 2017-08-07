@@ -11,3 +11,8 @@ When(/^I sign in as a non-admin user$/) do
   login_as(user, :scope=>:user)
 
 end
+
+
+When(/^I visit the objective called "([^"]*)"$/) do |name|
+  visit goal_path(Goal.find_by(name: name))
+end
