@@ -1,0 +1,35 @@
+= form_for(@score, html: { class: "form-horizontal", role: "form" }) do |f|
+  - if @score.errors.any?
+    .alert.alert-danger.alert-dismissable role="alert"
+      button.close type="button" data-dismiss="alert"
+        span aria-hidden="true"
+          | &times;
+        span.sr-only
+          | Close
+      h4= "#{pluralize(@score.errors.count,"error")} prohibited this score from being saved:"
+      ul
+        - @score.errors.full_messages.each do |msg|
+          li= msg
+  .form-group
+    = f.label :amount, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :amount, class: "form-control"
+  .form-group
+    = f.label :reason, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :reason, class: "form-control"
+  .form-group
+    = f.label :status, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :status, class: "form-control"
+  .form-group
+    = f.label :goal, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :goal, class: "form-control"
+  .form-group
+    = f.label :user, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :user, class: "form-control"
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit class: "btn btn-primary"

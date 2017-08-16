@@ -1,0 +1,22 @@
+.page-header
+  = link_to statuses_path, class: 'btn btn-default' do 
+    span.glyphicon.glyphicon-list-alt
+    |  Back 
+  = link_to edit_status_path(@status), class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-pencil
+    |  Edit 
+  h1
+    | Show status
+dl.dl-horizontal
+  dt
+    | Name:
+  dd
+    = @status.name
+  dt
+    | Ordinal:
+  dd
+    = @status.ordinal
+  dt
+    | Hex color:
+  dd
+    = @status.hex_color

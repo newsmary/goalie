@@ -14,6 +14,16 @@ class Goal < ApplicationRecord
   has_many :favorites, :as => :favorable
   has_many :fans, :through => :favorites, :source => :user
 
+  has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
+
+  def score
+    scores.first
+  end
+
+  def status
+    #default to status with lowest ordinal
+    score.nil? ? Status.order(:ordinal).first : score.status
+  end
 
   #for now...
   def owner

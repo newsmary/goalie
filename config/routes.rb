@@ -6,7 +6,10 @@ Rails.application.routes.draw do
     #get 'import_okrs', on: :member
   end
 
+  resources :statuses
+
   resources :goals do
+    resources :scores
     get 'search', on: :collection, as: :search
     get :favorite, on: :member
   end

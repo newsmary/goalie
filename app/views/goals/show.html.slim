@@ -31,9 +31,13 @@
             |  Add a key result
 
   .col-sm-4
+    .big_goal_meta
+      .big_status style="background: #{@goal.status.hex_color}"
+        h3 = @goal.status.name.humanize.capitalize
     aside
       h2 Actions
       ul
+        / li = link_to "Add progress to this goal", new_goal_score_path(@goal)
         li = link_to "Edit this goal", edit_goal_path
         li = link_to "Add a key result", new_goal_path(parent: @goal)
         - if(current_user.favorite_goals.include? @goal)
