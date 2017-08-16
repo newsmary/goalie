@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 1
+  reason: MyText
+  user: one
+  goal: one
+  status: one
+
+two:
+  amount: 1
+  reason: MyText
+  user: two
+  goal: two
+  status: two
