@@ -20,6 +20,11 @@ class Goal < ApplicationRecord
     scores.first
   end
 
+  #alias
+  def grade
+    score
+  end
+
   def status
     #default to status with lowest ordinal
     score.nil? ? Status.order(:ordinal).first : score.status
@@ -30,12 +35,21 @@ class Goal < ApplicationRecord
     team
   end
 
+  def display_amount
+    (score.nil? ? 0 : score.amount).to_s + "%"
+  end
+
   def siblings
     parent.present? ? parent.children : owner.objectives
   end
 
   #alias...
   def children
+    key_results
+  end
+
+  #alias...
+  def sub_goals
     key_results
   end
 

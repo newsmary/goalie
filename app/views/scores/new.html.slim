@@ -20,8 +20,8 @@
           .row
             .col-xs-4
               .tiny_status
-                div class="#{sub_goal.status}" style="height:100%"
-                  = sub_goal.status.humanize.capitalize
+                div style="height:100%; background-color: #{sub_goal.status.hex_color}"
+                  = sub_goal.display_amount
             .col-xs-8
               .owner style="margin-top: 10px" =sub_goal.score.reason if sub_goal.score
           .row

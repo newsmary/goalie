@@ -1,6 +1,6 @@
 = render 'breadcrumb'
 .row
-  .col-sm-8
+  .col-sm-9
     .row
       .col-xs-6
         == link_to "&laquo; Previous".html_safe, @goal.previous_goal if @goal.previous_goal
@@ -18,7 +18,6 @@
     h1 style="margin-top: 0" = @goal.name
     p = @goal.body
     / = link_to "Edit this goal", edit_goal_path
-  
     - if !@goal.key_results.empty?
       h2 Key Results
       ol.goal
@@ -30,14 +29,23 @@
             span.glyphicon.glyphicon-plus
             |  Add a key result
 
-  .col-sm-4
+  .col-sm-3
     .big_goal_meta
       .big_status style="background: #{@goal.status.hex_color}"
-        h3 = @goal.status.name.humanize.capitalize
+        /h3 = @goal.status.name.humanize.capitalize
+        h3 = @goal.display_amount
+      - if(@goal.scores.empty?)
+        p style="color: red"
+          | No progress reported, yet.
+        /-if can_modify? @goal
+        / =link_to "Make first progress update", new_goal_score_path(@goal), :class=>"btn btn-primary"
+      - else
+        p = @goal.score.reason
+        .hint Updated #{time_ago_in_words(@goal.score.created_at).humanize} ago by #{@goal.score.user.name}
     aside
       h2 Actions
       ul
-        / li = link_to "Add progress to this goal", new_goal_score_path(@goal)
+        li = link_to "Report progress", new_goal_score_path(@goal)
         li = link_to "Edit this goal", edit_goal_path
         li = link_to "Add a key result", new_goal_path(parent: @goal)
         - if(current_user.favorite_goals.include? @goal)

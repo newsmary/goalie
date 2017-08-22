@@ -2,6 +2,8 @@ Feature: As a user, I want to "watch" or "favourite" specific goals that I'm int
 
 Background:
     Given I sign in as a non-admin user
+    And I've set up the default statuses
+
 
 Scenario: Add to watchlist and see on dashboard, then remove and don't see
   Given I have a team called "The Buzzards" with an objective to "Have a house party"

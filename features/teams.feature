@@ -2,6 +2,7 @@ Feature: Manage teams
 
 Background:
     Given I sign in as a non-admin user
+    And I've set up the default statuses
 
 Scenario: See teams
   Given I visit "/teams"
@@ -28,7 +29,7 @@ Scenario: Rename a team
   When I visit the teams page
   Then I should see "The Kinks"
   And I click on "The Kinks"
-  And I click on "Edit this team"
+  And I click on "Edit or move this team"
   And I fill in "team[name]" with "The Ramones"
   And I click on "Update Team"
   Then I should see "successfully"
@@ -39,7 +40,7 @@ Scenario: Disallow removing a team with goals
   And I visit the teams page
   And I click on "The Kinks"
   Then I should see "Save the world"
-  When I click on "Edit this team"
+  When I click on "Edit or move this team"
   And I click on "Destroy"
   Then I should see "Cannot delete"
 

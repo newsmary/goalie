@@ -1,4 +1,4 @@
-= form_for(@score, html: { class: "form-horizontal", role: "form" }) do |f|
+= form_for(@score, url: goal_scores_path(@goal), html: { class: "form-horizontal", role: "form" }) do |f|
   - if @score.errors.any?
     .alert.alert-danger.alert-dismissable role="alert"
       button.close type="button" data-dismiss="alert"
@@ -11,25 +11,41 @@
         - @score.errors.full_messages.each do |msg|
           li= msg
   .form-group
+    = f.label "Goal", class: "col-sm-2 control-label"
+    .col-sm-10
+      h2 style="margin-top: 0" = @score.goal.name
+  .form-group  style="margin-top: 7px"
+    = f.label "Team", class: "col-sm-2 control-label"
+    .col-sm-10
+      p = @score.goal.team.present? ? @score.goal.team.name : "Not assigned to a team"
+  .form-group
     = f.label :amount, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :amount, class: "form-control"
-  .form-group
-    = f.label :reason, class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.text_field :reason, class: "form-control"
+      = f.text_field :amount, class: "form-control bignum", style: "display:inline"
+      .bignum_suffix %
+      br
+      .form-hint An integer to represent (roughly) how well this goal is being met (e.g. 50 if you're half-way).
   .form-group
     = f.label :status, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :status, class: "form-control"
+      fieldset.inline
+        /legend.visuallyhidden Please select a status
+      - Status.all.each do |status|
+          label.block-label for="radio-inline-#{status.id}" style="background: #{status.hex_color}; color: #fff"
+            /=f.radio_button :goal_status, key %>
+            -if (@score.status == status || @score.status.nil? && status.ordinal == 0)
+              input id="radio-inline-#{status.id}" type="radio" name="score[status_id]" value="#{status.id}" checked="checked" #{status.name.humanize.capitalize}
+            -else
+              input id="radio-inline-#{status.id}" type="radio" name="score[status_id]" value="#{status.id}" #{status.name.humanize.capitalize}
   .form-group
-    = f.label :goal, class: "col-sm-2 control-label"
+    = f.label :Narrative, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :goal, class: "form-control"
-  .form-group
-    = f.label :user, class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.text_field :user, class: "form-control"
+      = f.text_area :reason, class: "form-control bigtext"
+      .form-hint Use this area to highlight major achievements, setbacks, risks, or issues. The latest narrative has been copied here for your convenience. Line breaks will be preserved.
+
+      =f.hidden_field :goal_id, :value=>@score.goal.id
   .form-group
     .col-sm-offset-2.col-sm-10
-      = f.submit class: "btn btn-primary"
+      = f.submit class: "btn btn-primary", value: "Save"
+      .cancel
+        =link_to :Back, goal_path(@score.goal)

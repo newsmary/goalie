@@ -1,3 +1,7 @@
-li 
-  = link_to goal.name, goal
+li
+  .col-xs-10
+    = link_to goal.name, goal
+  .col-xs-2
+    .tiny_status style="background-color: #{goal.status.hex_color}"
+      = goal.display_amount
   /= link_to truncate_html(goal.name, length: 120).gsub(/^./,&:upcase), goal

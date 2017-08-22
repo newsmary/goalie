@@ -3,7 +3,7 @@ namespace :statuses do
   # Colors taken from here http://www.bbc.co.uk/gel/guidelines/how-to-design-infographics
   task seed: :environment do
     Status.create!([{
-      name: "Not Started",
+      name: "Not started",
       ordinal: 0,
       hex_color: '#566'
     },
@@ -15,10 +15,10 @@ namespace :statuses do
     {
       name: "Off track",
       ordinal: 2,
-      hex_color: '#ca9f2c'
+      hex_color: '#facf12'
     },
     {
-      name: "Help!!!",
+      name: "Help!",
       ordinal: 3,
       hex_color: '#9d1c1f'
     },

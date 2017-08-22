@@ -5,12 +5,16 @@ class ScoresController < ApplicationController
   # GET /scores
   # GET /scores.json
   def index
-    @scores = Score.all
+    #@scores = Score.all
+    #redirect to goal
+    redirect_to Goal.find(params[:goal_id])
   end
 
   # GET /scores/1
   # GET /scores/1.json
   def show
+    #redirect to goal
+    redirect_to Goal.find(params[:goal_id])
   end
 
   # GET /scores/new
@@ -45,12 +49,15 @@ class ScoresController < ApplicationController
   # POST /scores.json
   def create
     @score = Score.new(score_params)
+    @score.user = current_user
 
     respond_to do |format|
       if @score.save
-        format.html { redirect_to @score, notice: 'Score was successfully created.' }
+        format.html { redirect_to @score.goal, notice: 'Successfully added progress. Thanks. You\'re the greatest!' }
         format.json { render :show, status: :created, location: @score }
       else
+        #The "new" template references @goal and gets rendered when validation fails so we must set @goal.
+        @goal = @score.goal
         format.html { render :new }
         format.json { render json: @score.errors, status: :unprocessable_entity }
       end
@@ -60,9 +67,10 @@ class ScoresController < ApplicationController
   # PATCH/PUT /scores/1
   # PATCH/PUT /scores/1.json
   def update
+    @score.user = current_user
     respond_to do |format|
       if @score.update(score_params)
-        format.html { redirect_to @score, notice: 'Score was successfully updated.' }
+        format.html { redirect_to @score.goal, notice: 'Score was successfully updated.' }
         format.json { render :show, status: :ok, location: @score }
       else
         format.html { render :edit }

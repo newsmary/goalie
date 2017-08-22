@@ -1,6 +1,6 @@
 = render 'breadcrumb'
 .row
-  .col-sm-8
+  .col-sm-9
     .row
       .col-sm-12
         h1 =@team.name
@@ -51,11 +51,11 @@
           .form-group
             | &nbsp;
             =submit_tag "Import", :class=>"btn btn-primary"
-  .col-sm-4
+  .col-sm-3
     aside
       h2 Actions
       ul
-        li = link_to "Edit this team", edit_team_path(@team)
+        li = link_to "Edit or move this team", edit_team_path(@team)
         li = link_to "Add a sub team", new_team_path(parent: @team)
         li = link_to "Add a new objective", new_goal_path(team: @team)
       
