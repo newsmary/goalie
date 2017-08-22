@@ -12,7 +12,7 @@ Scenario: Add to watchlist and see on dashboard, then remove and don't see
   And I click on "Add to favourites"
   Then I should see "Successfully added"
   When I visit the home page
-  Then I should see "house party" within ".results"
+  Then I should see "house party" within ".favs"
   When I click on "house party"
   And I click on "Remove from favourites"
   Then I should see "Successfully removed"

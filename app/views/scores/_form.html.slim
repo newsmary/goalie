@@ -47,5 +47,7 @@
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary", value: "Save"
+      br
+      br
       .cancel
-        =link_to :Back, goal_path(@score.goal)
+        =link_to :Cancel, goal_path(@score.goal)
