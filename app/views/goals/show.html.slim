@@ -24,13 +24,16 @@
               div style="background: #{score.status.hex_color}"
                 b = score.status.name.humanize.capitalize
             .hint  =time_ago_in_words(score.created_at).humanize + " ago"
+            
           .col-sm-9
-            p =score.reason.gsub("\n","<br>").html_safe
+            p =score.reason.gsub("\n","<br>").html_safe    
+            - if is_admin?
+              .small class="float:right"
+                = link_to "Edit", edit_goal_score_path(score.goal,score)
+                            
             /.small =link_to score.user.name, @goal.score.user
             .small =score.user.name
-            - if is_admin?
-              .small.pull-right
-                = link_to "Edit", edit_goal_score_path(score.goal,score)
+            
 
     / = link_to "Edit this goal", edit_goal_path
     - if !@goal.key_results.empty?
@@ -61,9 +64,10 @@
         p = @goal.score.reason
         / .hint Status: #{@goal.score.status.name}
         .hint 
-          | Updated #{time_ago_in_words(@goal.score.created_at).humanize} ago by #{@goal.score.user.name}.
-          ' 
-          =link_to "Show all", "?history=1"
+          | Updated #{time_ago_in_words(@goal.score.created_at)} ago by #{@goal.score.user.name}.
+          - unless params[:history].present?
+            ' 
+            =link_to "See all progress", "?history=1"
     aside
       h2 Actions
       ul.actions
