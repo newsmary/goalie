@@ -1,4 +1,5 @@
 = render 'breadcrumb'
+= type = @goal.parent.nil? ? "objective" : "key result"
 .row
   .col-sm-12
     .row
@@ -9,10 +10,7 @@
           == link_to "Next &raquo;".html_safe, @goal.next_goal if @goal.next_goal
     .row
       .col-sm-12
-        - if @goal.children.empty?
-          H2 Key Result
-        - else
-          H2 Objective
+        h2 = type.humanize
 .row
   .col-sm-8
     h1 style="margin-top: 0" = @goal.name
@@ -20,8 +18,9 @@
     / = link_to "Edit this goal", edit_goal_path
     - if !@goal.key_results.empty?
       h2 Key Results
-      ol.goal
+      ol.goal style="clear:both"
         == render @goal.key_results
+      .row
     /
       .row
         .col-sm-12
@@ -30,6 +29,8 @@
             |  Add a key result
 
   .col-sm-4
+    ul
+      li = link_to "Report progress on #{type}", new_goal_score_path(@goal)
     .big_goal_meta
       .big_status style="background: #{@goal.status.hex_color}"
         /h3 = @goal.status.name.humanize.capitalize
@@ -41,13 +42,14 @@
         / =link_to "Make first progress update", new_goal_score_path(@goal), :class=>"btn btn-primary"
       - else
         p = @goal.score.reason
+        .hint Status: #{@goal.score.status.name}
         .hint Updated #{time_ago_in_words(@goal.score.created_at).humanize} ago by #{@goal.score.user.name}
     aside
       h2 Actions
       ul
-        li = link_to "Report progress", new_goal_score_path(@goal)
-        li = link_to "Edit this goal", edit_goal_path
-        li = link_to "Add a key result", new_goal_path(parent: @goal)
+        li = link_to "Edit this #{type}", edit_goal_path        
+        /only allow adding KRs to Os
+        li = link_to "Add a key result", new_goal_path(parent: @goal) if @goal.parent.nil?
         - if(current_user.favorite_goals.include? @goal)
           li = link_to "Remove from favourites", favorite_goal_path 
         - else

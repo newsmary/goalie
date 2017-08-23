@@ -16,6 +16,7 @@ A goal-setting and tracking platform.
 - When you change the gemfile, you'll need to re-run the above.
 - Run `docker-compose up` to start rails
 - To run cucumber tests, etc, run `docker-compose run web bash` for an interactive bash shell
+- Seed the "statuses" via `rake statuses:seed`
 - To shut down gracefully, in another terminal window, run `docker-compose down`
 - To send emails, make sure you start the host's postfix server `sudo postfix start`
 
@@ -27,6 +28,11 @@ A goal-setting and tracking platform.
 - Use heroku
 - Set the "host" env variable
 - `heroku run rake db:migrate --app <APPNAME>`
+- Seed the "statuses" via `rake statuses:seed`
+- You should now be up and running
+
+#TODOs
+- allow email allowable domains and return addresses to be configured via env vars
 
 #testing
 Use cucumber...

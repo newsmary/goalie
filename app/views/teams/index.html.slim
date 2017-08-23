@@ -6,17 +6,15 @@
       ol.goal.favs
         - @fav_goals.each do |goal|
           li style="clear:both; padding-left: 0"
-            .col-xs-7
+            .col-xs-9
               =link_to truncate_html(goal.name, length: 100), goal
               ' &nbsp;
               .team_name style="font-size: 1.5rem;display:inline"
                 =link_to goal.team.name, goal.team, style: "color: #666"
-
-            .col-xs-3 style=""
-            .col-xs-2
+            .col-xs-3
               .tiny_status style="background-color: #{goal.status.hex_color}"
                 =goal.display_amount
-              p.hint style="font-size: .8rem; margin-top: -10px; margin-bottom: 0" 
+              p.hint style="font-size: .8rem; line-height: 1rem; margin-top: -5px; margin-bottom: 0" 
                 - if(goal.score.nil?)
                   ' Never updated
                 - else
