@@ -8,27 +8,30 @@
 .table-responsive
   table.table.table-striped.table-bordered.table-hover
     thead
-      tr
+      tr 
         th
           | Name
+        th
+          | Description
         th
           | Ordinal
         th
           | Hex color
         th
-        th
+        /th
         th
     tbody
       - @statuses.each do | status |
         tr
           td
-            = status.name
+            b = status.name
+          td
+            = status.description
           td
             = status.ordinal
-          td style="background: #{status.hex_color}"
+          td style="color: white; background: #{status.hex_color}"
             = status.hex_color
-          td
-            = link_to 'Show', status
+          /td = link_to 'Show', status
           td
             = link_to 'Edit', edit_status_path(status) 
           td

@@ -1,9 +1,5 @@
 .page-header
-  = link_to new_goal_score_path, class: 'btn btn-primary' do 
-    span.glyphicon.glyphicon-plus
-    |  New Score
-  h1
-    | Listing scores
+  h1 All scores
 
 .table-responsive
   table.table.table-striped.table-bordered.table-hover
@@ -20,7 +16,7 @@
         th
           | User
         th
-        th
+        / th
         th
     tbody
       - @scores.each do | score |
@@ -28,16 +24,15 @@
           td
             = score.amount
           td
-            = score.reason
+            = link_to score.reason, edit_goal_score_path(score.goal,score)
+          td style="background: #{score.status.hex_color}; color: white"
+            = score.status.name
           td
-            = score.status
+            = link_to score.goal.name, score.goal
           td
-            = score.goal
+            = score.user.name
+          /td = link_to 'Show', score
           td
-            = score.user
-          td
-            = link_to 'Show', score
-          td
-            = link_to 'Edit', edit_score_path(score) 
+            = link_to 'Edit', edit_goal_score_path(score.goal,score) 
           td
             = link_to 'Destroy', score, method: :delete, data: { confirm: 'Are you sure?' } 

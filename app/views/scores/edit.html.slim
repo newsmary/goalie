@@ -1,12 +1,11 @@
-.page-header
-  = link_to scores_path, class: 'btn btn-default' do
-    span.glyphicon.glyphicon-list-alt
-    |  Back 
-  = link_to @score, class: 'btn btn-primary' do
-    span.glyphicon.glyphicon-info-sign
-    |  Show 
-  h1
-    | Editing 
-    | score
+.row
+  .col-md-8
+    .page-header
+      =link_to "&laquo; Back".html_safe, @score.goal
+      h1 Edit score
+      p Careful...you're rewriting history.
 
-= render 'form'
+.row
+  .col-md-8
+    = render 'form'
+= render 'sub_goal_scores', locals: {goal: @score.goal}

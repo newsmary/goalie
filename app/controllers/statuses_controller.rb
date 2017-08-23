@@ -54,10 +54,15 @@ class StatusesController < ApplicationController
   # DELETE /statuses/1
   # DELETE /statuses/1.json
   def destroy
-    @status.destroy
-    respond_to do |format|
-      format.html { redirect_to statuses_url, notice: 'Status was successfully destroyed.' }
-      format.json { head :no_content }
+    score_count = Score.where(status: @status).uniq.count
+    if score_count > 0
+      redirect_to statuses_url, alert: "Could not delete status as it is associated to #{score_count} progress updates."
+    else
+      @status.destroy
+      respond_to do |format|
+        format.html { redirect_to statuses_url, notice: 'Status was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -69,6 +74,6 @@ class StatusesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def status_params
-      params.require(:status).permit(:name, :ordinal, :hex_color)
+      params.require(:status).permit(:name, :ordinal, :hex_color, :description)
     end
 end

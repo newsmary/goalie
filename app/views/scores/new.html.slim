@@ -7,23 +7,4 @@
 .row
   .col-md-8
     = render 'form'
-  -if(@goal.sub_goals.present?)
-    .col-md-4
-      aside.related
-        .row
-          .col-xs-12
-            h3 Latest sub-goal progress:
-        - @goal.sub_goals.each do |sub_goal|
-          .row
-            .col-xs-12
-              b =link_to sub_goal.name, sub_goal
-          .row
-            .col-xs-4
-              .tiny_status
-                div style="height:100%; background-color: #{sub_goal.status.hex_color}"
-                  = sub_goal.display_amount
-            .col-xs-8
-              .owner style="margin-top: 10px" =sub_goal.score.reason if sub_goal.score
-          .row
-            .col-xs-12
-              hr
+  = render 'sub_goal_scores', locals: {goal: @goal}

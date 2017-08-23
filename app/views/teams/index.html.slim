@@ -14,7 +14,7 @@
             .col-xs-3
               .tiny_status style="background-color: #{goal.status.hex_color}"
                 =goal.display_amount
-              p.hint style="font-size: .8rem; line-height: 1rem; margin-top: -5px; margin-bottom: 0" 
+              p.hint
                 - if(goal.score.nil?)
                   ' Never updated
                 - else

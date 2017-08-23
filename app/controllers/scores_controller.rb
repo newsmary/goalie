@@ -5,16 +5,16 @@ class ScoresController < ApplicationController
   # GET /scores
   # GET /scores.json
   def index
-    #@scores = Score.all
+    @scores = Score.all
     #redirect to goal
-    redirect_to Goal.find(params[:goal_id])
+    #redirect_to Goal.find(params[:goal_id])
   end
 
   # GET /scores/1
   # GET /scores/1.json
   def show
     #redirect to goal
-    redirect_to Goal.find(params[:goal_id])
+    redirect_to @goal
   end
 
   # GET /scores/new
@@ -93,6 +93,7 @@ class ScoresController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_score
       @score = Score.find(params[:id])
+      @goal = @score.goal
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -12,5 +12,5 @@ class User < ApplicationRecord
 
   has_many :favorites
   has_many :favorite_goals, :through => :favorites, :source => :favorable, :source_type => "Goal"
-  has_many :favorite_teams, :through => :favorites, :source => :favorable, :source_type => "Team"
+  #has_many :favorite_teams, :through => :favorites, :source => :favorable, :source_type => "Team"
 end

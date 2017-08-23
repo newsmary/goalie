@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   end
 
   resources :statuses
+  resources :scores
+  #get '/scores', to: 'scores#index'
+
 
   resources :goals do
     resources :scores

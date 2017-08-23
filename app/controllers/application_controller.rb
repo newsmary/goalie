@@ -5,8 +5,14 @@ class ApplicationController < ActionController::Base
   #  http_basic_authenticate_with name: ENV['BASIC_AUTH_USER'], password: ENV['BASIC_AUTH_PASS']
   #end
 
+  helper_method :is_admin?
+
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+
+  def is_admin?
+    true #signed_in? && current_user.admin?
+  end
 
   protected
 
