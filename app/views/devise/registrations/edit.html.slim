@@ -4,6 +4,11 @@
     h1 = t('.title', resource: resource_class.model_name.human , default: "Edit #{resource_name.to_s.humanize}")
     hr
     = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      /
+        .form-group
+          = f.label "Administrator?"
+          = f.check_box :admin, class: 'form-control'
+          .hint Make this person an admin? Note, this option is only visible to admins.
       .form-group
         = f.label :name
         = f.text_field :name, autofocus: true, class: 'form-control'
@@ -12,10 +17,7 @@
         = f.email_field :email, class: 'form-control'
       .form-group
         = f.label :password
-        i
-          | (
-          = t('.leave_blank_if_you_don_t_want_to_change_it', default: "leave blank if you don't want to change it")
-          | )
+        i &nbsp; (#{t('.leave_blank_if_you_don_t_want_to_change_it', default: "leave blank if you don't want to change it")})
         = f.password_field :password, autocomplete: "off", class: 'form-control'
       .form-group
         = f.label :password_confirmation
