@@ -1,6 +1,6 @@
 class EmailValidator < ActiveModel::Validator
   def validate(record)
-    domain = Rails.application.config.valid_email_domain
+    domain = Rails.application.config.valid_email_domain.to_s
     unless record.email.ends_with? domain
       record.errors[:email] << "must be in the domain #{domain}."
     end

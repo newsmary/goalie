@@ -1,7 +1,7 @@
 Feature: Manage teams
 
 Background:
-    Given I sign in as a non-admin user
+    Given I sign in as an admin user
     And I've set up the default statuses
 
 Scenario: See teams

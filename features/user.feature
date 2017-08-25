@@ -51,7 +51,7 @@ Scenario: Don't see "edit this team" or "import OKRs" options when you're a non-
   And I sign in as a non-admin user
   When I visit the homepage
   And I click on "Bauhaus"
-  I should NOT see "Edit or move"
+  Then I should NOT see "Edit or move"
   When I sign in as an admin user
   And I visit the homepage
   And I click on "Bauhaus"
