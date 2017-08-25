@@ -1,7 +1,7 @@
 class EmailValidator < ActiveModel::Validator
   def validate(record)
-    domain = Rails.application.config.valid_email_domain.to_s
-    unless record.email.ends_with? domain
+    domain = Rails.application.config.valid_email_domain
+    unless record.email.ends_with? domain.to_s
       record.errors[:email] << "must be in the domain #{domain}."
     end
   end
@@ -21,6 +21,7 @@ class User < ApplicationRecord
   #end
 
   validates :email, uniqueness: true
+  validates :email, presence: true
 
   #TODO: Do this...
   #https://stackoverflow.com/questions/21817019/rails-polymorphic-favorites-user-can-favorite-different-models
