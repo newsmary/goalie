@@ -1,0 +1,39 @@
+.page-header
+  h1 People
+  p The following people have created an account on the system. Someday, we'll be able to assign OKRs directly to people (not just teams).
+
+= paginate @people
+
+.table-responsive
+  table.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th
+          | Name
+        - if current_user.admin?
+          th
+            | Email
+        th
+          | Admin
+        -if current_user.admin?
+          th
+          th
+    tbody
+      - @people.each do | person |
+        tr
+          td
+            = link_to person.name, person
+          - if current_user.admin?
+            td
+              = person.email
+          td
+            = person.admin
+          -if current_user.admin?
+            td
+              = link_to 'Edit', edit_person_path(person) 
+            td
+              = link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } 
+
+b NOTE: Admins may annoint other admins :) Speak to one if you'd like to up your privileges
+
+= paginate @people

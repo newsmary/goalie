@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy, :import_okrs]
+  before_action :check_admin, only: [:edit, :update, :destroy, :import_okrs]
 
   # GET /teams
   # GET /teams.json

@@ -9,6 +9,7 @@ class Goal < ApplicationRecord
   #has_many :key_results, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
 
   belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id', optional: true
+  #belongs_to :owner, :class_name=>'Person', :foreign_key=> 
   #has_one :parent, :class_name=>'Goal', :foreign_key=>'parent_id'
 
   has_many :favorites, :as => :favorable

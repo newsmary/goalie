@@ -55,7 +55,8 @@
     aside
       h2 Actions
       ul.actions
-        li = link_to "Edit or move this team", edit_team_path(@team)
+        -if current_user.admin?
+          li = link_to "Edit or move this team", edit_team_path(@team)
         li = link_to "Add a sub team", new_team_path(parent: @team)
         li = link_to "Add a new objective", new_goal_path(team: @team)
       
