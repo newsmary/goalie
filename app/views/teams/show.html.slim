@@ -11,13 +11,9 @@
       .row.goals
         .col-sm-12
           H2 Sub-teams
-          - i = 1
-          - @team.children.each_slice((@team.children.count/2.0).round).each do |slice|
-            .col-sm-6
-              ol.subteams start="#{i}"
-                - slice.each do |child|
-                  - i+=1
-                  li =link_to child.name, child
+          ol.subteams
+            - @team.children.each do |child|
+              li =link_to child.name, child
     .row
       .col-sm-12
         /
