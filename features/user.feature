@@ -45,14 +45,16 @@ Scenario: Sign in as a non-admin and don't see option to modify people. Then log
   Then I should see "Edit"
   And I should see "Destroy"
 
-@wip
 Scenario: Don't see "edit this team" or "import OKRs" options when you're a non-admin
   Given I have a team called "Bauhaus"
   And I sign in as a non-admin user
   When I visit the homepage
   And I click on "Bauhaus"
   Then I should NOT see "Edit or move"
+  And I should NOT see "Import OKRs"
   When I sign in as an admin user
   And I visit the homepage
   And I click on "Bauhaus"
-  Then I should see "Edit or move"
+  Then I should see "Admin actions"
+  And I should see "Edit or move"
+  And I should see "Import OKRs"

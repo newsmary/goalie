@@ -25,3 +25,11 @@
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"
+      br
+      br
+      = link_to "Cancel", "javascript:history.go(-1)"
+      / only show destroy when editign (makes no sense when creating)
+      -if action_name == "edit"
+        br    
+        br
+        = link_to 'Delete account', @person, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"

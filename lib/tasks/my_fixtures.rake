@@ -76,7 +76,7 @@ namespace :db do
       u.save(validate: false)
 
       #some other users
-      [*(1..10)].each do |i|
+      [*(1..50)].each do |i|
         u = User.new(name: %w{Cindy Ada Jane Barbara Ann Benjamin Walter Alexis Simone Marina Oscar Julia Mark Lazlo Ray Lucretia Tom Peter Sarah Ringo John}.sample + " " + %w{Smith Jones Taylor Gibran Peterson Williams Mott Eames Johnson Davies Robinson Wright Knight Thompson Evans Walker White Roberts Green Hall Wood Jackson Clarke}.sample + " " + i.to_s, email: "email#{i}@test.com")
         u.skip_confirmation!
         u.save(validate:false)
