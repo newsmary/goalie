@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   end
 
   get '/about', to: 'home#about'
-  get '/sign_in', to: 'home#debug_sign_in'
+  get '/sign_in', to: 'home#debug_sign_in', as: :test_sign_in
   #root 'home#index'
   root 'teams#index'
 

@@ -16,7 +16,11 @@ html
   body
     .alpha-banner
       .container
-        p <b>Please note:</b> This is a SANDBOX environment. Do have a play put don't expect your data to remain intact...
+        p 
+          | <b>Please note:</b> This is a SANDBOX environment. Do have a play put don't expect your data to remain intact...
+          - if (ENV['RAILS_ENV'] == "development")
+            '&nbsp;
+            = link_to "Admin sign in - DEV ONLY", test_sign_in_path(email: User.first.email)
     nav.navbar-default role="navigation"
       .container
         .navbar-header
@@ -69,7 +73,11 @@ html
       = yield
     footer.footer
       .container
-        p 
-          = link_to "Home", root_path
-          '&nbsp;
-          = link_to "About", about_path
+        .row
+          .col-sm-8
+            p 
+              = link_to "Home", root_path
+              '&nbsp;
+              = link_to "About", about_path
+          .col-sm-4
+          

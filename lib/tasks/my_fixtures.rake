@@ -26,14 +26,15 @@ namespace :db do
     end
 
     def new_goal(parent, team=nil)
-      verb = %w/build grow save develop entertain inform increase write engage test release find/.sample
-      noun = %w/users viewers listeners departments platforms tools savings/.sample
+      #Get agreement to <verb> <number> <object> and <verb> <object.pluralize>
+      verbs = %w/build grow save develop entertain inform increase write engage test release find workshop /
+      nouns = %w/users viewers listeners departments platforms tools savings/
       #group = parent.nil? ? Group.all.sample : parent.group
       team = Team.all.sample unless team
       #start_date = Date.today + [*(0..11)].sample.to_i.months
       #end_date = start_date + [0,1,3,3,3,4,5,5,6,6,7,8,9,10,11].sample.to_i.months  #could produce dates WAAAY into the future...
       #goal = Goal.create!(name: "#{verb.humanize} #{[*(1..500)].sample} #{noun} by #{end_date.strftime("%h %Y")}", start_date: start_date , deadline: end_date, owner: User.all.sample, group: group, team: team, parent: parent, sdp: rand > 0.9 ? true : false)
-      name =  "#{verb.humanize} #{[*(1..500)].sample} #{noun}"
+      name =  "#{verbs.sample.humanize} #{[*(1..500)].sample} #{nouns.sample} by #{verbs.sample.sub(/e$/,'')}ing #{[*(1..500)].sample} new #{nouns.sample.pluralize} and #{verbs.sample.sub(/e$/,'')}ing #{[*(1..500)].sample} new #{nouns.sample.pluralize}."
       puts name
       goal = Goal.create!(name: name, team: team, parent: parent)
 

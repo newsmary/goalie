@@ -9,7 +9,7 @@
     thead
       tr
         th
-          | Body
+          | Name
         th
           | Quarter
         th
@@ -21,7 +21,7 @@
       - @goals.each do | goal |
         tr
           td
-            = goal.body
+            = link_to goal.name, goal
           td
             = goal.quarter
           td
