@@ -27,5 +27,10 @@
     .col-sm-10
       = f.text_field :hex_color, class: "form-control"
   .form-group
+    = f.label :require_learnings, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.check_box :require_learnings, class: "form-control"      
+      .hint style="margin-top: 5px" When selected, the user must add "Lessons learned" to their score.
+  .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"

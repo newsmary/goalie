@@ -30,12 +30,14 @@ namespace :statuses do
       name: "Complete",
       description: "Done! Or at least, as done as it's going to get. No further work planned on this goal. Check narrative for final state and 'Lessons Learned'.",
       ordinal: 4,
+      require_learnings: true,
       hex_color: '#4a777c'
     },
     {
       name: "Cancelled",
       description: "We've stopped work on this goal for some reason and don't plan to restart. Check narrative and lessons learned for detail.",
       ordinal: 5,
+      require_learnings: true,
       hex_color: '#000'
     }])
 

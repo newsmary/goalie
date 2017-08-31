@@ -18,6 +18,8 @@
         th
           | Hex color
         th
+          | Require learnings?
+        th
         /th
         th
     tbody
@@ -31,6 +33,7 @@
             = status.ordinal
           td style="color: white; background: #{status.hex_color}"
             = status.hex_color
+          td =status.require_learnings?
           /td = link_to 'Show', status
           td
             = link_to 'Edit', edit_status_path(status) 

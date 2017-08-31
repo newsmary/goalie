@@ -3,13 +3,14 @@ class Goal < ApplicationRecord
 
   #belongs_to :goalable, polymorphic: true
   belongs_to :team
+  belongs_to :person, class_name: 'Person', foreign_key: 'user', optional: true
   #calling "Key Results" children to be more general
   has_many :key_results, -> {order :created_at}, class_name: 'Goal', foreign_key: 'parent_id', dependent: :nullify
   #has_many :key_results, class_name: 'Goal', foreign_key: 'parent_id', dependent: :nullify, -> {order "created_at"}
   #has_many :key_results, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
 
   belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id', optional: true
-  #belongs_to :owner, :class_name=>'Person', :foreign_key=> 
+  #belongs_to :owner, :class_name=>'Person', :foreign_key=>
   #has_one :parent, :class_name=>'Goal', :foreign_key=>'parent_id'
 
   has_many :favorites, :as => :favorable
@@ -19,6 +20,11 @@ class Goal < ApplicationRecord
 
   def score
     scores.first
+  end
+
+  #untested... a way to say if something is an objective or key result
+  def type
+    (parent.present?) ? "Key result" : "Objective"
   end
 
   #alias

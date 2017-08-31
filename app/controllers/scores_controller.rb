@@ -28,6 +28,9 @@ class ScoresController < ApplicationController
 
     #otherwise... we're good to go...
 
+    #should we have learnings but we don't?
+    #if @score.status.require_learnings? && ! @score.learnings.present?
+
     #do we have a previous score to use as a template?
     if @goal.score
       #copy it
@@ -35,6 +38,7 @@ class ScoresController < ApplicationController
     else
       #make a blank one
       @score = Score.new
+      @score.status = Status.first
       #assign it to this goal
       @score.goal = @goal
     end
@@ -98,6 +102,6 @@ class ScoresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def score_params
-      params.require(:score).permit(:amount, :reason, :status_id, :goal_id, :user_id)
+      params.require(:score).permit(:amount, :reason, :learnings, :status_id, :goal_id, :user_id)
     end
 end

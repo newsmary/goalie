@@ -1,12 +1,9 @@
 When(/^I sign in as a non-admin user$/) do
-  user = User.new({:email => "spammy@somewhere.com", :password=>"something", :password_confirmation=>"something", :name=>"Petronius"})
-  user.skip_confirmation!
+  create_user_and_sign_in("Non Admin","test@test.com")
+end
 
-  #don't validate for this... otherwise the tests are dependent on the "allowed domain" env variable
-  user.save(validate:false)
-
-  login_as(user, :scope=>:user)
-
+Given(/^I sign in as a non\-admin user named "([^"]*)" with the email "([^"]*)"$/) do |name, email|
+  create_user_and_sign_in(name, email)
 end
 
 Given(/^the allowable domain is "([^"]*)"$/) do |domain|
@@ -14,12 +11,17 @@ Given(/^the allowable domain is "([^"]*)"$/) do |domain|
 end
 
 When(/^I sign in as an admin user$/) do
-  user = User.new({:email => "admin@somewhere.com", :admin=>true, :password=>"something", :password_confirmation=>"something", :name=>"PK Admin"})
+  create_user_and_sign_in("Admin person","admin@test.com", true)
+end
+
+
+def create_user_and_sign_in(name, email, is_admin = false)
+  user = User.new({name: name, email: email, password: "password", password_confirmation: "password", admin: is_admin})
   user.skip_confirmation!
 
   #don't validate for this... otherwise the tests are dependent on the "allowed domain" env variable
   user.save(validate:false)
 
   login_as(user, :scope=>:user)
-
+  visit "/"
 end

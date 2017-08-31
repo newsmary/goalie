@@ -1,5 +1,6 @@
 /= form_for(@score, url: goal_scores_path(@goal,@score), html: { class: "form-horizontal", role: "form" }) do |f|
-= form_with(model: [@goal,@score], local: true, html: { class: "form-horizontal", role: "form"}) do |f|
+- max_word_count = 50
+= form_with(model: [@goal,@score], local: true, html: { name: "daForm", class: "form-horizontal", role: "form"}) do |f|
   - if @score.errors.any?
     .alert.alert-danger.alert-dismissable role="alert"
       button.close type="button" data-dismiss="alert"
@@ -34,22 +35,78 @@
         /legend.visuallyhidden Please select a status
       - Status.all.each do |status|
           label.block-label for="radio-inline-#{status.id}" style="background: #{status.hex_color}; color: #fff"
-            /=f.radio_button :goal_status, key %>
-            -if (@score.status == status || @score.status.nil? && status.ordinal == 0)
-              input title="#{status.description}" id="radio-inline-#{status.id}" type="radio" name="score[status_id]" value="#{status.id}" checked="checked" #{status.name.humanize.capitalize}
-            -else
-              input title="#{status.description}" id="radio-inline-#{status.id}" type="radio" name="score[status_id]" value="#{status.id}" #{status.name.humanize.capitalize}
-  .form-group
-    = f.label :Narrative, class: "col-sm-2 control-label"
+            /=f.radio_button :goal_status, key %>          
+            -if (@score.status == status)
+              input title="#{status.description}" onclick="toggleLessonsLearned('#{status.name}')" id="radio-inline-#{status.id}" type="radio" checked="true" name="score[status_id]" value="#{status.id}" #{status.name.humanize.capitalize}    
+            - else
+              input title="#{status.description}" onclick="toggleLessonsLearned('#{status.name}')" id="radio-inline-#{status.id}" type="radio" name="score[status_id]" value="#{status.id}" #{status.name.humanize.capitalize}    
+  
+  #reason.form-group
+    = f.label :Comments, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_area :reason, class: "form-control bigtext"
-      .form-hint Use this area to highlight major achievements, setbacks, risks, or issues. The latest narrative has been copied here for your convenience. Line breaks will be preserved.
+      = f.text_area :reason, class: "form-control bigtext", onKeyUp: "wordsLeft(this,'#reason .words-left')"
+      .form-hint Major achievements, setbacks, risks, or issues. Line breaks will be preserved. Limit #{max_word_count} words.
+      .words-left 
 
-      =f.hidden_field :goal_id, :value=>@score.goal.id
+      
+  #learnings.form-group style="#{"display: none" unless @score.status.require_learnings?}"
+    = f.label 'Lessons learned', class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_area :learnings, class: "form-control bigtext", onKeyUp: "wordsLeft(this,'#learnings .words-left')"
+      .form-hint Please share what you've learned by working on this goal. What will you do differently in the future? #{max_word_count} words max.
+      .words-left 
+      
   .form-group
     .col-sm-offset-2.col-sm-10
-      = f.submit class: "btn btn-primary", value: "Save"
+      =f.hidden_field :goal_id, :value=>@score.goal.id
+      = f.submit class: "btn btn-primary", value: "Save" 
       br
       br
       .cancel
         =link_to :Cancel, goal_path(@score.goal)
+
+  // Pretty hacky... 
+  // binding specific functionality to customisable status types is very brittle and 
+  // means we may as well not allow users to customise status names...
+  javascript:
+    function wordsLeft(field, feedback_div) {
+      maxWords = #{max_word_count};
+      howMany = field.value.trim().split(" ").length;
+      $(feedback_div).text(maxWords - howMany + " words left.");
+      if(howMany > maxWords) {
+        $(feedback_div).css("color","#f00");
+        return(false);
+      }
+    }
+    
+    //skip for now since phantomjs can't test 
+    /*
+    function validate() {
+      elements = document.forms['daForm']
+      learnings = elements['score[learnings]'].value;
+      //array of status ID's requiring learnings
+      require_learnings = [#{Status.where("require_learnings = true").pluck(:id).join(",").to_s}]
+      status_id = parseInt(elements['score[status_id]'].value)
+      
+      //phantom JS doesn't know Array.includes :(
+      if(require_learnings.includes(status_id) && learnings == "" ) {
+        alert("Please tell us what you've learned.")
+        return(false);
+      }
+      
+      return(true);
+    }
+    */
+    
+    function toggleLessonsLearned(name) {
+      //open the panel if the status name matches the name of a status which requires "lessons learned"
+      if(name.match(/#{Status.where("require_learnings = true").pluck("name").join("|")}/)) {
+        //alert('tell me your lessons....');
+        $('#learnings').fadeIn();
+      }else {
+        $('#learnings').fadeOut();
+        //nah leave it there
+        //document.forms['daForm'].elements['score[learnings]'].value = "";
+      }
+    }
+      

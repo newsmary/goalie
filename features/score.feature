@@ -18,3 +18,21 @@ Scenario: See a new goal with a "0%" and then make an update
   And I click on "Save"
   Then I should see "20%"
   #And I should see "20"
+
+@javascript
+Scenario: Prompt to fill in "Lessons learned" when marking a goal as complete or cancelled.
+  And I have a team called "The Windowlickers" with an objective to "Shock Saatchi"
+  And the objective "Shock Saatchi" has a key result "Paint 5 murals"
+  When I visit the goal called "Paint 5 murals"
+  And I click on "Report progress"
+  #weird, phantomjs fails to find "Complete" if I dont' wait a second or two
+  And I wait 1 second
+  And I click on "Complete"
+  Then I should see "Lessons learned"
+  When I click "Save"
+  Then I should see "Please share what you've learned by working on this"
+  When I fill in "score[learnings]" with "We learned so much."
+  And I fill in "score[reason]" with "Here are some reasons why we gave this goal this score."
+  And I fill in "score[amount]" with "25"
+  And I click "Save"
+  Then I should see "Successfully"

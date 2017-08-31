@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170824113419) do
+ActiveRecord::Schema.define(version: 20170831115829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,9 @@ ActiveRecord::Schema.define(version: 20170824113419) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.integer "parent_id"
+    t.bigint "user_id"
     t.index ["team_id"], name: "index_goals_on_team_id"
+    t.index ["user_id"], name: "index_goals_on_user_id"
   end
 
   create_table "scores", force: :cascade do |t|
@@ -45,6 +47,7 @@ ActiveRecord::Schema.define(version: 20170824113419) do
     t.bigint "status_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "learnings"
     t.index ["goal_id"], name: "index_scores_on_goal_id"
     t.index ["status_id"], name: "index_scores_on_status_id"
     t.index ["user_id"], name: "index_scores_on_user_id"
@@ -57,6 +60,7 @@ ActiveRecord::Schema.define(version: 20170824113419) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "description"
+    t.boolean "require_learnings"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -99,6 +103,7 @@ ActiveRecord::Schema.define(version: 20170824113419) do
 
   add_foreign_key "favorites", "users"
   add_foreign_key "goals", "teams"
+  add_foreign_key "goals", "users"
   add_foreign_key "scores", "goals"
   add_foreign_key "scores", "statuses"
   add_foreign_key "scores", "users"

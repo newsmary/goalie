@@ -4,5 +4,14 @@ h1 =@person.name
   h3
     i Admin
 
-hr
-p COMING SOON: The ability to see what teams and OKRs this person is involved with.
+.row
+  .col-sm-8
+    hr
+    h2 Objectives
+    p COMING SOON: The ability to see what teams and OKRs this person is involved with.
+  .col-sm-4
+    aside
+      h2 Actions
+      ul.actions
+        li = link_to "Add a new objective", new_goal_path(@user) 
+        

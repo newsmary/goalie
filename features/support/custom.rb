@@ -10,7 +10,7 @@ require 'capybara/poltergeist'
 require 'pry'
 require 'capybara-screenshot'
 require 'capybara-screenshot/cucumber'
-require 'firefox'
+#require 'firefox'
 
 
 #for email tests
@@ -56,7 +56,27 @@ Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, :browser => :chrome)
 end
 
-Capybara.javascript_driver = :chrome
+#Capybara.server_port = 8910
+
+
+# https://hub.docker.com/r/wernight/phantomjs/
+#Capybara.default_driver = :poltergeist
+Capybara.register_driver :poltergeist do |app|
+    options = {
+        :js_errors => true,
+        #:port => 8910,
+        #:host => 'pjs',
+        :timeout => 120,
+        :debug => false,
+        :phantomjs_options => ['--load-images=no', '--disk-cache=false'],
+        :inspector => true,
+    }
+    Capybara::Poltergeist::Driver.new(app, options)
+end
+
+
+Capybara.javascript_driver = :poltergeist
+
 #Capybara.default_driver = :chrome
 #Capybara.javascript_driver = :firefox
 

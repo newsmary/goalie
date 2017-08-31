@@ -4,7 +4,7 @@ include Warden::Test::Helpers
 
 
 
-When(/^I visit the objective called "([^"]*)"$/) do |name|
+When(/^I visit the (?:key result|objective|goal) called "([^"]*)"$/) do |name|
   visit goal_path(Goal.find_by(name: name))
 end
 

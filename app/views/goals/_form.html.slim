@@ -1,3 +1,4 @@
+- type = @goal.parent.nil? ? "objective" : "key result"
 = form_for(@goal,  html: { class: "form-horizontal", role: "form" }) do |f|
   - if @goal.errors.any?
     .alert.alert-danger.alert-dismissable role="alert"
@@ -41,7 +42,7 @@
         = f.text_field :team_id, class: "form-control"
   .form-group
     .col-sm-offset-2.col-sm-10
-      = f.submit class: "btn btn-primary"
+      #= f.submit class: "btn btn-primary", value: "Create #{type}"
       br
       br
       = link_to "Cancel", "javascript:history.go(-1)"

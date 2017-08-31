@@ -28,6 +28,7 @@ class GoalsController < ApplicationController
   def new
     @goal = Goal.new
     @goal.parent = Goal.find_by_id(params[:parent])
+    #@goal.user = current_user #User.find(params[:user])
     #attempt to find a team if we've passed in an ID
     #TODO: friendly IDs
     begin

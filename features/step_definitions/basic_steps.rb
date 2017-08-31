@@ -88,7 +88,7 @@ def debug
 end
 
 #use a non-capturing group on the 's' so we can say "1 second" or "2 seconds"
-Then(/^I wait (\d+) second/) do |seconds|
+Then(/^I wait (\d+) second(?:s)?/) do |seconds|
   sleep seconds.to_i # express the regexp above with the code you wish you had
 end
 
@@ -106,6 +106,11 @@ When(/^I click (?:on )?"([^"]+?)"$/) do |text|
 	node = find_first_link(text) || first("label",text: text) || find_button(text)
   raise "Element not found" unless node.present?
 	node.click
+end
+
+#click on button or link
+When(/^I click (?:on )?the label called "([^"]+?)"$/) do |text|
+	first("label",text: text).click
 end
 
 #click a checkbox
