@@ -22,10 +22,21 @@ class Goal < ApplicationRecord
     scores.first
   end
 
+  def learnings
+    scores.first.learnings
+  end
+
   #untested... a way to say if something is an objective or key result
   def type
     (parent.present?) ? "Key result" : "Objective"
   end
+
+  #convenience method to identify goals which are "done"
+  def done?
+    #assume a status requiring "learnings" designates a "done" state
+    status.require_learnings?
+  end
+
 
   #alias
   def grade

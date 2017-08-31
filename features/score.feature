@@ -36,3 +36,4 @@ Scenario: Prompt to fill in "Lessons learned" when marking a goal as complete or
   And I fill in "score[amount]" with "25"
   And I click "Save"
   Then I should see "Successfully"
+  And I should see "We learned so much"

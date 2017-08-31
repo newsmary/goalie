@@ -14,6 +14,11 @@
     h2 = type.humanize
     h1 style="margin-top: 0" = @goal.name
     p = @goal.body
+    - if @goal.done?
+      .panel.panel-primary.lessons
+        .panel-heading 
+          h4 What did we learn?
+        .panel-body = @goal.learnings
     - if params[:history].present?
       h2 Progress updates
       - @goal.scores.each do |score|

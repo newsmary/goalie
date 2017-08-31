@@ -10,7 +10,7 @@ namespace :db do
 
       Team.create!(name: "The Cure")
       Team.create!(name: "Bauhaus")
-      Team.create!(name: "Nitzer Ebb")
+      Team.create!(name: "Depeche Mode")
       Team.create!(name: "Underworld")
 
     end
@@ -37,8 +37,14 @@ namespace :db do
       puts name
       goal = Goal.create!(name: name, team: team, parent: parent)
 
+      status = Status.all.sample
+
+      if status.require_learnings?
+        learnings = "Gravity is highly effictive. When in doubt, use more bubble-wrap. Solve the problems you have, not the problems you imagine. Going fast while you are lost won't help a bit."
+      end
+
       #add some "scores"
-      goal.scores << Score.create!(user: User.all.sample, goal: goal, amount: (100*rand).to_i, reason: "This is a fake status update. Reason, reason, reason, blah blah.", status: Status.all.sample)
+      goal.scores << Score.create!(user: User.all.sample, goal: goal, amount: (100*rand).to_i, reason: "This is a fake status update. \nReason, reason, reason, blah blah.", learnings: learnings, status: status)
 
       #return our goal
       goal
