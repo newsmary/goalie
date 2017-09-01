@@ -7,12 +7,11 @@ namespace :db do
       Goal.destroy_all
       #Group.destroy_all
       Team.destroy_all
+      names = "The Cure, Bauhaus, Depeche Mode, Underworld, Autechre, Tom Jones, New Order, Plaid"
 
-      Team.create!(name: "The Cure")
-      Team.create!(name: "Bauhaus")
-      Team.create!(name: "Depeche Mode")
-      Team.create!(name: "Underworld")
-
+      names.split(", ").each do |name|
+        Team.create!(name: name)
+      end
     end
 
     task goals: [:environment, :teams] do
@@ -20,8 +19,10 @@ namespace :db do
       #make_sub_goals(nil,0)
 
       Team.all.each do |team|
-        g = new_goal(nil,team)
-        make_sub_goals(g,1)
+        [*(1..4)].sample.times do
+          g = new_goal(nil,team)
+          make_sub_goals(g,1)
+        end
       end
     end
 
@@ -41,11 +42,13 @@ namespace :db do
       status = Status.all.sample
 
       if status.require_learnings?
-        learnings = "Gravity is highly effictive. When in doubt, use more bubble-wrap. Solve the problems you have, not the problems you imagine. Going fast while you are lost won't help a bit."
+        learnings = "Gravity is highly effictive. When in doubt, dance it out. Solve the problems you have, not the problems you imagine."
       end
 
-      #add some "scores"
-      goal.scores << Score.create!(user: User.all.sample, goal: goal, amount: (100*rand).to_i, reason: "This is a fake status update. \nReason, reason, reason, blah blah.", learnings: learnings, status: status)
+      #add a score if it has been started.
+      if(status.ordinal != 0)
+        goal.scores << Score.create!(user: User.all.sample, goal: goal, amount: (100*rand).to_i, reason: "This is a fake status update. \nReason, reason, reason, blah blah.", learnings: learnings, status: status)
+      end
 
       #return our goal
       goal

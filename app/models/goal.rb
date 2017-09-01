@@ -34,9 +34,9 @@ class Goal < ApplicationRecord
   #convenience method to identify goals which are "done"
   def done?
     #assume a status requiring "learnings" designates a "done" state
+    #TODO: add a "done" flag to statuses
     status.require_learnings?
   end
-
 
   #alias
   def grade
@@ -45,7 +45,7 @@ class Goal < ApplicationRecord
 
   def status
     #default to status with lowest ordinal
-    score.nil? ? Status.order(:ordinal).first : score.status
+    score.nil? ? Status.where(ordinal:0).first : score.status
   end
 
   #for now...

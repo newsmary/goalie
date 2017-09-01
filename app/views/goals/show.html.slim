@@ -82,4 +82,5 @@
           li = link_to "Remove from favourites", favorite_goal_path 
         - else
           li = link_to "Add to favourites", favorite_goal_path 
+        li = link_to "Link this #{@goal.type} to another goal", link_goal_path
     

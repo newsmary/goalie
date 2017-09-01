@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :goals do
     resources :scores
     get 'search', on: :collection, as: :search
+    get 'link', on: :member
     get :favorite, on: :member
   end
 
