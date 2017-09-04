@@ -1,6 +1,6 @@
 FROM ruby:latest
 
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs vim man
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs vim man postgresql-client
 
 #Nope, use sendmail on the host (port 25)... remember to start postfix on the host
 #sendmail

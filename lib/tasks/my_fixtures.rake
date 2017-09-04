@@ -74,6 +74,11 @@ namespace :db do
       #STDIN.gets
     end
 
+    task statuses: [:environment] do
+      #defined in statuses.rake
+      Rake::Task['statuses:seed'].invoke
+    end
+
     task users: [:environment, :warn] do
       #remove only the test accounts we've created.
       #this leaves any accounts we've created by logging in manually
@@ -93,7 +98,7 @@ namespace :db do
       end
     end
 
-    task :all => [:warn, :users, :teams, :goals]
+    task :all => [:statuses, :warn, :users, :teams, :goals]
 
   end
 end
