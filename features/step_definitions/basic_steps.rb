@@ -103,7 +103,9 @@ When(/^I click (?:on )?"([^"]+?)"$/) do |text|
 	#click_on link_to_click
 	#for some reason the regular click_on didn't find AngularJS generated links.
 	#the custom "find_first_link" method works...
-	node = find_first_link(text) || first("label",text: text) || find_button(text)
+	node = find_first_link(text)
+  node = first("label",text: text) unless node.present?
+  node = find_button(text) unless node.present?
   raise "Element not found" unless node.present?
 	node.click
 end
@@ -158,8 +160,9 @@ When(/^I click (?:on )?"([^"]+?)" within "([^"]+?)"$/) do |link_to_click, css_se
 end
 
 #click on nth button or link within a selector
-When(/^I click on first "([^"]+?)" link, within "([^"]+?)"$/) do |link_to_click, css_selector|
-	find_first_link_in(css_selector, link_to_click).trigger('click')
+When(/^I click on first "([^"]+?)"(?: link,) within "([^"]+?)"$/) do |link_to_click, css_selector|
+	#find_first_link_in(css_selector, link_to_click).trigger('click')
+	find_first_link_in(css_selector, link_to_click).click
 end
 
 #click on text within a selector

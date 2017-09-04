@@ -30,3 +30,20 @@ Scenario: Link a couple of objectives to a primary objective
   And I click "2 linked goals"
   #case sensitive, obj name is title case :)
   Then I should see "Walk" within ".results"
+
+Scenario: Remove links
+  Given I have a team called "Ninjas" with an objective to "Be sneaky!"
+  And I have a team called "The Zombies" with an objective to "Eat brains!"
+  And I have a team called "Tortoise" with an objective to "Walk 5% faster."
+  And the objective called "Walk 5% faster." is linked to the objective "Be sneaky!"
+  And the objective called "Eat brains!" is linked to the objective "Be sneaky!"
+  When I visit the objective called "Be sneaky!"
+  And I click on "2 linked goals"
+  #Then I should see "Remove link" within ".results"
+  #And I debug
+  And I wait 1 second
+  When I click on "Remove link"
+  Then I should see "Successfully removed"
+  When I click on "1 linked goal"
+  Then I should NOT see "brains" within ".results"
+  And I should see "faster" within ".results"

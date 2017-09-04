@@ -1,5 +1,5 @@
 class GoalsController < ApplicationController
-  before_action :set_goal, only: [:show, :favorite, :edit, :update, :destroy]
+  before_action :set_goal, only: [:unlink, :show, :favorite, :edit, :update, :destroy]
 
   # GET /goals
   # GET /goals.json
@@ -45,7 +45,22 @@ class GoalsController < ApplicationController
   def edit
   end
 
-  def search
+  #Hacky... remove all links (in either direction) between two goals.
+  #becuase we're working bi-directionally, it doesn't make sense to use the "delete" method in the links_controller
+  # that method only deletes links in a single direction
+  def unlink
+    target_goal = Goal.find(params[:linked_goal_id])
+    @goal.errors << "Could not find goal with id #{linked_goal_id}" unless target_goal
+
+    respond_to do |format|
+      if target_goal && @goal.unlink(target_goal)
+        format.html { redirect_to @goal, notice: 'Successfully removed linked goal.' }
+        format.json { render :show, status: :created, location: @goal }
+      else
+        format.html { render :new }
+        format.json { render json: @goal.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # POST /goals

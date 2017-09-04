@@ -83,6 +83,13 @@ class Goal < ApplicationRecord
     (linked_goals + inverse_linked_goals).to_a.uniq
   end
 
+  # unlink target goal from this one in BOTH directions
+  # the bi-directionality of this is why we do it here and not in the "links" controller or model
+  def unlink(target_goal)
+    linked_goals.delete(target_goal)
+    inverse_linked_goals.delete(target_goal)
+  end
+
   #unlink any outbound or inbound links between this goal and the given goal
   #def unlink(linked_goal)
   #   linked_goal.

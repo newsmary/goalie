@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :scores
     resources :links
     #get 'link', on: :member
+    delete "unlink", on: :member
     collection do
       get "search"
       post "search"
