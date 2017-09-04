@@ -4,13 +4,13 @@
   .col-xs-4
     == link_to "&laquo; Previous".html_safe, @goal.previous_goal if @goal.previous_goal
   .col-xs-4
-    -if @goal.parent.present?
-      ==link_to "Objective: #{@goal.parent.name}", @goal.parent
   .col-xs-4
     .pull-right
       == link_to "Next &raquo;".html_safe, @goal.next_goal if @goal.next_goal
 .row
   .col-sm-8
+    -if @goal.parent.present?
+      p style="margin-top: 10px" =link_to "Objective: #{@goal.parent.name}", @goal.parent
     h2 = type.humanize
     h1 style="margin-top: 0" = @goal.name
     p = @goal.body
