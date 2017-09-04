@@ -19,7 +19,8 @@ class Score < ApplicationRecord
 
 
   def display_reason
-    reason.gsub(/\r\n/,"<br>").html_safe
+    reason.gsub(/\r\n/,"<br>")
+    #sanitize(reason.gsub(/\r\n/,"<br>"), tags: %w(br strong em b i ul li))
   end
 
 end

@@ -1,10 +1,13 @@
 .row
   .col-md-8
     =link_to "&laquo; Back".html_safe, @goal
-    h1 Report progress on this goal
-    p Use this form to record the current status and report progress towards reaching this goal. Progress reports (updates) are cumulative and immutable.
-
+    h1 Report progress on this #{@goal.type}
+    .panel.panel-default
+      .panel-body
+        h2 =@goal.name
+    .hint Use this form to record the current status and report progress towards reaching this goal. Progress reports (updates) are cumulative and immutable.
 .row
   .col-md-8
+    hr
     = render 'form'
   = render 'sub_goal_scores', locals: {goal: @goal}

@@ -32,7 +32,7 @@
             .hint  =time_ago_in_words(score.created_at).humanize + " ago"
             
           .col-sm-9
-            p =score.display_reason   
+            p =sanitize(score.display_reason, tags: %w(br strong em b i ul li))
             - if is_admin?
               .small class="float:right"
                 = link_to "Edit", edit_goal_score_path(score.goal,score)
@@ -67,7 +67,7 @@
         /-if can_modify? @goal
         / =link_to "Make first progress update", new_goal_score_path(@goal), :class=>"btn btn-primary"
       - else
-        p = @goal.score.display_reason
+        p =sanitize(@goal.score.display_reason, tags: %w(br strong em b i ul li))
         / .hint Status: #{@goal.score.status.name}
         .hint 
           | Updated #{time_ago_in_words(@goal.score.created_at)} ago by #{@goal.score.user.name}.

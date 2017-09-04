@@ -1,6 +1,8 @@
 /= form_for(@score, url: goal_scores_path(@goal,@score), html: { class: "form-horizontal", role: "form" }) do |f|
 - max_word_count = 50
-= form_with(model: [@goal,@score], local: true, html: { name: "daForm", class: "form-horizontal", role: "form"}) do |f|
+ul#errorBox.alert.alert-danger.alert-dismissable style="display: none"
+
+= form_with(model: [@goal,@score], local: true, html: { xonsubmit: "return validate()", name: "daForm", id: "daForm", class: "form-horizontal", role: "form"}) do |f|
   - if @score.errors.any?
     .alert.alert-danger.alert-dismissable role="alert"
       button.close type="button" data-dismiss="alert"
@@ -13,9 +15,6 @@
         - @score.errors.full_messages.each do |msg|
           li= msg
   .form-group
-    = f.label "Goal", class: "col-sm-2 control-label"
-    .col-sm-10
-      h2 style="margin-top: 0" = @score.goal.name
   /
     .form-group  style="margin-top: 7px"
       = f.label "Team", class: "col-sm-2 control-label"
@@ -59,7 +58,7 @@
   .form-group
     .col-sm-offset-2.col-sm-10
       =f.hidden_field :goal_id, :value=>@score.goal.id
-      = f.submit class: "btn btn-primary", value: "Save" 
+      = f.submit name: :submit, id: :submit_button, class: "btn btn-primary", value: "Save", data: { disable_with: "Please wait..." } 
       br
       br
       .cancel
@@ -80,9 +79,28 @@
     }
     
     //skip for now since phantomjs can't test 
-    /*
     function validate() {
-      elements = document.forms['daForm']
+      elements = document.forms['daForm'];
+      
+      amount = elements['score[amount]'].value;
+      
+      if (amount > 10000) {
+        alert("Come on... really? That's a huge number... Don't be a weenie.");
+        //elements['submit'].disabled = false;
+        //elements['submit'].value = "Save";
+        button = $('#submit_button');
+        //$.rails.enableElement(button);
+        //button.removeAttr('disabled');
+        return(false);
+      }
+      
+      if (amount < 0) {
+        alert("Uh.... you did less than zero against this goal? That sounds pretty bad. We should talk. Wanna try again?");
+        elements['submit'].disabled = false;
+        elements['submit'].value = "Save";
+        return(false);
+      }
+        
       learnings = elements['score[learnings]'].value;
       //array of status ID's requiring learnings
       require_learnings = [#{Status.where("require_learnings = true").pluck(:id).join(",").to_s}]
@@ -96,8 +114,28 @@
       
       return(true);
     }
-    */
     
+    function setupValidation() {
+      $("#daForm").validate({
+        debug: false,
+        errorLabelContainer: "#errorBox",
+        wrapper: "li",
+        rules: {
+          "score[amount]": { digits: true, required: true, minlength: 1, maxlength: 3},
+          "score[reason]": { required: true}
+        },
+        messages: {
+          "score[amount]" :
+            { maxlength: "Uhhh...I know we like to overdeliver and all but that's a really colossal number. Try again?",
+            digits: "That's a weird looking percentage..." },
+          "score[reason]" :
+            { required: "Please describe how things are going..."}          
+        }
+      });
+    }
+    $(document).ready(setupValidation);
+    $(document).on('page:load', setupValidation);
+
     function toggleLessonsLearned(name) {
       //open the panel if the status name matches the name of a status which requires "lessons learned"
       if(name.match(/#{Status.where("require_learnings = true").pluck("name").join("|")}/)) {

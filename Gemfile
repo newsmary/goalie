@@ -29,6 +29,7 @@ gem 'html2slim'
 gem 'bootstrap-generators'
 
 gem 'jquery-rails'
+gem 'jquery-validation-rails'
 
 #pagination
 gem 'kaminari-bootstrap', '~> 3.0.1'
