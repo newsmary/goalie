@@ -8,6 +8,16 @@ before_action :authenticate_user!, except: [:debug_sign_in]
     @active_nav = "about"
   end
 
+  def search
+    #@goals = Goal.all.search(params[:q]) if params[:q].present?
+    if params[:q].present?
+      words = params[:q]
+      @goals = Goal.where('lower(name) LIKE ?',"%#{words.downcase}%")
+      @teams = Team.where('lower(name) LIKE ?',"%#{words.downcase}%")
+      #.where("lower(name) LIKE ? ","%#{words.downcase}%").collect{|u| u.goals}.flatten
+    end
+  end
+
   #simple GET request login for testing (ONLY works in Dev & Test)
   #bypasses domain restrictions and creates a new session
   #user must exist in database

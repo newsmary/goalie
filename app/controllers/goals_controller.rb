@@ -45,6 +45,9 @@ class GoalsController < ApplicationController
   def edit
   end
 
+  def search
+  end
+
   # POST /goals
   # POST /goals.json
   def create
@@ -96,15 +99,6 @@ class GoalsController < ApplicationController
     end
   end
 
-  def search
-    #@goals = Goal.all.search(params[:q]) if params[:q].present?
-    if params[:q].present?
-      words = params[:q]
-      @goals = Goal.where('lower(name) LIKE ?',"%#{words.downcase}%")
-      @teams = Team.where('lower(name) LIKE ?',"%#{words.downcase}%")
-      #.where("lower(name) LIKE ? ","%#{words.downcase}%").collect{|u| u.goals}.flatten
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

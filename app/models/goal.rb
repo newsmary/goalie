@@ -1,6 +1,13 @@
 class Goal < ApplicationRecord
   validates :name, presence: true
 
+  has_many :links
+  has_many :linked_goals, through: :links
+
+  has_many :inverse_links, class_name: :Link, foreign_key: :linked_goal_id
+  has_many :inverse_linked_goals, through: :inverse_links, source: :goal
+
+
   #belongs_to :goalable, polymorphic: true
   belongs_to :team
   belongs_to :person, class_name: 'Person', foreign_key: 'user', optional: true
@@ -28,7 +35,7 @@ class Goal < ApplicationRecord
 
   #untested... a way to say if something is an objective or key result
   def type
-    (parent.present?) ? "Key result" : "Objective"
+    (parent.present?) ? "key result" : "objective"
   end
 
   #convenience method to identify goals which are "done"
@@ -70,6 +77,16 @@ class Goal < ApplicationRecord
   def sub_goals
     key_results
   end
+
+  #combine goals that we link to and all goals that link to us (bi-directional)
+  def all_linked_goals
+    (linked_goals + inverse_linked_goals).to_a.uniq
+  end
+
+  #unlink any outbound or inbound links between this goal and the given goal
+  #def unlink(linked_goal)
+  #   linked_goal.
+  #end
 
   def next_goal
     current_index = siblings.to_a.index(self)

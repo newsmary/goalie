@@ -1,0 +1,30 @@
+= render 'breadcrumb'
+.row
+  .col-sm-8
+    h1 Link this #{@goal.type} to another goal
+    - if(@goal.parent.present?)
+      = link_to "Objective: #{@goal.parent.name}", @goal.parent
+    h2 =link_to "#{@goal.type.humanize}: #{@goal.name}", @goal
+    hr
+    .hint Find an objective or key result to link to:
+    form#search.big_form.site-search.form-inline name="bigSearchForm" method="get"
+      .form-group style="margin-right: 5px"
+        input#site-search-text.js-search-focus.form-control type="search" name="related_name" title="Search" role="search" placeholder="Search" value="#{params[:related_name]}"
+      .form-group
+        input.btn.btn-default.btn-primary type="submit" value="Search"
+    -if params[:related_name].present?
+      .hint #{@goals.to_a.count} results:
+      ul.results
+        - @goals.each do |goal|
+          li 
+            .row
+              .col-sm-10
+                h3 style="display:inline"
+                  =link_to truncate_html(goal.name, length: 100), goal
+                | &nbsp; 
+                =link_to goal.team.name, goal.team, style: "color: #333"
+              .col-sm-2
+                = link_to "Link to this #{goal.type}", goal_links_path(@goal,linked_goal_id: goal.id), method: :post, class: 'btn btn-sm btn-primary', style: 'background: none; color: #009; margin-bottom: 2rem'
+          
+  .col-sm-4
+/ = render 'form'

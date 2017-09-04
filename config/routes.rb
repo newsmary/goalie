@@ -16,13 +16,24 @@ Rails.application.routes.draw do
 
   resources :goals do
     resources :scores
-    get 'search', on: :collection, as: :search
-    get 'link', on: :member
+    resources :links
+    #get 'link', on: :member
+    collection do
+      get "search"
+      post "search"
+    end
     get :favorite, on: :member
   end
 
   get '/about', to: 'home#about'
   get '/sign_in', to: 'home#debug_sign_in', as: :test_sign_in
+
+  #post the form
+  post '/search', to: 'home#search', as: :search
+
+  #show the results
+  get '/search', to: 'home#search'
+
   #root 'home#index'
   root 'teams#index'
 

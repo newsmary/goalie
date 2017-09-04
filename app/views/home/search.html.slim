@@ -1,13 +1,13 @@
 .row
   .col-md-8
     h2 Search results for:
-    form#search.big_form.site-search.form-inline method="get" action="#{search_goals_path}"
+    form#search.big_form.site-search.form-inline name="bigSearchForm" method="get" action="#{search_path}"
       .form-group style="margin-right: 5px"
         input#site-search-text.js-search-focus.form-control type="search" name="q" title="Search" role="search" placeholder="Search" value="#{params[:q]}"
       .form-group
         input.btn.btn-default.btn-primary type="submit" value="Search"
-    p #{@goals.count + @teams.count} results
-    -if @teams.count > 0
+    p #{@goals.to_a.count + @teams.to_a.count} results
+    -if @teams.to_a.count > 0
       .results
         h4 Teams (#{@teams.count})
         ul
@@ -16,7 +16,7 @@
               h3 =link_to truncate_html(team.name, length: 100), team
               
 
-    -if @goals.count > 0
+    -if @goals.to_a.count > 0
       .results
         h4 Goals (#{@goals.count})
         ul

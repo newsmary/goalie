@@ -14,6 +14,8 @@
     h2 = type.humanize
     h1 style="margin-top: 0" = @goal.name
     p = @goal.body
+    - if @goal.all_linked_goals.count > 0
+      p =link_to pluralize(@goal.all_linked_goals.count, "linked goal"), goal_links_path(@goal)
     - if @goal.done?
       .panel.panel-primary.lessons
         .panel-heading 
@@ -82,5 +84,6 @@
           li = link_to "Remove from favourites", favorite_goal_path 
         - else
           li = link_to "Add to favourites", favorite_goal_path 
-        li = link_to "Link this #{@goal.type} to another goal", link_goal_path
+        li = link_to "Link this #{@goal.type} to another goal", new_goal_link_path(@goal)
+
     

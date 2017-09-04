@@ -1,0 +1,22 @@
+= render 'breadcrumb'
+.row
+  .col-sm-8
+    h1 Related goals
+    - if(@goal.parent.present?)
+      = link_to "Objective: #{@goal.parent.name}", @goal.parent
+    h3 =@goal.type.humanize
+    h2 =link_to " #{@goal.name}", @goal
+    hr
+    -if (@goal.all_linked_goals.count > 0)
+      .results
+        h4 This #{@goal.type} relates to #{pluralize(@goal.all_linked_goals.count,"other goal")}:
+        ul
+          - @goal.all_linked_goals.each do |goal|
+            li
+              h3 =link_to truncate_html(goal.name, length: 100), goal
+              =link_to goal.team.name, goal.team, style: "color: #333"
+  .col-sm-4
+    aside
+      h2 Actions
+      ul.actions
+        li =link_to "Create a new link", new_goal_link_path(@goal)

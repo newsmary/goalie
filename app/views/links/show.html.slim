@@ -1,0 +1,18 @@
+.page-header
+  = link_to links_path, class: 'btn btn-default' do 
+    span.glyphicon.glyphicon-list-alt
+    |  Back 
+  = link_to edit_link_path(@link), class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-pencil
+    |  Edit 
+  h1
+    | Show link
+dl.dl-horizontal
+  dt
+    | Goal:
+  dd
+    = @link.goal_id
+  dt
+    | Linked goal:
+  dd
+    = @link.linked_goal_id
