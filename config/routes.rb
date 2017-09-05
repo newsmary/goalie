@@ -19,10 +19,6 @@ Rails.application.routes.draw do
     resources :links
     #get 'link', on: :member
     delete "unlink", on: :member
-    collection do
-      get "search"
-      post "search"
-    end
     get :favorite, on: :member
   end
 

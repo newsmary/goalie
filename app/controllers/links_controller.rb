@@ -5,7 +5,13 @@ class LinksController < ApplicationController
   # GET /links
   # GET /links.json
   def index
-    @links = Link.all
+    #@links = Link.all
+    #gsub gives us cheap "or" search (as long as words appear in same order)
+    words = params[:related_name].to_s.gsub(/\s+/,"%").downcase
+    if(words.present?)
+      @goals = Goal.where('lower(name) LIKE ?',"%#{words}%")
+    end
+
   end
 
   # GET /links/1
@@ -15,12 +21,7 @@ class LinksController < ApplicationController
 
   # GET /links/new
   def new
-    @link = Link.new
-    #gsub gives us cheap "or" search (as long as words appear in same order)
-    words = params[:related_name].to_s.gsub(/\s+/,"%").downcase
-    if(words.present?)
-      @goals = Goal.where('lower(name) LIKE ?',"%#{words}%")
-    end
+    #@link = Link.new
   end
 
   # GET /links/1/edit
@@ -40,7 +41,7 @@ class LinksController < ApplicationController
     respond_to do |format|
       if target_goal && !@goal.linked_goals.any? {|g| g.id == target_goal.id}
         @goal.linked_goals << target_goal
-        format.html { redirect_to @goal, notice: 'Link was successfully created.' }
+        format.html { redirect_to goal_links_path(@goal), notice: 'Link was successfully created.' }
         format.json { render :show, status: :created, location: @link }
       else
         format.html { render :new }

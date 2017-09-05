@@ -9,9 +9,10 @@ Scenario: Link a couple of objectives to a primary objective
   And I have a team called "Ninjas" with an objective to "Be sneaky!"
   And I have a team called "Tortoise" with an objective to "Walk 5% faster."
   When I visit the goal called "Eat brains!"
-  Then I should NOT see "See related goals"
-  When I click "Link this objective to another goal"
-  Then I should see "Eat brains!"
+  Then I should NOT see "Related goals" within "h2"
+  When I click "Edit related goals"
+  Then I should see "Related goals"
+  And I should see "Eat brains!" within "h3"
   When I fill in "related_name" with "sneaky"
   And I click "Search" within ".big_form"
   #And I wait 1 second
@@ -19,17 +20,19 @@ Scenario: Link a couple of objectives to a primary objective
   And I should see "Ninjas"
   When I click on "Link to this objective" within ".results"
   Then I should see "successfully"
-  When I click "1 linked goal"
-  Then I should see "Be sneaky!" within ".results"
-  When I click "Create a new link" within ".actions"
+  And I should see "Be sneaky!" within ".related"
+  When I click on "Eat brains!"
+  Then I should see "Related goals" within "h2"
+  When I click on "Be sneaky!"
+  #And debug
+  And I click "Edit related goals"
   #search in lower case...
   When I fill in "related_name" with "walk"
   And I click "Search" within ".big_form"
   Then I should see "Tortoise" within ".results"
   When I click "Link to this" within ".results"
-  And I click "2 linked goals"
-  #case sensitive, obj name is title case :)
-  Then I should see "Walk" within ".results"
+  And I click on "Be sneaky!"
+  Then I should see "Walk" within ".related"
 
 Scenario: Remove links
   Given I have a team called "Ninjas" with an objective to "Be sneaky!"
@@ -38,12 +41,11 @@ Scenario: Remove links
   And the objective called "Walk 5% faster." is linked to the objective "Be sneaky!"
   And the objective called "Eat brains!" is linked to the objective "Be sneaky!"
   When I visit the objective called "Be sneaky!"
-  And I click on "2 linked goals"
-  #Then I should see "Remove link" within ".results"
-  #And I debug
-  And I wait 1 second
-  When I click on "Remove link"
+  Then I should see "Eat brains!" within ".related"
+  And I should see "Walk 5% faster." within ".related"
+
+  When I click on "Edit related goals"
+  And I click on "Remove link"
   Then I should see "Successfully removed"
-  When I click on "1 linked goal"
-  Then I should NOT see "brains" within ".results"
-  And I should see "faster" within ".results"
+  Then I should NOT see "brains" within ".related"
+  And I should see "Walk" within ".related"

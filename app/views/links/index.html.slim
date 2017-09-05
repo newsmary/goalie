@@ -1,32 +1,46 @@
 = render 'breadcrumb'
 .row
   .col-sm-8
-    h1 Related goals
+    h1 Edit related goals
     - if(@goal.parent.present?)
       = link_to "Objective: #{@goal.parent.name}", @goal.parent
-    h3 =@goal.type.humanize
-    h2 =link_to " #{@goal.name}", @goal
+    h4 =@goal.type.humanize
+    h3 =link_to " #{@goal.name}", @goal
     hr
-    -if (@goal.all_linked_goals.count > 0)
-      .results
-        h4 This #{@goal.type} relates to #{pluralize(@goal.all_linked_goals.count,"other goal")}:
-        ul
-          - @goal.all_linked_goals.each do |goal|
-            li
-              .row
-                .col-sm-10
-                  h3 style="display:inline"
-                    =link_to truncate_html(goal.name, length: 100), goal
-                  | &nbsp; 
-                  =link_to goal.team.name, goal.team, style: "color: #333"
-                .col-sm-2
-                  //TODO
-                  = link_to "Remove link", unlink_goal_path(@goal,linked_goal_id: goal.id), method: :delete, class: 'btn btn-sm btn-primary', style: 'background: none; color: #009; margin-bottom: 2rem'
-                  /= link_to "Remove link", "javascript:alert('TODO...')", class: 'btn btn-sm btn-primary', style: 'background: none; color: #009; margin-bottom: 2rem'
+    h2 Add a new related goal
+    .hint Find an objective or key result to link to:
+    form#search.big_form.site-search.form-inline name="bigSearchForm" method="get"
+      .form-group style="margin-right: 5px"
+        input#site-search-text.js-search-focus.form-control type="search" name="related_name" title="Search" role="search" placeholder="Search" value="#{params[:related_name]}"
+      .form-group
+        input.btn.btn-default.btn-primary type="submit" value="Search"
+    -if params[:related_name].present?
+      .hint #{pluralize(@goals.to_a.count, "result")}:
+      ul.results
+        - @goals.each do |goal|
+          li 
+            .row
+              .col-sm-9
+                h3 style="display:inline"
+                  =link_to truncate_html(goal.name, length: 100), goal
+                | &nbsp; 
+                =link_to goal.team.name, goal.team, style: "color: #333"
+              .col-sm-2
+                = link_to "Link to this #{goal.type}", goal_links_path(@goal,linked_goal_id: goal.id), method: :post, class: 'btn btn-sm btn-primary', style: 'background: none; color: #009; margin-bottom: 2rem'
             
           
   .col-sm-4
     aside
-      h2 Actions
-      ul.actions
-        li =link_to "Create a new link", new_goal_link_path(@goal)
+    h2 Related goals
+    -if !@goal.has_related_goals?
+      .hint No related goals. Use the tool on the right to find some.
+    -else
+      /.hint These goals have been manually linked to the current #{@goal.type}.
+      ul.related
+        -@goal.all_linked_goals.each do |goal|
+          li
+            =link_to truncate_html(goal.name, length: 100), goal
+            | &nbsp; 
+            =link_to goal.team.name, goal.team, style: "color: #333"
+            br
+            = link_to "Remove link", unlink_goal_path(@goal,linked_goal_id: goal.id), method: :delete, class: 'btn btn-sm btn-primary', style: 'margin-top: 0.2rem; background: none; color: #337ab7;'

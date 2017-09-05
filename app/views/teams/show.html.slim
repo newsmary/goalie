@@ -27,26 +27,6 @@
           H2 Objectives
           ol.goal
             == render @team.objectives
-    -if is_admin?
-      .row
-        .col-sm-12
-          /=link_to "New Goal", new_goal_path(team: @team), class: "btn btn-primary"
-          /
-            = link_to  new_goal_path(team: @team), class: 'btn btn-primary' do
-              span.glyphicon.glyphicon-plus
-              |  New Objective        
-          h3 Import OKRs
-          p NOTE: this will destroy all existing goals for this team.
-          /
-            = form_tag "", multipart: true, class: "form-inline noprint" do
-            .form-group
-              =file_field_tag :file, :class=>"form-control"
-          = form_tag import_okrs_team_path(@team), class: "form-inline" do
-            .form-group
-              =text_area_tag :okr_text,'', class: "form-control"
-            .form-group
-              | &nbsp;
-              =submit_tag "Import", :class=>"btn btn-primary"
   .col-sm-3
     aside
       h2 Actions
@@ -57,5 +37,12 @@
         h2 Admin actions
         ul.actions
           li = link_to "Edit or move this team", edit_team_path(@team)
-        /.tiny_hint =link_to "With great power...", "https://en.wikipedia.org/wiki/Uncle_Ben#.22With_great_power_comes_great_responsibility.22"
-        
+          li = link_to "Import OKRs", "javascript: $('#importOKRs').fadeToggle()"
+        #importOKRs style="display:none"
+          p Paste text from "Objective: ... to the end of the last Key Result"
+          = form_tag import_okrs_team_path(@team) do
+            .form-group
+              =text_area_tag :okr_text,'', class: "form-control", style: "width: 10rem; height: 5rem"
+            .form-group style="display: block"
+              =submit_tag "Import", class: "btn btn-primary"
+          p.hint NOTE: this will destroy all existing goals for this team.

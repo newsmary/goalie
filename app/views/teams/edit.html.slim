@@ -3,4 +3,5 @@
   .col-md-8
     .page-header
       h1 Edit Team: #{@team.name}
+      .tiny_hint =link_to "With great power...", "https://en.wikipedia.org/wiki/Uncle_Ben#.22With_great_power_comes_great_responsibility.22", target: "_blank"
     = render 'form'

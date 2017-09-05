@@ -14,7 +14,7 @@
     h2 = type.humanize
     h1 style="margin-top: 0" = @goal.name
     p = @goal.body
-    - if @goal.all_linked_goals.count > 0
+    /- if @goal.all_linked_goals.count > 0
       p =link_to pluralize(@goal.all_linked_goals.count, "linked goal"), goal_links_path(@goal)
     - if @goal.done?
       .panel.panel-primary.lessons
@@ -70,7 +70,7 @@
         p =sanitize(@goal.score.display_reason, tags: %w(br strong em b i ul li))
         / .hint Status: #{@goal.score.status.name}
         .hint 
-          | Updated #{time_ago_in_words(@goal.score.created_at)} ago by #{@goal.score.user.name}.
+          | #{time_ago_in_words(@goal.score.created_at).gsub(/about /i,"").humanize} ago by #{@goal.score.user.name}.
           - unless params[:history].present?
             ' 
             =link_to "See all progress", "?history=1"
@@ -84,6 +84,15 @@
           li = link_to "Remove from favourites", favorite_goal_path 
         - else
           li = link_to "Add to favourites", favorite_goal_path 
-        li = link_to "Link this #{@goal.type} to another goal", new_goal_link_path(@goal)
+        li = link_to "Edit related goals", goal_links_path(@goal)
+      -if @goal.has_related_goals?
+        h2 Related goals
+        /.hint These goals have been manually linked to the current #{@goal.type}.
+        ul.related
+          -@goal.all_linked_goals.each do |goal|
+            li
+              =link_to truncate_html(goal.name, length: 100), goal
+              | &nbsp; 
+              =link_to goal.team.name, goal.team, style: "color: #333"
 
     
