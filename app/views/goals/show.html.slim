@@ -40,7 +40,6 @@
             
 
     / = link_to "Edit this goal", edit_goal_path
-    h2 Key Results
     - if @goal.key_results.empty? && @goal.parent.nil?
       .alert.alert-warning.alert-dismissible
         span.glyphicon.glyphicon-alert
@@ -51,6 +50,7 @@
         = link_to "Add a key result.", new_goal_path(parent: @goal), class: "alert-link" if @goal.parent.nil?
         /= link_to "Create the first key result.", new_goal_path(team: @team), class: "alert-link"
     - if !@goal.key_results.empty?
+      h2 Key Results
       ol.goal style="clear:both"
         == render @goal.key_results
       .row
