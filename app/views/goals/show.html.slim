@@ -14,8 +14,6 @@
     h2 = type.humanize
     h1 style="margin-top: 0" = @goal.name
     p = @goal.body
-    /- if @goal.all_linked_goals.count > 0
-      p =link_to pluralize(@goal.all_linked_goals.count, "linked goal"), goal_links_path(@goal)
     - if @goal.done?
       .panel.panel-primary.lessons
         .panel-heading 
@@ -42,8 +40,17 @@
             
 
     / = link_to "Edit this goal", edit_goal_path
+    h2 Key Results
+    - if @goal.key_results.empty? && @goal.parent.nil?
+      .alert.alert-warning.alert-dismissible
+        span.glyphicon.glyphicon-alert
+        |&nbsp;
+        span.sr-only Oops:
+        | This objective has no key results
+        | &nbsp;
+        = link_to "Add a key result.", new_goal_path(parent: @goal), class: "alert-link" if @goal.parent.nil?
+        /= link_to "Create the first key result.", new_goal_path(team: @team), class: "alert-link"
     - if !@goal.key_results.empty?
-      h2 Key Results
       ol.goal style="clear:both"
         == render @goal.key_results
       .row

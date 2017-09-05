@@ -21,12 +21,20 @@
             span.glyphicon.glyphicon-plus
             |  Add sub-team
         
-    -unless @team.objectives.empty?
-      .row
-        .col-sm-12
-          H2 Objectives
-          ol.goal
-            == render @team.objectives
+    .row
+      .col-sm-12
+        -if @team.objectives.empty?
+          .alert.alert-warning.alert-dismissible
+            span.glyphicon.glyphicon-alert
+            |&nbsp;
+            span.sr-only Oops:
+            | This team has no objectives.
+            | &nbsp;
+            = link_to "Create the first objective.", new_goal_path(team: @team), class: "alert-link"
+        - else
+            H2 Objectives
+            ol.goal
+              == render @team.objectives
   .col-sm-3
     aside
       h2 Actions

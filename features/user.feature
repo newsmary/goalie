@@ -58,7 +58,6 @@ Scenario: Sign in as a non-admin and don't see option to modify people. Then log
   And I sign in as an admin user
   And I click on "People" within ".nav"
   Then I should see "Edit"
-  And I should see "Destroy"
 
 Scenario: Don't see "edit this team" or "import OKRs" options when you're a non-admin
   Given I have a team called "Bauhaus"
