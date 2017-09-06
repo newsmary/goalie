@@ -1,4 +1,4 @@
-= form_for(@team, html: { class: "form-horizontal", role: "form" }) do |f|
+= form_for(@team, html: { role: "form" }) do |f|
   - if @team.errors.any?
     .alert.alert-danger.alert-dismissable role="alert"
       button.close type="button" data-dismiss="alert"
@@ -11,33 +11,24 @@
         - @team.errors.full_messages.each do |msg|
           li= msg
   .form-group
-    = f.label :name, class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.text_field :name,  autofocus: true, class: "form-control"
+    = f.label :name
+    = f.text_field :name,  autofocus: true, class: "form-control"
   .form-group
-    = f.label "Parent Team", class: "col-sm-2 control-label"
-    .col-sm-10
-      / f.text_field :name, class: "form-control"
-      =collection_select :team, :parent_id, Team.all, :id, :name, {prompt:true,include_blank:true}, {class: :selectpicker, style: "margin-top: 1rem"}
-  /
-    .form-group
-      = f.label :url, class: "col-sm-2 control-label"
-      .col-sm-10
-        = f.text_field :url, class: "form-control"
+    = f.label "Parent Team"
+    / f.text_field :name, class: "form-control"
+    =collection_select :team, :parent_id, Team.all, :id, :name, {prompt:true,include_blank:true}, {class: "form-control", style: "margin-top: 1rem"}
   .form-group
-    = f.label :body, class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.text_area :body, class: "form-control"
-      .hint Extra information to show on the team page.
+    = f.label :body
+    = f.text_area :body, class: "form-control"
+    .hint Extra information to show on the team page.
   .form-group
-    .col-sm-offset-2.col-sm-10
-      = f.submit class: "btn btn-primary"
+    = f.submit class: "btn btn-primary"
+    br
+    br
+    = link_to "Cancel", "javascript:history.go(-1)"
+    / only show destroy when editign (makes no sense when creating)
+    -if action_name == "edit"
+      br    
       br
-      br
-      = link_to "Cancel", "javascript:history.go(-1)"
-      / only show destroy when editign (makes no sense when creating)
-      -if action_name == "edit"
-        br    
-        br
-        = link_to 'Destroy team', @team, method: :delete, data: { confirm: 'EXTERMINATE! EXTERMINATE! Are you sure? This cannot be undone.' }, class: "btn btn-danger"
-        /.tiny_hint EXTERMINATE! EXTERMINATE! This will delete the 
+      = link_to 'Destroy team', @team, method: :delete, data: { confirm: 'EXTERMINATE! EXTERMINATE! Are you sure? This cannot be undone.' }, class: "btn btn-danger"
+      /.tiny_hint EXTERMINATE! EXTERMINATE! This will delete the 

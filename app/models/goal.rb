@@ -25,6 +25,8 @@ class Goal < ApplicationRecord
 
   has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
 
+  after_save :check_child_dates
+
   def score
     scores.first
   end
@@ -36,6 +38,10 @@ class Goal < ApplicationRecord
   #untested... a way to say if something is an objective or key result
   def type
     (parent.present?) ? "key result" : "objective"
+  end
+
+  def quarter
+    end_date.financial_quarter
   end
 
   #convenience method to identify goals which are "done"
@@ -65,12 +71,16 @@ class Goal < ApplicationRecord
   end
 
   def siblings
-    parent.present? ? parent.children : owner.objectives
+    parent.present? ? parent.children.where(end_date: parent.end_date) : owner.objectives.where(end_date: end_date)
   end
 
   #alias...
   def children
     key_results
+  end
+
+  def has_children?
+    !children.empty?
   end
 
   #alias...
@@ -123,5 +133,13 @@ class Goal < ApplicationRecord
     end
   end
 =end
+
+  private
+    def check_child_dates
+      self.children.each do |child|
+        child.end_date = self.end_date
+        child.save!
+      end
+    end
 
 end

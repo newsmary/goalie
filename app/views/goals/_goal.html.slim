@@ -1,7 +1,19 @@
 li
-  .col-xs-9
-    = link_to goal.name, goal
-  .col-xs-3
-    .tiny_status style="background-color: #{goal.status.hex_color}"
-      = goal.display_amount
-  /= link_to truncate_html(goal.name, length: 120).gsub(/^./,&:upcase), goal
+  .goal_col
+    .col-xs-9.goal_name
+      = link_to goal.name, goal
+    .col-xs-3.tiny_status style="background-color: #{goal.status.hex_color}"
+      p = goal.display_amount
+  
+  - if goal.has_children?
+    ol.sub_goals
+      - goal.children.each do |child|
+        li type="a" style="font-size: 1.8rem;"
+          .col-xs-9.sub_goal_col
+            = link_to child.name, child
+          .col-xs-3.sub_goal_col
+            .tiny_status style="background-color: #{child.status.hex_color}"
+              | &nbsp; 
+              = child.display_amount
+
+      /= link_to truncate_html(goal.name, length: 120).gsub(/^./,&:upcase), goal

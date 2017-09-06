@@ -1,0 +1,19 @@
+ul.actions
+  li = link_to "Report progress on #{goal.type}", new_goal_score_path(goal)
+.big_goal_meta
+  .big_status style="background: #{goal.status.hex_color}" title="#{goal.status.description}"
+    h4 = goal.status.name.humanize.capitalize
+    h3 = goal.display_amount
+  - if(goal.scores.empty?)
+    p style="color: red"
+      | No progress reported, yet.
+    /-if can_modify? goal
+    / =link_to "Make first progress update", new_goal_score_path(goal), :class=>"btn btn-primary"
+  - else
+    p =my_sanitize(goal.score.display_reason)
+    / .hint Status: #{goal.score.status.name}
+    .hint 
+      | #{time_ago_in_words(goal.score.created_at).gsub(/about /i,"").humanize} ago by #{goal.score.user.name}.
+      - unless params[:history].present?
+        ' 
+        =link_to "See all progress", "?history=1"

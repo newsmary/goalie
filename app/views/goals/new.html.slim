@@ -1,10 +1,10 @@
 =render 'breadcrumb'
 .row
-  .col-md-8
+  .col-md-9
     .page-header
-      h1
-        - if @goal.parent
-          | New Key Result
-        - else
-          | New Objective
+      =link_to "&laquo; Back".html_safe, (@goal.parent || @goal.team)
+      h1 
+        | New #{@goal.type} for #{@goal.team.name}
+        - if (@goal.parent)
+          = " (" + @goal.parent.quarter + ")"
     = render 'form'

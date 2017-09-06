@@ -54,11 +54,11 @@ def get_all_link_text
 end
 
 def find_first_link(text)
-	all('a',:text=>text).to_a.first
+	all('a',:text=>text,visible:true).to_a.first
 end
 
 def find_first_link_in(selector,text)
-	return all(selector,:text=>text).to_a.first
+	return all(selector,text:text).to_a.first
 end
 
 def click_random_link_in(selector,text)
@@ -114,11 +114,10 @@ When(/^I click (?:on )?"([^"]+?)"$/) do |text|
 	#click_on link_to_click
 	#for some reason the regular click_on didn't find AngularJS generated links.
 	#the custom "find_first_link" method works...
-	node = find_first_link(text)
-  node = first("label",text: text) unless node.present?
-  node = find_button(text) unless node.present?
-  raise "Element not found" unless node.present?
-	node.click
+	node = first("a",text:text)
+  node = first("label",text: text,visible:true) unless node.present?
+  click_button text unless node.present?
+	node.click if node.present?
 end
 
 #click on button or link
@@ -167,7 +166,8 @@ end
 
 #click on button or link within a selector
 When(/^I click (?:on )?"([^"]+?)" within "([^"]+?)"$/) do |link_to_click, css_selector|
-    find(css_selector).click_on(link_to_click)
+    #find(css_selector).click_on(link_to_click)
+    find_first_link_in(css_selector, link_to_click).click
 end
 
 #click on nth button or link within a selector

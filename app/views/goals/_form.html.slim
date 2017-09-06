@@ -13,39 +13,50 @@
           li= msg
   - if @goal.parent
     .form-group
-      = f.label :Parent, class: "col-sm-2 control-label"
+      = f.label :Objective, class: "col-sm-2 control-label"
       .col-sm-10
-        p.label = link_to @goal.parent.name,@goal.parent
+        p
+          b = link_to @goal.parent.name, @goal.parent
     =f.hidden_field :parent_id, :value=> @goal.parent.id
-  - if @goal.team
-    .form-group
-      = f.label :Team, class: "col-sm-2 control-label"
-      .col-sm-10
-        p.label = link_to @goal.team.name,@goal.team
-    =f.hidden_field :team_id, :value=> @goal.team.id
+  =f.hidden_field :team_id, :value=> @goal.team.id
+    
+  /
+    - if @goal.team
+      .form-group
+        = f.label :Team, class: "col-sm-2 control-label"
+        .col-sm-10
+          p 
+            b = link_to @goal.team.name,@goal.team
   .form-group
     = f.label :quarter, class: "col-sm-2 control-label"
     .col-sm-10
       /= f.text_field :quarter, class: "form-control"
-      fieldset.inline
-        - #from -1 quarter to +2 quarters
-        - (-1..2).to_a.each do |offset_quarter|
-          - date = Date.today + ((offset_quarter*3).months)
-          - label = date.financial_quarter
-          - start_month_name = date.beginning_of_financial_quarter.strftime("%b")
-          - end_month_name = date.end_of_financial_quarter.strftime("%b")
-          - end_date = date.end_of_financial_quarter
-          label.block-label for="radio-inline-#{offset_quarter}"        
-            -if (@goal.end_date == end_date)
-              input title="#{label}" id="radio-inline-#{offset_quarter}" type="radio" checked="true" name="goal[end_date]" value="#{end_date}"
-                =label    
-                .hint 
-                  ' (#{start_month_name} - #{end_month_name})
-            - else
-              input title="#{label}" id="radio-inline-#{offset_quarter}" type="radio" name="goal[end_date]" value="#{end_date}"
-                =label    
-                .hint 
-                  ' (#{start_month_name} - #{end_month_name})
+      - if (@goal.type == "objective")
+        fieldset.inline
+          - #from -1 quarter to +2 quarters
+          - (-1..1).to_a.each do |offset_quarter|
+            - date = Date.today + ((offset_quarter*3).months)
+            - label = date.financial_quarter
+            / add the next year (e.g. 2017/18) to the label
+            /- label += "/#{label.match(/\d{2}$/)[0].to_i+1}"
+            - start_month_name = date.beginning_of_financial_quarter.strftime("%b")
+            - end_month_name = date.end_of_financial_quarter.strftime("%b")
+            - end_date = date.end_of_financial_quarter
+            label.block-label for="radio-inline-#{offset_quarter}"        
+              -if (@goal.end_date == end_date)
+                input title="#{label}" id="radio-inline-#{offset_quarter}" type="radio" checked="true" name="goal[end_date]" value="#{end_date}"
+                  =label    
+                  .hint 
+                    ' (#{start_month_name} - #{end_month_name})
+              - else
+                input title="#{label}" id="radio-inline-#{offset_quarter}" type="radio" name="goal[end_date]" value="#{end_date}"
+                  =label    
+                  .hint 
+                    ' (#{start_month_name} - #{end_month_name})
+      - else
+        p
+          b = @goal.parent.quarter
+
               
   .form-group
     = f.label :name, autofocus: true, class: "col-sm-2 control-label"
