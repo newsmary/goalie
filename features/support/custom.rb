@@ -79,8 +79,7 @@ Capybara.javascript_driver = :poltergeist
 
 #"wait" for items to be pesent when using "first" method
 Capybara.wait_on_first_by_default = true
-
-Capybara.default_max_wait_time = 5
+Capybara.default_max_wait_time = 2
 
 #Capybara.default_driver = :chrome
 #Capybara.javascript_driver = :firefox

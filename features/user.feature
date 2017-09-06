@@ -1,7 +1,5 @@
 Feature: Make sure I can sign up, sign in, sign out, etc.
 
-Background:
-
 
 #@wip
 #Not yet...
@@ -56,7 +54,7 @@ Scenario: Sign in as a non-admin and don't see option to modify people. Then log
   When I click "Sign out"
   And I sign in as an admin user
   And I wait 1 second
-  And I click on "People" within ".nav"
+  And I click on "People"
   Then I should see "Edit"
 
 Scenario: Don't see "edit this team" or "import OKRs" options when you're a non-admin
