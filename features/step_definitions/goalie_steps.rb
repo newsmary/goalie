@@ -14,7 +14,7 @@ end
 
 Given(/^the objective "([^"]*)" has a key result "([^"]*)"$/) do |obj_name, key_result_name|
   g = Goal.find_by(name: obj_name)
-  g.key_results << Goal.create!(name: key_result_name, team: g.team)
+  g.key_results << Goal.create!(name: key_result_name, team: g.team, end_date: Date.today.end_of_financial_quarter)
 end
 
 Given(/^the (?:key result|objective|goal) called "([^"]*)" is linked to the objective "([^"]*)"$/) do |source_name, target_name|

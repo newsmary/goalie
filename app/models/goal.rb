@@ -26,6 +26,7 @@ class Goal < ApplicationRecord
   has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
 
   after_save :check_child_dates
+  before_save :check_end_date
 
   def score
     scores.first
@@ -135,6 +136,18 @@ class Goal < ApplicationRecord
 =end
 
   private
+    #ensure the end date is the same as the parent
+    def check_end_date
+      if(parent.present? && end_date != parent.end_date)
+        end_date = parent.end_date
+      end
+
+      #default to end of this quarter if no date supplied
+      if !end_date.present?
+        end_date = Date.today.end_of_financial_quarter
+      end
+    end
+
     def check_child_dates
       self.children.each do |child|
         child.end_date = self.end_date

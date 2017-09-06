@@ -165,15 +165,21 @@ When(/^I click on link "([^"]+?)" number (\d+) within "([^"]+?)"$/) do |text, nu
 end
 
 #click on button or link within a selector
-When(/^I click (?:on )?"([^"]+?)" within "([^"]+?)"$/) do |link_to_click, css_selector|
-    #find(css_selector).click_on(link_to_click)
-    find_first_link_in(css_selector, link_to_click).click
+When(/^I click (?:on )?"([^"]+?)" within "([^"]+?)"$/) do |text, selector|
+  #find(css_selector).click_on(link_to_click)
+  #within(:css, css_selector)
+  #find_first_link_in(css_selector, link_to_click).click
+  #def find_first(text,selector)
+  node = first(selector)
+  node = all("#{selector} a",text:text).first unless node.present?
+  node = all(selector,text:text).first unless node.present?
+  node.click
 end
 
 #click on nth button or link within a selector
 When(/^I click on first "([^"]+?)"(?: link,) within "([^"]+?)"$/) do |link_to_click, css_selector|
 	#find_first_link_in(css_selector, link_to_click).trigger('click')
-	find_first_link_in(css_selector, link_to_click).click
+	find_first_link_in(css_selector, text:link_to_click).click
 end
 
 #click on text within a selector

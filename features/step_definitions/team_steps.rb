@@ -8,11 +8,11 @@ When(/^I visit the teams page$/) do
 end
 
 Given(/^the team called "([^"]*)" has an objective to "([^"]*)"$/) do |team_name, goal_name|
-  Team.find_by(name: team_name).objectives << Goal.create!(name: goal_name)
+  Team.find_by(name: team_name).objectives << Goal.create!(name: goal_name, end_date: Date.today.end_of_financial_quarter)
 end
 
 Given(/^I have a team called "([^"]*)" with an objective to "([^"]*)"$/) do |team_name, goal_name|
-  Goal.create!(name: goal_name, team: Team.find_or_create_by!(name: team_name))
+  Goal.create!(name: goal_name, end_date: Date.today.end_of_financial_quarter, team: Team.find_or_create_by!(name: team_name))
 end
 
 When(/^I nest the team "([^"]*)" under the team "([^"]*)"$/) do |child, parent|

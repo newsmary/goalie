@@ -37,7 +37,7 @@ namespace :db do
       #goal = Goal.create!(name: "#{verb.humanize} #{[*(1..500)].sample} #{noun} by #{end_date.strftime("%h %Y")}", start_date: start_date , deadline: end_date, owner: User.all.sample, group: group, team: team, parent: parent, sdp: rand > 0.9 ? true : false)
       name =  "#{verbs.sample.humanize} #{[*(1..500)].sample} #{nouns.sample} by #{verbs.sample.sub(/e$/,'')}ing #{[*(1..500)].sample} new #{nouns.sample.pluralize} and #{verbs.sample.sub(/e$/,'')}ing #{[*(1..500)].sample} new #{nouns.sample.pluralize}."
       puts name
-      goal = Goal.create!(name: name, team: team, parent: parent)
+      goal = Goal.create!(name: name, team: team, parent: parent, end_date: Date.today.end_of_financial_quarter)
 
       status = Status.all.sample
 

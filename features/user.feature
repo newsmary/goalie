@@ -1,8 +1,7 @@
 Feature: Make sure I can sign up, sign in, sign out, etc.
 
-Scenario: Make me sign in.
-  When I visit the homepage
-  Then I should see "Sign in"
+Background:
+
 
 #@wip
 #Not yet...
@@ -50,12 +49,13 @@ Scenario: Sign in and see my name, then sign out and don't see my name
   Then I should NOT see "Petronius"
 
 Scenario: Sign in as a non-admin and don't see option to modify people. Then log in as admin and see "edit", "destroy" buttons
-  Given I sign in as a non-admin user
+  Given I sign in as a non-admin user named "Joe" with the email "joe@wherever.com"
   And I click on "People" within ".nav"
   Then I should NOT see "Edit"
   And I should NOT see "Destroy"
   When I click "Sign out"
   And I sign in as an admin user
+  And I wait 1 second
   And I click on "People" within ".nav"
   Then I should see "Edit"
 
