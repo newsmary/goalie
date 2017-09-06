@@ -14,6 +14,9 @@ gem 'slim-rails'
 #override variables via .env
 gem 'dotenv-rails', :groups => [:development, :test]
 
+#for financial year calculations (e.g. next quarfter, etc)
+gem 'fiscali'
+
 
 #for truncating html
 gem 'truncate_html'

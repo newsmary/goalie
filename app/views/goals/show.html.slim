@@ -13,7 +13,7 @@
       p style="margin-top: 10px" =link_to "Objective: #{@goal.parent.name}", @goal.parent
     h2 = type.humanize
     h1 style="margin-top: 0" = @goal.name
-    p = @goal.body
+    p = my_sanitize(@goal.body)
     - if @goal.done?
       .panel.panel-primary.lessons
         .panel-heading 
@@ -30,7 +30,7 @@
             .hint  =time_ago_in_words(score.created_at).humanize + " ago"
             
           .col-sm-9
-            p =sanitize(score.display_reason, tags: %w(br strong em b i ul li))
+            p =my_sanitize(score.display_reason)
             - if is_admin?
               .small class="float:right"
                 = link_to "Edit", edit_goal_score_path(score.goal,score)
@@ -74,7 +74,7 @@
         /-if can_modify? @goal
         / =link_to "Make first progress update", new_goal_score_path(@goal), :class=>"btn btn-primary"
       - else
-        p =sanitize(@goal.score.display_reason, tags: %w(br strong em b i ul li))
+        p =my_sanitize(@goal.score.display_reason)
         / .hint Status: #{@goal.score.status.name}
         .hint 
           | #{time_ago_in_words(@goal.score.created_at).gsub(/about /i,"").humanize} ago by #{@goal.score.user.name}.

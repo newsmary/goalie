@@ -27,6 +27,7 @@ class GoalsController < ApplicationController
   # GET /goals/new
   def new
     @goal = Goal.new
+    @goal.end_date = Date.today.end_of_financial_quarter
     @goal.parent = Goal.find_by_id(params[:parent])
     #@goal.user = current_user #User.find(params[:user])
     #attempt to find a team if we've passed in an ID
@@ -124,6 +125,6 @@ class GoalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def goal_params
-      params.require(:goal).permit(:name, :parent_id, :body, :quarter, :team_id)
+      params.require(:goal).permit(:name, :parent_id, :body, :end_date, :team_id)
     end
 end

@@ -18,6 +18,17 @@ After do |scenario|
 	# pry.binding
 end
 
+#travel back to the correct time after runniung a @time_travel tagged step
+After('@time_travel') do
+  travel_back
+end
+
+Given(/^the current date is (.+)$/) do |time_string|
+  travel_to(Time.parse(time_string))
+end
+
+
+
 Then(/^I should see "([^"]*)" before "([^"]*)"$/) do |first_thing, second_thing|
   #make sure we see the first thing before the second thing...
   body.index(first_thing).should be < body.index(second_thing)

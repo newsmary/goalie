@@ -24,22 +24,38 @@
         p.label = link_to @goal.team.name,@goal.team
     =f.hidden_field :team_id, :value=> @goal.team.id
   .form-group
+    = f.label :quarter, class: "col-sm-2 control-label"
+    .col-sm-10
+      /= f.text_field :quarter, class: "form-control"
+      fieldset.inline
+        - #from -1 quarter to +2 quarters
+        - (-1..2).to_a.each do |offset_quarter|
+          - date = Date.today + ((offset_quarter*3).months)
+          - label = date.financial_quarter
+          - start_month_name = date.beginning_of_financial_quarter.strftime("%b")
+          - end_month_name = date.end_of_financial_quarter.strftime("%b")
+          - end_date = date.end_of_financial_quarter
+          label.block-label for="radio-inline-#{offset_quarter}"        
+            -if (@goal.end_date == end_date)
+              input title="#{label}" id="radio-inline-#{offset_quarter}" type="radio" checked="true" name="goal[end_date]" value="#{end_date}"
+                =label    
+                .hint 
+                  ' (#{start_month_name} - #{end_month_name})
+            - else
+              input title="#{label}" id="radio-inline-#{offset_quarter}" type="radio" name="goal[end_date]" value="#{end_date}"
+                =label    
+                .hint 
+                  ' (#{start_month_name} - #{end_month_name})
+              
+  .form-group
     = f.label :name, autofocus: true, class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_field :name, class: "form-control"
   .form-group
-    = f.label :body, class: "col-sm-2 control-label"
+    = f.label "Details", class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_area :body, class: "form-control"
-  /
-    .form-group
-      = f.label :quarter, class: "col-sm-2 control-label"
-      .col-sm-10
-        = f.text_field :quarter, class: "form-control"
-    .form-group
-      = f.label :team, class: "col-sm-2 control-label"
-      .col-sm-10
-        = f.text_field :team_id, class: "form-control"
+      .hint Additional detail about this goal. Use this for check-lists, etc. Line-breaks will be maintained.
   .form-group
     .col-sm-offset-2.col-sm-10
       #= f.submit class: "btn btn-primary", value: "Create #{type}"

@@ -11,4 +11,12 @@ class Team < ApplicationRecord
   has_many :favorites, :as => :favorable
   has_many :fans, :through => :favorites, :source => :user
 
+  def objectives_next_quarter
+    objectives.where(end_date: Date.today.next_financial_quarter.end_of_financial_quarter)
+  end
+
+  def objectives_this_quarter
+    objectives.where(end_date: Date.today.end_of_financial_quarter)
+  end
+
 end

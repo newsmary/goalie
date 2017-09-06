@@ -8,6 +8,10 @@ When(/^I visit the (?:key result|objective|goal) called "([^"]*)"$/) do |name|
   visit goal_path(Goal.find_by(name: name))
 end
 
+When(/^I visit the team called "([^"]*)"$/) do |name|
+  visit team_path(Team.find_by(name: name))
+end
+
 Given(/^the objective "([^"]*)" has a key result "([^"]*)"$/) do |obj_name, key_result_name|
   g = Goal.find_by(name: obj_name)
   g.key_results << Goal.create!(name: key_result_name, team: g.team)
