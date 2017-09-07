@@ -6,15 +6,17 @@ li
       p = goal.display_amount
   
   - if goal.has_children?
-    h3 Key Results
-    ol.sub_goals
-      - goal.children.each do |child|
-        li type="a" style="font-size: 1.8rem;"
-          .col-xs-9.sub_goal_col
-            = link_to child.name, child
-          .col-xs-3.sub_goal_col
-            .tiny_status style="background-color: #{child.status.hex_color}"
-              | &nbsp; 
-              = child.display_amount
+    a href="javascript:$('#krs_#{goal.id}').slideToggle()"
+      h3 Key Results
+    div id="krs_#{goal.id}" style="display: none"
+      ol.sub_goals
+        - goal.children.each do |child|
+          li type="a" style="font-size: 1.8rem;"
+            .col-xs-9.sub_goal_col
+              = link_to child.name, child
+            .col-xs-3.sub_goal_col
+              .tiny_status style="background-color: #{child.status.hex_color}"
+                | &nbsp; 
+                = child.status.name
 
-      /= link_to truncate_html(goal.name, length: 120).gsub(/^./,&:upcase), goal
+        /= link_to truncate_html(goal.name, length: 120).gsub(/^./,&:upcase), goal

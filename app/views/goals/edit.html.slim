@@ -3,5 +3,6 @@
   .col-md-8
     .page-header
       =link_to "&laquo; Back".html_safe, @goal
-      h1 Edit Goal
+      h1 Change this #{@goal.type}
+      p Use this form to make changes to this goal. Want to <a href="#{new_goal_score_path(@goal)}">report progress</a>?
     = render 'form'

@@ -111,11 +111,13 @@ class Goal < ApplicationRecord
   #end
 
   def next_goal
+    return unless siblings.present?
     current_index = siblings.to_a.index(self)
     siblings.to_a[current_index+1]
   end
 
   def previous_goal
+      return unless siblings.present?
       current_index = siblings.to_a.index(self)
       if(current_index > 0)
         siblings.to_a[current_index-1]

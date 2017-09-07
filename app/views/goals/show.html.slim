@@ -1,5 +1,5 @@
 = render 'breadcrumb'
-- type = @goal.parent.nil? ? "objective" : "key result"
+- type = @goal.type
 .row
   .col-xs-4
     == link_to "&laquo; Previous".html_safe, @goal.previous_goal if @goal.previous_goal
