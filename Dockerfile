@@ -33,7 +33,7 @@ RUN bundle install
 #taken from https://hub.docker.com/r/wernight/phantomjs/~/dockerfile/
 RUN set -x  \
     # Install official PhantomJS release
- && apt-get update \
+ # Redundant... we already do this above... && apt-get update \
  && apt-get install -y --no-install-recommends \
         curl \
  && mkdir /tmp/phantomjs \
