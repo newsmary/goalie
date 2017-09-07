@@ -4,7 +4,7 @@ Background:
     Given I've set up the default statuses
     And I sign in as a non-admin user
 
-@time_travel @javascript
+@time_travel
 Scenario: Let me assign an objective to the current or next quarter. But not previous...that would be rewriting history ;)
   Given the current date is 7 Sep 2017
   And I have a team called "GusGus"
