@@ -28,6 +28,10 @@ class GoalsController < ApplicationController
   def new
     @goal = Goal.new
     @goal.end_date = Date.today.end_of_financial_quarter
+    #if we're within a month of the end of the quarter, assume we're making a new goal for NEXT quarter
+    if(Date.today.end_of_financial_quarter - Date.today < 30)
+      @goal.end_date = Date.today.next_financial_quarter.end_of_financial_quarter
+    end
     @goal.parent = Goal.find_by_id(params[:parent])
     #@goal.user = current_user #User.find(params[:user])
     #attempt to find a team if we've passed in an ID

@@ -6,6 +6,7 @@ li
       p = goal.display_amount
   
   - if goal.has_children?
+    h3 Key Results
     ol.sub_goals
       - goal.children.each do |child|
         li type="a" style="font-size: 1.8rem;"

@@ -1,5 +1,9 @@
 FROM ruby:latest
 
+#make sure we don't get tripped up by any inherited proxies
+RUN unset HTTP_PROXY
+RUN unset HTTPS_PROXY
+
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs vim man postgresql-client
 
 #Nope, use sendmail on the host (port 25)... remember to start postfix on the host
@@ -9,10 +13,6 @@ RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs vi
 #TODO: how to install phantomjs in the container?
 #TODO: add phantomjs to path for "local" testing within web container
 #ENV PATH="/myapp/phantom/phantomjs-2.1.1-linux-x86_64/bin:${PATH}"
-
-#make sure we don't get tripped up by any inherited proxies
-RUN unset HTTP_PROXY
-RUN unset HTTPS_PROXY
 
 ENV APP_HOME /myapp
 RUN mkdir $APP_HOME
