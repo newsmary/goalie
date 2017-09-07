@@ -4,7 +4,7 @@
     .row
       .col-sm-12
         h1 =@team.name
-        p ==@team.body.to_s.gsub("\n","<BR>")
+        p =my_sanitize(@team.body.to_s.gsub("\n","<BR>"))
         p =link_to "Learn more", @team.url unless @team.url.to_s.empty?
         /p =link_to "Edit this team", edit_team_path(@team)
     -unless @team.children.empty? 
@@ -28,7 +28,7 @@
             span.glyphicon.glyphicon-alert
             |&nbsp;
             span.sr-only Oops:
-            | This team has no objectives.
+            | This team has no top-level objectives.
             | &nbsp;
             = link_to "Create the first objective.", new_goal_path(team: @team), class: "alert-link"
         - else
