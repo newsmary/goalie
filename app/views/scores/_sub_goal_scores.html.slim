@@ -3,18 +3,17 @@
     aside.related
       .row
         .col-xs-12
-          h3 Key result progress
+          h3 Progress on key results
       - @goal.sub_goals.each do |sub_goal|
         .row
           .col-xs-12
-            b =link_to sub_goal.name, sub_goal
+            b.name =link_to sub_goal.name, sub_goal
         .row
           .col-xs-4
-            .tiny_status
-              div style="height:100%; background-color: #{sub_goal.status.hex_color}"
-                = sub_goal.display_amount
+            .tiny_status style="padding: 2rem; background-color: #{sub_goal.status.hex_color}"
+              = sub_goal.display_amount
           .col-xs-8
-            .owner style="margin-top: 10px" =sub_goal.score.reason if sub_goal.score
+            uto=sub_goal.score.reason if sub_goal.score
         .row
           .col-xs-12
             hr

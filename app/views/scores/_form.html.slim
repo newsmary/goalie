@@ -30,8 +30,6 @@ ul#errorBox.alert.alert-danger.alert-dismissable style="display: none"
   .form-group
     = f.label :status, class: "col-sm-2 control-label"
     .col-sm-10
-      fieldset.inline
-        /legend.visuallyhidden Please select a status
       - Status.all.each do |status|
           label.block-label for="radio-inline-#{status.id}" style="background: #{status.hex_color}; color: #fff"
             /=f.radio_button :goal_status, key %>          
@@ -39,7 +37,20 @@ ul#errorBox.alert.alert-danger.alert-dismissable style="display: none"
               input title="#{status.description}" onclick="toggleLessonsLearned('#{status.name}')" id="radio-inline-#{status.id}" type="radio" checked="true" name="score[status_id]" value="#{status.id}" #{status.name.humanize.capitalize}    
             - else
               input title="#{status.description}" onclick="toggleLessonsLearned('#{status.name}')" id="radio-inline-#{status.id}" type="radio" name="score[status_id]" value="#{status.id}" #{status.name.humanize.capitalize}    
-  
+      br style="clear:both"
+        .pull-right
+        	= link_to "What do these statuses mean?", "javascript:$('#status_expo').slideToggle()"
+      #status_expo style="display: none"
+        table.table.table-striped style="margin-top: 2rem;"
+          - Status.all.each do |status|
+            tr
+              td style="color: #fff; background: #{status.hex_color}"
+                b =status.name
+              td
+                =status.description
+        - if is_admin?
+          .pull-right
+            =link_to "Edit statuses", statuses_path
   #reason.form-group
     = f.label :Comments, class: "col-sm-2 control-label"
     .col-sm-10

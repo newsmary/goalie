@@ -36,7 +36,8 @@ class ScoresController < ApplicationController
       #copy it
       @score = @goal.score.dup
       #but not the comments... want people to make new ones
-      @score.reason = ''
+      @score.reason = @score.learnings =  ''
+
     else
       #make a blank one
       @score = Score.new
