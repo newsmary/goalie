@@ -1,5 +1,15 @@
+class DateValidator < ActiveModel::Validator
+  def validate(record)
+    #If the selected status requires lessons learned, make sure we have some before saving
+    if record.parent.present? && record.end_date != record.parent.end_date
+      record.errors[:base] << "End date must match parent end date."
+    end
+  end
+end
 class Goal < ApplicationRecord
   validates :name, presence: true
+  validates_with DateValidator
+
 
   has_many :links
   has_many :linked_goals, through: :links
@@ -25,8 +35,7 @@ class Goal < ApplicationRecord
 
   has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
 
-  after_save :check_child_dates
-  before_save :check_end_date
+  before_validation :check_end_dates
 
   def score
     scores.first
@@ -112,13 +121,13 @@ class Goal < ApplicationRecord
 
   def next_goal
     return unless siblings.present?
-    current_index = siblings.to_a.index(self)
+    current_index = siblings.to_a.index(self).to_i
     siblings.to_a[current_index+1]
   end
 
   def previous_goal
       return unless siblings.present?
-      current_index = siblings.to_a.index(self)
+      current_index = siblings.to_a.index(self).to_i
       if(current_index > 0)
         siblings.to_a[current_index-1]
       end
@@ -139,22 +148,23 @@ class Goal < ApplicationRecord
 
   private
     #ensure the end date is the same as the parent
-    def check_end_date
-      if(parent.present? && end_date != parent.end_date)
-        end_date = parent.end_date
+    def check_end_dates
+        #default to end of this quarter if no date supplied
+      if !self.end_date.present?
+        self.end_date = Date.today.end_of_financial_quarter
       end
 
-      #default to end of this quarter if no date supplied
-      if !end_date.present?
-        end_date = Date.today.end_of_financial_quarter
+      if self.parent.present?
+        self.end_date = self.parent.end_date
+        #raise self.end_date.to_s
       end
-    end
 
-    def check_child_dates
+      #update children to match
       self.children.each do |child|
-        child.end_date = self.end_date
-        child.save!
+        #skip callbacks
+        child.update_column(:end_date, self.end_date)
       end
+
     end
 
 end

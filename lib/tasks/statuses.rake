@@ -2,6 +2,10 @@ namespace :statuses do
   desc "Tasks for pre-loading default status data."
   # Colors taken from here http://www.bbc.co.uk/gel/guidelines/how-to-design-infographics
   task seed: :environment do
+    #Danger!
+    Status.destroy_all
+
+    #now create
     Status.create!([{
       name: "Not started",
       description: "We haven't started working on this, yet.",

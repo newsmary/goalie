@@ -19,7 +19,7 @@ namespace :db do
       #make_sub_goals(nil,0)
 
       Team.all.each do |team|
-        [*(1..4)].sample.times do
+        [*(1..7)].sample.times do
           g = new_goal(nil,team)
           make_sub_goals(g,1)
         end
@@ -36,8 +36,16 @@ namespace :db do
       #end_date = start_date + [0,1,3,3,3,4,5,5,6,6,7,8,9,10,11].sample.to_i.months  #could produce dates WAAAY into the future...
       #goal = Goal.create!(name: "#{verb.humanize} #{[*(1..500)].sample} #{noun} by #{end_date.strftime("%h %Y")}", start_date: start_date , deadline: end_date, owner: User.all.sample, group: group, team: team, parent: parent, sdp: rand > 0.9 ? true : false)
       name =  "#{verbs.sample.humanize} #{[*(1..500)].sample} #{nouns.sample} by #{verbs.sample.sub(/e$/,'')}ing #{[*(1..500)].sample} new #{nouns.sample.pluralize} and #{verbs.sample.sub(/e$/,'')}ing #{[*(1..500)].sample} new #{nouns.sample.pluralize}."
-      puts name
-      goal = Goal.create!(name: name, team: team, parent: parent, end_date: Date.today.end_of_financial_quarter)
+
+      #fix syntax highlighting weirdness (below)
+      #"
+
+
+      end_date = (Date.today + (6.months - (rand * 12).to_i.months)).end_of_financial_quarter
+      puts name + " " + end_date.to_s
+
+
+      goal = Goal.create!(name: name, team: team, parent: parent, end_date: end_date)
 
       status = Status.all.sample
 
@@ -69,6 +77,13 @@ namespace :db do
       end
     end
 
+    task clean: [:environment] do
+      #remove only the test accounts we've created.
+      #this leaves any accounts we've created by logging in manually
+      Goal.destroy_all
+      User.where("email like ?","%test.com%").destroy_all
+    end
+
     task warn: [:environment] do
       #puts "WARNING: This may erase/overwrite existing data. Press enter to continue."
       #STDIN.gets
@@ -79,12 +94,7 @@ namespace :db do
       Rake::Task['statuses:seed'].invoke
     end
 
-    task users: [:environment, :warn] do
-      #remove only the test accounts we've created.
-      #this leaves any accounts we've created by logging in manually
-      Goal.destroy_all
-      User.where("email like ?","%test.com%").destroy_all
-
+    task users: [:environment, :clean, :warn] do
       #admin user
       u = User.new(name: 'Suzy Admin', admin: true, email: "email0@test.com")
       u.skip_confirmation!
@@ -98,7 +108,7 @@ namespace :db do
       end
     end
 
-    task :all => [:statuses, :warn, :users, :teams, :goals]
+    task :all => [:clean, :statuses, :warn, :users, :teams, :goals]
 
   end
 end

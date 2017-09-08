@@ -19,4 +19,5 @@ class Team < ApplicationRecord
     objectives.where(end_date: Date.today.end_of_financial_quarter)
   end
 
+
 end
