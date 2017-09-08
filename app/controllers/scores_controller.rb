@@ -35,10 +35,13 @@ class ScoresController < ApplicationController
     if @goal.score
       #copy it
       @score = @goal.score.dup
+      #but not the comments... want people to make new ones
+      @score.reason = ''
     else
       #make a blank one
       @score = Score.new
       @score.status = Status.first
+
       #assign it to this goal
       @score.goal = @goal
     end

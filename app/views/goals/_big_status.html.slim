@@ -1,7 +1,7 @@
 ul.actions
   li = link_to "Report progress on #{goal.type}", new_goal_score_path(goal)
 .big_goal_meta
-  .big_status style="background: #{goal.status.hex_color}" title="#{goal.status.description}"
+  .big_status style="background: #{goal.status.hex_color}" title="#{goal.status.description}"  onclick="window.location.assign('#{new_goal_score_path(goal)}')"
     h4 = goal.status.name.humanize.capitalize
     h3 = goal.display_amount
   - if(goal.scores.empty?)

@@ -1,6 +1,6 @@
-li
-  .goal_col
-    .col-xs-9.goal_name
+li 
+  .goal_col.hover onclick="window.location.assign('#{url_for(goal)}')"
+    .col-xs-9
       = link_to goal.name, goal
     .col-xs-3.tiny_status style="background-color: #{goal.status.hex_color}"
       p = goal.display_amount
@@ -11,12 +11,12 @@ li
     div id="krs_#{goal.id}" style="display: none"
       ol.sub_goals
         - goal.children.each do |child|
-          li type="a" style="font-size: 1.8rem;"
-            .col-xs-9.sub_goal_col
-              = link_to child.name, child
-            .col-xs-3.sub_goal_col
-              .tiny_status style="background-color: #{child.status.hex_color}"
+          li type="a" style="font-size: 1.8rem" onclick="window.location.assign('#{url_for(child)}')"
+            .goal_col.hover
+              .col-xs-9 
+                = link_to child.name, child
+              .col-xs-3.tiny_status style="background-color: #{child.status.hex_color}"
                 | &nbsp; 
                 = child.status.name
 
-        /= link_to truncate_html(goal.name, length: 120).gsub(/^./,&:upcase), goal
+          /= link_to truncate_html(goal.name, length: 120).gsub(/^./,&:upcase), goal
