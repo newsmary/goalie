@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/admin', to: "admin#index"
+
   devise_for :users, sign_out_via: [:get, :post, :delete], :controllers => { :registrations => "registrations" }, :path_prefix => 'auth'
   #resources :users
 
@@ -6,6 +8,7 @@ Rails.application.routes.draw do
   #resources :goals
   resources :teams do
     post 'import_okrs', on: :member
+    get 'show_export', on: :collection
     #get 'import_okrs', on: :member
   end
 

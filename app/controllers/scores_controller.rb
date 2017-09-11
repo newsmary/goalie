@@ -8,6 +8,20 @@ class ScoresController < ApplicationController
     @scores = Score.all
     #redirect to goal
     #redirect_to Goal.find(params[:goal_id])
+    respond_to do |format|
+      format.html
+      format.csv { export }
+    end
+  end
+
+  #todo...dry this up, too.
+  def export
+    #show the export if we're testing so that cucumber can look at it...
+    if(ENV['RAILS_ENV'] == 'test')
+      render plain: "<pre>" + Score.to_csv
+    else
+      send_data Score.to_csv, filename: "scores-#{Date.today}.csv"
+    end
   end
 
   # GET /scores/1

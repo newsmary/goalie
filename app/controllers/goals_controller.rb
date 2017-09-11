@@ -5,6 +5,21 @@ class GoalsController < ApplicationController
   # GET /goals.json
   def index
     @goals = Goal.all
+
+    respond_to do |format|
+      format.html
+      format.csv { export }
+    end
+  end
+
+  #todo...dry this up, too.
+  def export
+    #show the export if we're testing so that cucumber can look at it...
+    if(ENV['RAILS_ENV'] == 'test')
+      render plain: "<pre>" + Goal.to_csv
+    else
+      send_data Goal.to_csv, filename: "goals-#{Date.today}.csv"
+    end
   end
 
   # GET /goals/1

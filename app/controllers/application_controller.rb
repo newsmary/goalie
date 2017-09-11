@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
 
   def is_admin?
-    current_user.admin? #signed_in? && current_user.admin?
+    current_user.present? && current_user.admin? #signed_in? && current_user.admin?
   end
 
   def check_admin

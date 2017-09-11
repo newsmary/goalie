@@ -2,7 +2,7 @@ When(/^I sign in as a non-admin user$/) do
   create_user_and_sign_in("Non Admin","test@test.com")
 end
 
-Given(/^I sign in as a non\-admin user named "([^"]*)" with the email "([^"]*)"$/) do |name, email|
+Given(/^I sign in as a non\-admin (?:user )?named "([^"]*)" with the email "([^"]*)"$/) do |name, email|
   create_user_and_sign_in(name, email)
 end
 
@@ -10,7 +10,7 @@ Given(/^the allowable domain is "([^"]*)"$/) do |domain|
   Rails.application.config.valid_email_domain = domain
 end
 
-When(/^I sign in as an admin user$/) do
+When(/^I sign in as an (?:admin user)?(?:administrator)?$/) do
   create_user_and_sign_in("Admin person","admin@test.com", true)
 end
 

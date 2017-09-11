@@ -1,6 +1,7 @@
 .row
   .col-md-8
-    =link_to "&laquo; Back".html_safe, @goal
+    =render "breadcrumb"
+    / =link_to "&laquo; Back".html_safe, @goal
     h1 Report progress on this #{@goal.type}
     .panel.panel-default
       .panel-body

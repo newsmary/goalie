@@ -19,5 +19,17 @@ class Team < ApplicationRecord
     objectives.where(end_date: Date.today.end_of_financial_quarter)
   end
 
+  def self.to_csv
+    require 'csv'
+    attributes = %w{id name body parent_id}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes #headers
+
+      all.each do |team|
+        csv << attributes.map{ |attr| team.send(attr) }
+      end
+    end
+  end
 
 end

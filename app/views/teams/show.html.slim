@@ -33,7 +33,7 @@
             = link_to "Create the first objective.", new_goal_path(team: @team), class: "alert-link"
         - else
           - @team.objectives.pluck(:end_date).uniq.each do |end_date|
-            H2 #{"Objective".pluralize(@team.objectives.count)} for #{end_date.financial_quarter}
+            h2.underlined #{"Objective".pluralize(@team.objectives.count)} for #{end_date.financial_quarter}
             ol.goal
               == render @team.objectives.where(end_date: end_date)
   .col-sm-3

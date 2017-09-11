@@ -1,11 +1,28 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
   before_action :check_admin, only: [:update, :destroy, :edit]
-  
+  before_action(:only=> :index) do |controller|
+    check_admin unless controller.request.format.html?
+  end
+
   # GET /people
   # GET /people.json
   def index
     @people = Person.all.page params[:page]
+    respond_to do |format|
+      format.html
+      format.csv { export }
+    end
+  end
+
+  #todo...dry this up, too.
+  def export
+    #show the export if we're testing so that cucumber can look at it...
+    if(ENV['RAILS_ENV'] == 'test')
+      render plain: "<pre>" + Person.to_csv
+    else
+      send_data Person.to_csv, filename: "people-#{Date.today}.csv"
+    end
   end
 
   # GET /people/1

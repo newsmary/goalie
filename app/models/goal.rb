@@ -9,7 +9,7 @@ end
 class Goal < ApplicationRecord
   validates :name, presence: true
   validates_with DateValidator
-
+  include Export
 
   has_many :links
   has_many :linked_goals, through: :links
@@ -131,6 +131,15 @@ class Goal < ApplicationRecord
       if(current_index > 0)
         siblings.to_a[current_index-1]
       end
+  end
+
+
+  def self.to_csv
+    self.csv_export("id created_at name body team_id team_name user_id parent_id")
+  end
+
+  def team_name
+    team.name
   end
 
 =begin

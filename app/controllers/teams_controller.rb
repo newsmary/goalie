@@ -6,6 +6,11 @@ class TeamsController < ApplicationController
   # GET /teams.json
   def index
     @teams = Team.where(parent: nil)
+
+    respond_to do |format|
+      format.html
+      format.csv { export }
+    end
   end
 
   # GET /teams/1
@@ -113,6 +118,15 @@ class TeamsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_team
       @team = Team.find(params[:id])
+    end
+
+    def export
+      #show the export if we're testing so that cucumber can look at it...
+      if(ENV['RAILS_ENV'] == 'test')
+        render plain: "<pre>" + Team.to_csv
+      else
+        send_data Team.to_csv, filename: "teams-#{Date.today}.csv"
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

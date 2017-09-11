@@ -9,6 +9,7 @@ end
 
 
 class Score < ApplicationRecord
+  include Export
   belongs_to :user
   belongs_to :goal
   belongs_to :status
@@ -23,4 +24,35 @@ class Score < ApplicationRecord
     #sanitize(reason.gsub(/\r\n/,"<br>"), tags: %w(br strong em b i ul li))
   end
 
+  def status_name
+    status.name
+  end
+
+  def goal_name
+    goal.name
+  end
+
+  def self.to_csv
+    self.csv_export("id created_at goal_id goal_name amount status_name status_id reason learnings user_id user_name")
+  end
+
+  def user_name
+    user.name
+  end
+
+  #todo: DRY this into a concern
+=begin
+  def self.to_csv
+    require 'csv'
+    attributes = %w{id created_at goal_id goal_name amount status_name status_id reason learnings user_id user_name}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes #headers
+
+      all.each do |line|
+        csv << attributes.map{ |attr| line.send(attr) }
+      end
+    end
+  end
+=end
 end

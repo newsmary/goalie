@@ -4,7 +4,11 @@ class Person < ApplicationRecord
   default_scope { order(:name) }
   validates :email, uniqueness: true
   has_many :goals, foreign_key: "user_id"
+  include Export
 
   paginates_per 15
 
+  def self.to_csv
+    self.csv_export("id created_at name email")
+  end
 end

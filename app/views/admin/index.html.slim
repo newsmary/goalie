@@ -1,0 +1,15 @@
+.row
+  .col-md-8
+    h1 Administrator area
+    p Hello special admin person. This are contains useful reports and methods that apply to the whole tool. Use with caution.
+    
+    h2.underlined CSV Export
+    p Use the options below to export data to CSV for archiving, analysis, etc.
+    ul.actions
+      /li = link_to "Export teams", show_export_teams_path 
+      li = link_to "Export teams", teams_path(format: :csv) 
+      /
+      li = link_to "Export OKRs", goals_path(format: :csv)
+      li = link_to "Export scores and progress updates", scores_path(format: :csv) 
+      li = link_to "Export user accounts", people_path(format: :csv)
+      / #admin_export_teams_path
