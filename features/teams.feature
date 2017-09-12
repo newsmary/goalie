@@ -8,7 +8,6 @@ Scenario: See teams
   Given I visit "/teams"
   Then I should see "Teams" within "h1"
 
-
 Scenario: Disallow empty and duplicate team names
   Given I visit "/teams"
   And I click "New team"

@@ -8,6 +8,7 @@ Background:
 Scenario: Let me assign an objective to the current or next quarter. But not previous...that would be rewriting history ;)
   Given the current date is 7 Sep 2017
   And I have a team called "GusGus"
+  And I wait 2 seconds
   When I visit the team called "GusGus"
   And I click on "Add a new objective"
   Then I should see "Quarter"

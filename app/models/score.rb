@@ -19,7 +19,7 @@ class Score < ApplicationRecord
   validates_with LessonsLearnedValidator
 
   HEADERS = %w{id created_at goal_id goal_name amount status_name status_id reason learnings user_id user_name}
-  
+
   def display_reason
     reason.gsub(/\r\n/,"<br>")
     #sanitize(reason.gsub(/\r\n/,"<br>"), tags: %w(br strong em b i ul li))

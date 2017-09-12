@@ -8,17 +8,18 @@
     ol.actions
       /li = link_to "Export teams", show_export_teams_path 
       li = link_to "Export teams", teams_path(format: :csv) 
-      /
+      li = link_to "Export user accounts", people_path(format: :csv)
+      li = link_to "Export statuses", statuses_path(format: :csv) 
       li = link_to "Export OKRs", goals_path(format: :csv)
       li = link_to "Export scores and progress updates", scores_path(format: :csv) 
-      li = link_to "Export user accounts", people_path(format: :csv)
       / #admin_export_teams_path
 
     h2.underlined CSV Import
     p To import data, upload eacn exported CSV file in the following order:
     ol.actions
-      li Users
       li Teams
+      li Users
+      li Statuses
       li Goals
       li Scores
     p This will <b>Update</b> rows with a matching id and <b>create new</b> rows where no id can be found. If in doubt, clear the data first.

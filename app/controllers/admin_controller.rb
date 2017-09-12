@@ -21,29 +21,15 @@ class AdminController < ApplicationController
       elsif headers.sort == Goal::HEADERS.sort
         msg = Goal.import(params[:file])
         type = "goal"
+      elsif headers.sort == Status::HEADERS.sort
+        msg = Status.import(params[:file])
+        type = "status"
       elsif headers.sort == Score::HEADERS.sort
         msg = Score.import(params[:file])
-        type = "goal"
+        type = "score"
       else
         msg = "No valid headers found in your file. Please check that your CSV has the required headers and try again."
       end
-
-=begin
-      if headers.sort == Goal.HEADERS.sort
-        msg = Goal.import_okrs(params[:file])
-      end
-
-      if headers.sort == User.HEADERS.sort
-        msg = User.import_okrs(params[:file])
-      end
-
-      if headers.sort == Score.HEADERS.sort
-        msg = Score.import_okrs(params[:file])
-      end
-=end
-
-      #msg = Goal.import_okrs(params[:file])
-      #missing_cols = required_cols - CSV.read(file.path,headers: true).headers
 
       if(msg.to_s.empty? && type.present?)
         redirect_to admin_path, notice: "Successfully imported #{type}."

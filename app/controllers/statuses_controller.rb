@@ -6,7 +6,24 @@ class StatusesController < ApplicationController
   # GET /statuses.json
   def index
     @statuses = Status.all
+
+    respond_to do |format|
+      format.html
+      format.csv { export }
+    end
+
   end
+
+  #todo...dry this up, too.
+  def export
+    #show the export if we're testing so that cucumber can look at it...
+    if(ENV['RAILS_ENV'] == 'test')
+      render plain: "<pre>" + Status.to_csv
+    else
+      send_data Status.to_csv, filename: "statuses-#{Date.today}.csv"
+    end
+  end
+
 
   # GET /statuses/1
   # GET /statuses/1.json

@@ -14,9 +14,10 @@ Scenario: Import Users
   When I click on "People" within ".nav"
   Then I should see "Mabuse"
 
-@wip
+#TODO: a scenario that tests updating data based on an import
 Scenario: Import goals & scores
   When I import teams
+  When I import statuses
   And I import people
   And I import goals
   Then I should see "Successfully imported"

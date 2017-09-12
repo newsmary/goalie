@@ -14,8 +14,8 @@ Scenario: Link a couple of objectives to a primary objective
   Then I should see "Related goals"
   And I should see "Eat brains!" within "h3"
   When I fill in "related_name" with "sneaky"
-  #And debug
-  And I click on "Search" within ".big_form .btn"
+  #Search button technically has no text... makes this semantically weird.
+  And I click on "" within ".big_form .btn"
   #And I wait 1 seconds
   #And debug
   Then I should see "Be sneaky!"
@@ -30,7 +30,7 @@ Scenario: Link a couple of objectives to a primary objective
   And I click "Edit related goals"
   #search in lower case...
   When I fill in "related_name" with "walk"
-  And I click "Search" within ".big_form .btn"
+  And I click on "" within ".big_form .btn"
   Then I should see "Tortoise" within ".results"
   When I click "Link to this" within ".results"
   And I click on "Be sneaky!"

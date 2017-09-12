@@ -1,5 +1,5 @@
 class Team < ApplicationRecord
-  validates :name, presence: true, uniqueness: { scope: :parent_id,message: "should be unique within the scope of its parent." }
+  validates :name, presence: true, uniqueness: { scope: :parent_id,message: "must be unique within the scope of its parent." }
 
   default_scope{ order('name') }
   has_many :goals
