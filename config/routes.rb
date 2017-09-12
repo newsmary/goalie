@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get '/admin', to: "admin#index"
+  post '/admin/import'
 
   devise_for :users, sign_out_via: [:get, :post, :delete], :controllers => { :registrations => "registrations" }, :path_prefix => 'auth'
   #resources :users

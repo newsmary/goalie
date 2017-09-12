@@ -29,7 +29,7 @@
         .row.score
           .col-sm-3
             .tiny_status
-              div style="background: #{score.status.hex_color}"
+              div style="width: 100%; background: #{score.status.hex_color}"
                 b = score.status.name.humanize.capitalize
             .hint  =time_ago_in_words(score.created_at).humanize + " ago"
             

@@ -22,7 +22,7 @@ Scenario: Disallow empty and duplicate team names
   And I click on "New team"
   And I fill in "team[name]" with "The Condors"
   And I click "Create Team"
-  Then I should see "Name has already been taken"
+  Then I should see "must be unique"
 
 Scenario: Rename a team
   Given I have a team called "The Kinks"
