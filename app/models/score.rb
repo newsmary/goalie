@@ -9,7 +9,7 @@ end
 
 
 class Score < ApplicationRecord
-  include Export
+  include ImportExport
   belongs_to :user
   belongs_to :goal
   belongs_to :status
@@ -18,6 +18,7 @@ class Score < ApplicationRecord
   #validates_presence_of :lessons, :if => lambda {self.status && self.status.require_learnings?}
   validates_with LessonsLearnedValidator
 
+  HEADERS = %w{id created_at goal_id goal_name amount status_name status_id reason learnings user_id user_name}
 
   def display_reason
     reason.gsub(/\r\n/,"<br>")
@@ -30,10 +31,6 @@ class Score < ApplicationRecord
 
   def goal_name
     goal.name
-  end
-
-  def self.to_csv
-    self.csv_export("id created_at goal_id goal_name amount status_name status_id reason learnings user_id user_name")
   end
 
   def user_name

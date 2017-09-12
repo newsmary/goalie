@@ -38,6 +38,11 @@ When(/^I fill in "([^"]*)" with "([^"]*)"$/) do |field_name, content|
   fill_in field_name, :with=>content
 end
 
+#file attach
+When(/^I attach "([^"]*)" to the field called "([^"]*)"$/) do |file_path, field_name|
+  attach_file(field_name,"#{ENV['RAILS_ROOT']}/#{file_path}")
+end
+
 #NOTE: this is custom to work with bootstrap-select-rails select boxes
 #This only works because the drop-down in question is the first one.
 #hence we can click "Please select" to open the dropdown.
@@ -165,13 +170,14 @@ When(/^I click on link "([^"]+?)" number (\d+) within "([^"]+?)"$/) do |text, nu
 end
 
 #click on button or link within a selector
-When(/^I click (?:on )?"([^"]+?)" within "([^"]+?)"$/) do |text, selector|
+When(/^I click (?:on )?"([^"]*?)" within "([^"]+?)"$/) do |text, selector|
   #find(css_selector).click_on(link_to_click)
   #within(:css, css_selector)
   #find_first_link_in(css_selector, link_to_click).click
   #def find_first(text,selector)
-  node = first(selector)
-  node = all("#{selector} a",text:text).first unless node.present?
+  #node = first(selector)
+  node = all("#{selector} a",text:text).first #unless node.present?
+  node = all("#{selector} input",text:text).first unless node.present?
   node = all(selector,text:text).first unless node.present?
   node.click
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170906083342) do
+ActiveRecord::Schema.define(version: 20170912153328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20170906083342) do
     t.integer "parent_id"
     t.bigint "user_id"
     t.date "end_date"
+    t.bigint "imported_id"
     t.index ["team_id"], name: "index_goals_on_team_id"
     t.index ["user_id"], name: "index_goals_on_user_id"
   end
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(version: 20170906083342) do
     t.datetime "updated_at", null: false
     t.text "description"
     t.boolean "require_learnings"
+    t.bigint "imported_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -78,6 +80,7 @@ ActiveRecord::Schema.define(version: 20170906083342) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "parent_id"
+    t.bigint "imported_id"
     t.index ["parent_id"], name: "index_teams_on_parent_id"
   end
 
@@ -103,6 +106,7 @@ ActiveRecord::Schema.define(version: 20170906083342) do
     t.datetime "updated_at", null: false
     t.string "name", null: false
     t.boolean "admin"
+    t.bigint "imported_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

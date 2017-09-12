@@ -1,6 +1,6 @@
 class GoalsController < ApplicationController
   before_action :set_goal, only: [:unlink, :show, :favorite, :edit, :update, :destroy]
-
+  
   # GET /goals
   # GET /goals.json
   def index

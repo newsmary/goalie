@@ -1,5 +1,5 @@
 class Team < ApplicationRecord
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { scope: :parent_id,message: "must be unique within the scope of its parent." }
 
   default_scope{ order('name') }
   has_many :goals
@@ -10,6 +10,10 @@ class Team < ApplicationRecord
 
   has_many :favorites, :as => :favorable
   has_many :fans, :through => :favorites, :source => :user
+  include ImportExport
+
+  #required fields for CSV  export
+  HEADERS = %w{id name body parent_id}
 
   def objectives_next_quarter
     objectives.where(end_date: Date.today.next_financial_quarter.end_of_financial_quarter)
@@ -18,18 +22,4 @@ class Team < ApplicationRecord
   def objectives_this_quarter
     objectives.where(end_date: Date.today.end_of_financial_quarter)
   end
-
-  def self.to_csv
-    require 'csv'
-    attributes = %w{id name body parent_id}
-
-    CSV.generate(headers: true) do |csv|
-      csv << attributes #headers
-
-      all.each do |team|
-        csv << attributes.map{ |attr| team.send(attr) }
-      end
-    end
-  end
-
 end

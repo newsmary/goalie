@@ -13,6 +13,13 @@ Scenario: Export teams
   And I click on "Export teams"
   Then I should see "Peck peck peck peck"
 
+Scenario: Export statuses
+  When I sign in as an administrator
+  And I click on "Admin"
+  And I click on "Export statuses"
+  Then I should see "no issues to report"
+  And I should see "Help!"
+
 Scenario: Export scores
   Given I sign in as a non-admin user named "Peter" with the email "peter@wherever.com"
   #make sure status matches whatever is in your seeds
