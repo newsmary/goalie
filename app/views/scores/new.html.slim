@@ -2,11 +2,12 @@
   .col-md-8
     =render "breadcrumb"
     / =link_to "&laquo; Back".html_safe, @goal
-    h1 Report progress on this #{@goal.type}
+    h1 Report progress
     .panel.panel-default
       .panel-body
+        h3 =@goal.type.humanize
         h2 =@goal.name
-    .hint Use this form to record the current status and report progress towards reaching this goal. Progress reports (updates) are cumulative and immutable.
+    .hint Use this form to record the current status and report progress towards reaching this #{@goal.type}. Progress reports (updates) are cumulative and immutable.
 .row
   .col-md-8
     hr

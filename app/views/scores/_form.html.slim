@@ -26,7 +26,7 @@ ul#errorBox.alert.alert-danger.alert-dismissable style="display: none"
       = f.text_field :amount, class: "form-control bignum", style: "display:inline"
       .bignum_suffix %
       br
-      .form-hint An integer to represent (roughly) how well this goal is being met (e.g. 50 if you're half-way).
+      .form-hint An integer to represent (roughly) how well this #{@goal.type} is being met (e.g. 50 if you're half-way).
   .form-group
     = f.label :status, class: "col-sm-2 control-label"
     .col-sm-10
@@ -63,7 +63,7 @@ ul#errorBox.alert.alert-danger.alert-dismissable style="display: none"
     = f.label 'Lessons learned', class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_area :learnings, class: "form-control bigtext", onKeyUp: "wordsLeft(this,'#learnings .words-left')"
-      .form-hint Please share what you've learned by working on this goal. What will you do differently in the future? #{max_word_count} words max.
+      .form-hint Please share what you've learned by working on this #{@goal.type}. What will you do differently in the future? #{max_word_count} words max.
       .words-left 
       
   .form-group
@@ -106,7 +106,7 @@ ul#errorBox.alert.alert-danger.alert-dismissable style="display: none"
       }
       
       if (amount < 0) {
-        alert("Uh.... you did less than zero against this goal? That sounds pretty bad. We should talk. Wanna try again?");
+        alert("Uh.... you did less than zero against this #{@goal.type} ? That sounds pretty bad. We should talk. Wanna try again?");
         elements['submit'].disabled = false;
         elements['submit'].value = "Save";
         return(false);

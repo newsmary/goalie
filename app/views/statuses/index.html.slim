@@ -10,7 +10,11 @@
     thead
       tr 
         th
+          | Id
+        th
           | Name
+        th
+          | Updates using this status
         th
           | Description
         th
@@ -25,8 +29,10 @@
     tbody
       - @statuses.each do | status |
         tr
+          td = status.id
           td
             b = status.name
+          td = Score.where(status: status).count
           td
             = status.description
           td

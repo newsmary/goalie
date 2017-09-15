@@ -24,6 +24,8 @@ class AdminController < ApplicationController
       elsif headers.sort == Status::HEADERS.sort
         msg = Status.import(params[:file])
         type = "status"
+        #clean up any statuses with the same name...
+        #TODO: Status.consolidate
       elsif headers.sort == Score::HEADERS.sort
         msg = Score.import(params[:file])
         type = "score"

@@ -1,6 +1,8 @@
 class GoalsController < ApplicationController
   before_action :set_goal, only: [:unlink, :show, :favorite, :edit, :update, :destroy]
-  
+  #let anyone modify/destroy a goal for now. TODO: archive and make "inactive" instead of destroying. Only admins can destroy.
+  #before_action :check_admin, only: [:destroy]
+
   # GET /goals
   # GET /goals.json
   def index

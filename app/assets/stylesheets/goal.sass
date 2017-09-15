@@ -6,12 +6,23 @@ ol.goal
     font-size: 2rem
     line-height: 2.8rem
     clear: both
+    margin-bottom: 1rem
     .goal_col
       width: 100%
       display: inline-flex
-      margin-bottom: 1rem
+      margin-bottom: 0
+    .key_result, .sub_goals
+      font-size: 1.5rem
+      margin-bottom: 5rem
+      .status
+        padding: 0
+        margin-bottom: 1rem
+        font-size: 1.6rem
+        line-height: 2.1rem
+        margin-bottom: 1rem
 
-  h3
+  a.kr_toggle
+    font-size: 1.2rem
     margin-top: 0.6rem
     margin-bottom: 2.5rem
 
@@ -27,6 +38,9 @@ ol.goal
     margin-bottom: 0.2rem
 
 .big_goal_meta
+  h3.reason
+    margin-top: 0
+    line-height: 2.5rem
   h4
     font-weight: bold
     margin-top: 1.2rem
@@ -78,7 +92,7 @@ ol.goal
   p
     display: block
     margin: auto
-    font-size: 2.5rem
+    font-size: 2rem
     color: #fff
 
 .sub_goals .tiny_status
@@ -86,15 +100,6 @@ ol.goal
   float: right
 
 
-.sub_goals
-  margin-bottom: 5rem
-  .status
-    padding: 0
-    margin-bottom: 1rem
-    font-size: 1.6rem
-    line-height: 2.1rem
-    margin-bottom: 1rem
-  li
 
 .hover
   &:hover

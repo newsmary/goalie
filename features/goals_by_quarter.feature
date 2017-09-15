@@ -18,7 +18,7 @@ Scenario: Let me assign an objective to the current or next quarter. But not pre
   #And I should see "Q4 2017"
   When I click on "Q3 2017"
   And I fill in "goal[name]" with "What's the frequency, Kenneth?"
-  And I click "Create objective"
+  And I click "Save objective"
   Then I should see "successfully created"
   And I should see "Q3 2017"
   When I click on "What's the frequency, Kenneth?"
@@ -29,5 +29,5 @@ Scenario: Let me assign an objective to the current or next quarter. But not pre
   And I should NOT see "Q2 2017"
   When I fill in "goal[name]" with "My key result goes here."
   #And debug
-  And I click on "Create key result"
+  And I click on "Save key result"
   Then I should see "successfully"

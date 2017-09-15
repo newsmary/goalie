@@ -10,5 +10,5 @@ Scenario: Make an objective and give it a KR
   And I click on "Join in the chant"
   And I click on "Add a key result"
   And I fill in "goal[name]" with "Moar stuff"
-  And I click "Create key result"
+  And I click "Save key result"
   Then I should see "success"
