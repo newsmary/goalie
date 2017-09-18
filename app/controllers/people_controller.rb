@@ -81,10 +81,14 @@ class PeopleController < ApplicationController
   # DELETE /people/1
   # DELETE /people/1.json
   def destroy
-    @person.destroy
     respond_to do |format|
-      format.html { redirect_to people_url, notice: 'Person was successfully destroyed.' }
-      format.json { head :no_content }
+      if @person == current_user
+        format.html { redirect_to people_url, notice: 'Account has been removed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to people_url, notice: 'Account has been removed.' }
+        format.json { head :no_content }
+      end
     end
   end
 

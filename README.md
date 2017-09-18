@@ -18,7 +18,9 @@ A goal-setting and tracking platform.
 - To run cucumber tests, etc, run `docker-compose run web bash` for an interactive bash shell
 - Seed the "statuses" via `rake statuses:seed`
 - To shut down gracefully, in another terminal window, run `docker-compose down`
-- To send emails, make sure you start the host's postfix server `sudo postfix start`
+
+## Mail testing
+- To test emails in development, I recommend using (mailcatcher)[https://mailcatcher.me] which caches and displays emails sent by your app. You can run in via a docker container like so: `docker run -it -p 1080:80 -p 25:25 tophfr/mailcatcher`. Using the `-it` switches will keep the virtual terminal open & connected so you can see if mails are routing correctly through the container. The `config/environments/develoment.rb` file should already be set up to relay mails through the host in your local environment.
 
 ## Troublshooting:
 - If you get a message that a server is already running (because you didn't gracefully shut down) just log into the machine `docker-compose run web bash` and `rm /tmp/pids/server.pids`

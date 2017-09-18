@@ -1,14 +1,15 @@
 = render 'breadcrumb'
 .row
   .col-sm-8
-    h1 Edit related goals
+    h1 Link OKRs to this #{@goal.type}
+    p You can link OKRs together or remove existing links.
     - if(@goal.parent.present?)
       = link_to "Objective: #{@goal.parent.name}", @goal.parent
     h4 =@goal.type.humanize
     h3 =link_to " #{@goal.name}", @goal
     hr
-    h2 Add a new related goal
-    .hint Find an objective or key result to link to:
+    h2 Find a goal to link to:
+    .hint Use keywords to find an objective or key result to link to the #{@goal.type} above:
     form#search.big_form.site-search.form-inline name="bigSearchForm" method="get"
       .form-group style="margin-right: 5px"
         input#site-search-text.js-search-focus.form-control type="search" name="related_name" title="Search" role="search" placeholder="Search" value="#{params[:related_name]}"
@@ -26,14 +27,17 @@
                 | &nbsp; 
                 =link_to goal.team.name, goal.team, style: "color: #333"
               .col-sm-2
-                = link_to "Link to this #{goal.type}", goal_links_path(@goal,linked_goal_id: goal.id), method: :post, class: 'btn btn-sm btn-primary', style: 'background: none; color: #009; margin-bottom: 2rem'
+                -if (@goal.linked_goals.include?(goal))
+                  = link_to "Remove link", unlink_goal_path(@goal,linked_goal_id: goal.id), method: :delete, class: 'btn btn-sm btn-primary remove', style: 'margin-top: 0.2rem;'
+                -else
+                  = link_to "Link to this #{goal.type}", goal_links_path(@goal,linked_goal_id: goal.id), method: :post, class: 'btn btn-sm btn-primary', style: 'margin-bottom: 2rem'
             
           
   .col-sm-4
     aside
-    h2 Related goals
+    h2 Linked OKRs
     -if !@goal.has_related_goals?
-      .hint No related goals. Use the tool on the right to find some.
+      .hint No related OKRs. Use the search box to find some.
     -else
       /.hint These goals have been manually linked to the current #{@goal.type}.
       ul.related
@@ -43,4 +47,4 @@
             | &nbsp; 
             =link_to goal.team.name, goal.team, style: "color: #333"
             br
-            = link_to "Remove link", unlink_goal_path(@goal,linked_goal_id: goal.id), method: :delete, class: 'btn btn-sm btn-primary', style: 'margin-top: 0.2rem; background: none; color: #337ab7;'
+            = link_to "Remove link", unlink_goal_path(@goal,linked_goal_id: goal.id), method: :delete, class: 'btn btn-sm btn-primary remove', style: 'margin-top: 0.2rem;'

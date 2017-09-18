@@ -93,7 +93,7 @@ Rails.application.configure do
   #Devise mailer default link...
   config.action_mailer.default_url_options = { :host => ENV['DEVISE_DEFAULT_LINK_HOST'] }
 
-  # Setup the mailer config
+  # Setup the mailer config (for heroku)
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = true
     config.action_mailer.smtp_settings = {
