@@ -19,7 +19,7 @@ namespace :statuses do
       hex_color: '#5a8c3e'
     },
     {
-      name: "Heads up",
+      name: "Heads up...",
       description: "In progress. Has some issues but they're being handled within the team. Check the narrative for details.",
       ordinal: 2,
       hex_color: '#facf12'

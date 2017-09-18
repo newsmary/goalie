@@ -72,7 +72,7 @@
                 = link_to "Edit", edit_goal_score_path(score.goal,score)
             /.small =link_to score.user.name, @goal.score.user
             .small =score.user.name
-            .small =score.created_at.strftime("%d %h %y")
+            .small =score.created_at.strftime("%d %h %y %H:%M")
             
     - if !@goal.key_results.empty?
       h2.underlined Key Results
@@ -97,9 +97,9 @@
           li = link_to "Remove from favourites", favorite_goal_path 
         - else
           li = link_to "Add to favourites", favorite_goal_path 
-        li = link_to "Edit linked goals", goal_links_path(@goal)
+        li = link_to "Edit linked OKRs", goal_links_path(@goal)
       -if @goal.has_related_goals?
-        h2 Related goals
+        h2 Linked OKRs
         /.hint These goals have been manually linked to the current #{@goal.type}.
         ul.related
           -@goal.all_linked_goals.each do |goal|

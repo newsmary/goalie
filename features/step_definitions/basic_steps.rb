@@ -27,6 +27,10 @@ Given(/^the current date is (.+)$/) do |time_string|
   travel_to(Time.parse(time_string))
 end
 
+Then(/^I should see "([^"]*)" within "([^"]*)" (\d+) time(?:s)?$/) do |text, selector, count|  #debug
+  all(selector,text: /\A#{text}\z/).count.to_i.should equal? count.to_i
+  #find.all(:text=>)
+end
 
 
 Then(/^I should see "([^"]*)" before "([^"]*)"$/) do |first_thing, second_thing|

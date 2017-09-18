@@ -1,6 +1,6 @@
 /= form_for(@score, url: goal_scores_path(@goal,@score), html: { class: "form-horizontal", role: "form" }) do |f|
 - max_word_count = 50
-ul#errorBox.alert.alert-danger.alert-dismissable style="display: none"
+/ul#errorBox.alert.alert-danger.alert-dismissable style="display: none"
 
 = form_with(model: [@goal,@score], local: true, html: { xonsubmit: "return validate()", name: "daForm", id: "daForm", class: "form-horizontal", role: "form"}) do |f|
   - if @score.errors.any?
@@ -68,6 +68,7 @@ ul#errorBox.alert.alert-danger.alert-dismissable style="display: none"
       
   .form-group
     .col-sm-offset-2.col-sm-10
+      ul#errorBox.alert.alert-danger.alert-dismissable style="display: none"
       =f.hidden_field :goal_id, :value=>@score.goal.id
       = f.submit name: :submit, id: :submit_button, class: "btn btn-primary", value: "Save", data: { disable_with: "Please wait..." } 
       br

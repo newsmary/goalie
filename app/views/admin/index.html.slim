@@ -1,5 +1,5 @@
 .row
-  .col-md-8
+  .col-sm-8
     h1 Admin Things
     p Hello special admin person. This are contains useful reports and methods that apply to the whole tool. Use with caution.
     
@@ -28,3 +28,9 @@
       .form-group
         =file_field_tag :file, :class=>"form-control"
       =submit_tag "Import", :class=>"btn btn-primary"
+
+  .col-sm-4
+    aside
+      h2 Actions
+      ul.actions  
+        li =link_to 'Edit statuses', statuses_path

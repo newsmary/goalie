@@ -9,9 +9,9 @@ Scenario: Link a couple of objectives to a primary objective
   And I have a team called "Ninjas" with an objective to "Be sneaky!"
   And I have a team called "Tortoise" with an objective to "Walk 5% faster."
   When I visit the goal called "Eat brains!"
-  Then I should NOT see "Related goals" within "h2"
-  When I click "Edit related goals"
-  Then I should see "Related goals"
+  Then I should NOT see "Linked OKRs" within "h2"
+  When I click "Edit linked OKRs"
+  Then I should see "Linked OKRs"
   And I should see "Eat brains!" within "h3"
   When I fill in "related_name" with "sneaky"
   #Search button technically has no text... makes this semantically weird.
@@ -24,10 +24,10 @@ Scenario: Link a couple of objectives to a primary objective
   Then I should see "successfully"
   And I should see "Be sneaky!" within ".related"
   When I click on "Eat brains!"
-  Then I should see "Related goals" within "h2"
+  Then I should see "Linked OKRs" within "h2"
   When I click on "Be sneaky!"
   #And debug
-  And I click "Edit related goals"
+  And I click "Edit linked OKRs"
   #search in lower case...
   When I fill in "related_name" with "walk"
   And I click on "" within ".big_form .btn"
@@ -46,7 +46,7 @@ Scenario: Remove links
   Then I should see "Eat brains!" within ".related"
   And I should see "Walk 5% faster." within ".related"
 
-  When I click on "Edit related goals"
+  When I click on "Edit linked OKRs"
   And I click on "Remove link"
   Then I should see "Successfully removed"
   Then I should NOT see "brains" within ".related"
