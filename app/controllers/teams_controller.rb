@@ -16,6 +16,10 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
+    if(params[:wallboard].present?)
+      @objectives = @team.objectives_this_quarter#objectives_by_quarter(params[:end_date])
+      render  "wallboard", layout: false
+    end
   end
 
   # GET /teams/new

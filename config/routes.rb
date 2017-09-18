@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :teams do
     post 'import_okrs', on: :member
     get 'show_export', on: :collection
+    #get 'wallboard', on: :member
     #get 'import_okrs', on: :member
   end
 

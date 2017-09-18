@@ -19,6 +19,10 @@ class Team < ApplicationRecord
     objectives.where(end_date: Date.today.next_financial_quarter.end_of_financial_quarter)
   end
 
+  def objectives_by_quater(end_date)
+    objectives.where(end_date: end_date)
+  end
+
   def objectives_this_quarter
     objectives.where(end_date: Date.today.end_of_financial_quarter)
   end

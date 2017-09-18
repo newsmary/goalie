@@ -55,6 +55,13 @@ desc "Load my custom fixtures to popluate the database. Not quite Factory Girl..
 
     goal = Goal.create!(name: name, team: team, parent: parent, end_date: end_date)
 
+    add_score(goal)
+
+    #return our goal
+    goal
+  end
+
+  def add_score(goal)
     status = Status.all.sample
 
     if status.require_learnings?
@@ -65,9 +72,6 @@ desc "Load my custom fixtures to popluate the database. Not quite Factory Girl..
     if(status.ordinal != 0)
       goal.scores << Score.create!(user: User.all.sample, goal: goal, amount: (100*rand).to_i, reason: "This is a fake status update. \nReason, reason, reason, blah blah.", learnings: learnings, status: status)
     end
-
-    #return our goal
-    goal
   end
 
   #recursive function to make 5 child goals at each level
@@ -83,6 +87,14 @@ desc "Load my custom fixtures to popluate the database. Not quite Factory Girl..
         make_sub_goals(g,depth+1)
       end
     end
+  end
+
+  task add_scores: [:environment] do
+      3.times do
+        Goal.all.each do |goal|
+          add_score(goal)
+        end
+      end
   end
 
   task clean: [:environment] do

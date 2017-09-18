@@ -1,18 +1,16 @@
-Feature: As an administrator, I may need to import my saved data after a cataclysmic data loss or other bad bad not good situation.
+Feature: A nice looking wall-board that shows the realtime status of everything.
 
 Background:
     Given I sign in as an admin user
     Given I've set up the default statuses
 
-Scenario: Import teams, users, goals, and scores
-  When I import teams
-  Then I should see "Successfully imported"
-
-Scenario: Import Users
-  When I import people
-  Then I should see "Successfully imported"
-  When I click on "People" within ".nav"
-  Then I should see "Mabuse"
+Scenario: Create goals and show wallboard
+  Given I set up some demo data
+  And I visit team "Protons"
+  And I click "View wallboard"
+  Then I should see "Protons"
+  And I should see "Be Massively Awesome"
+  And I should see "On track"
 
 #TODO: a scenario that tests updating data based on an import
 Scenario: Import goals & scores

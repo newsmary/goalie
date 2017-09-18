@@ -3,6 +3,7 @@
   .col-sm-9
     .row
       .col-sm-12
+        h3 Objectives
         h1 =@team.name
         p =my_sanitize(@team.body.to_s.gsub("\n","<BR>"))
         p =link_to "Learn more", @team.url unless @team.url.to_s.empty?
@@ -33,7 +34,7 @@
             = link_to "Create the first objective.", new_goal_path(team: @team), class: "alert-link"
         - else
           - @team.objectives.pluck(:end_date).uniq.each do |end_date|
-            h2.underlined #{"Objective".pluralize(@team.objectives.count)} for #{end_date.financial_quarter}
+            h2.underlined =end_date.financial_quarter
             ol.goal
               == render @team.objectives.where(end_date: end_date)
   .col-sm-3
@@ -42,11 +43,13 @@
       ul.actions
         li = link_to "Add a sub team", new_team_path(parent: @team)
         li = link_to "Add a new objective", new_goal_path(team: @team)
+        li = link_to "View current quarter as wallboard", team_path(@team, wallboard: true)
       -if current_user.admin?
         h2 Admin actions
         ul.actions
           li = link_to "Edit or move this team", edit_team_path(@team)
-          li = link_to "Import OKRs", "javascript: $('#importOKRs').fadeToggle()"
+        
+        /  li = link_to "Import OKRs", "javascript: $('#importOKRs').fadeToggle()"
         #importOKRs style="display:none"
           p Paste text from "Objective: ... to the end of the last Key Result"
           = form_tag import_okrs_team_path(@team) do
