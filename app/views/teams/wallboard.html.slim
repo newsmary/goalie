@@ -27,17 +27,13 @@ html
               .pull-right
                 h2 #{@objectives.count} Objectives
           .row
-            - @objectives.each do |o|
-              div.tiny_status class="col-sm-#{(12/@objectives.count).floor}"
-                .row
-                  .col-sm-12 style="padding-right: 3rem"
-                    .row
-                      .col-sm-12.o.tiny_status style="background: #{o.status.hex_color};"
+            div
+              - @objectives.each do |o|
+                div.tiny_status class="col-sm-#{(12/@objectives.count).floor}"
+                  .row style="padding-right: 1rem"
+                    div
+                      .o.tiny_status style="background: #{o.status.hex_color};"
                         h2 =link_to o.name.truncate(60), o
-                    /.row
-                      .col-sm-12
-                        h3 Key results
                     -o.key_results.each do |kr|
-                      .row
-                        .col-sm-12.kr.tiny_status style="background: #{kr.status.hex_color}"
-                          h3 =link_to kr.name.truncate(70), kr
+                      .kr.tiny_status style="background: #{kr.status.hex_color}"
+                        h3 =link_to kr.name.truncate(70), kr

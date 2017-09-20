@@ -27,9 +27,10 @@ html
     .alpha-banner
       .container
         p 
-          | <b>Please note:</b> This is a SANDBOX environment. Do have a play put don't expect your data to remain intact...
+          | <b>Please note:</b> This is a SANDBOX environment. Have a play put don't expect your data to remain intact. 
+          = link_to "Give feedback", ENV['FEEDBACK_URL'], target: "_blank", class: "btn btn-primary btn-xs" if ENV['FEEDBACK_URL'].present?
           - if (ENV['RAILS_ENV'] == "development")
-            '&nbsp;
+            br
             = link_to "Admin sign in", test_sign_in_path(email: User.first.email)
             ' &nbsp; || &nbsp;
             = link_to "Non-admin sign in", test_sign_in_path(email: User.second.email)

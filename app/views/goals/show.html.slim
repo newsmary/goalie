@@ -65,7 +65,7 @@
               div style="width: 100%; background: #{score.status.hex_color}"
                 b = score.status.name.humanize.capitalize
             //.small =score.created_at.strftime("%d %h %y")
-          .col-sm-9
+          .col-sm-9.progress_history
             p =my_sanitize(score.display_reason)
             - if is_admin?
               .small class="float:right"
