@@ -64,7 +64,7 @@ Scenario: Truncate long team descriptions and provide a "read more" link. #NOTE:
   #this part fails even though the text is hidden :(
   #Then I should NOT see "juicy tomato"
   Then I should see "Read more"
-  When I click "Read More"
+  When I click "Read more"
   Then I should NOT see "Read more"
   Then I should see "juicy tomato"
   And I should see "Close"
