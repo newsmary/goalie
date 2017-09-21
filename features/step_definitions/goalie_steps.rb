@@ -3,6 +3,13 @@
 include Warden::Test::Helpers
 
 
+=begin NOT USED
+Given(/^I set up some demo data$/) do
+  #for now, one team, one Objective.
+  t = Team.create!(name: "The Protons")
+  g = t.goals<< Goal.create!(team: t, name: "Be massively awesome")
+end
+=end
 
 When(/^I visit the (?:key result|objective|goal) called "([^"]*)"$/) do |name|
   visit goal_path(Goal.find_by(name: name))

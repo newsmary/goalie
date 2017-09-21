@@ -19,13 +19,13 @@ html
         nav
           .row style="background: #000"
             .col-sm-12 style="margin-top: 1rem"
-              b =link_to :Back, @team
+              =link_to :Back, @team
           .row style="background: #000; padding-bottom: 2rem"
             .col-sm-4.col-sm-offset-4.tiny_status
               h2 =@team.name
             .col-sm-4
               .pull-right
-                h2 #{@objectives.count} Objectives
+                h2 =pluralize(@objectives.count,"Objective")
           .row
             div
               - @objectives.each do |o|
