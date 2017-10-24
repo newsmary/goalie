@@ -13,7 +13,7 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
-  body
+  body style="background: #333"
     .wallboard
       .container-fluid
         nav
@@ -33,4 +33,4 @@ html
                 =link_to o.name.truncate(100/(@objectives.count/4.0)), o
               -o.key_results.each do |kr|
                 .key_result style="background: #{kr.status.hex_color}"
-                  =link_to kr.name.truncate(20/(@objectives.count/4.0)), kr
+                  =link_to kr.name.truncate(80/(@objectives.count/4.0)), kr
