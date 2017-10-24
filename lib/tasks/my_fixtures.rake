@@ -39,7 +39,8 @@ desc "Load my custom fixtures to popluate the database. Not quite Factory Girl..
     verbs = %w/build grow save develop entertain inform increase write engage test release find workshop /
     nouns = %w/users viewers listeners departments platforms tools savings/
     #group = parent.nil? ? Group.all.sample : parent.group
-    team = Team.all.sample unless team
+    team = parent.team if parent
+    Team.all.sample unless team
     #start_date = Date.today + [*(0..11)].sample.to_i.months
     #end_date = start_date + [0,1,3,3,3,4,5,5,6,6,7,8,9,10,11].sample.to_i.months  #could produce dates WAAAY into the future...
     #goal = Goal.create!(name: "#{verb.humanize} #{[*(1..500)].sample} #{noun} by #{end_date.strftime("%h %Y")}", start_date: start_date , deadline: end_date, owner: User.all.sample, group: group, team: team, parent: parent, sdp: rand > 0.9 ? true : false)
