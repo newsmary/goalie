@@ -18,6 +18,9 @@ class TeamsController < ApplicationController
   def show
     if(params[:wallboard].present?)
       @objectives = @team.objectives_this_quarter#objectives_by_quarter(params[:end_date])
+      @original_count = @objectives.count
+      #DANGER: Truncate to the first 6! (That's all we can display at present...)
+      @objectives = @objectives.to_a.slice(0,6)
       render  "wallboard", layout: false
     end
   end

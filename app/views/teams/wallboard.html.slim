@@ -15,25 +15,22 @@ html
     = csrf_meta_tags
   body
     .wallboard
-      .container
+      .container-fluid
         nav
-          .row style="background: #000"
-            .col-sm-12 style="margin-top: 1rem"
-              =link_to :Back, @team
-          .row style="background: #000; padding-bottom: 2rem"
-            .col-sm-4.col-sm-offset-4.tiny_status
-              h2 =@team.name
-            .col-sm-4
-              .pull-right
-                h2 =pluralize(@objectives.count,"Objective")
           .row
-            div
-              - @objectives.each do |o|
-                div.tiny_status class="col-sm-#{(12/@objectives.count).floor}"
-                  .row style="padding-right: 1rem"
-                    div
-                      .o.tiny_status style="background: #{o.status.hex_color};"
-                        h2 =link_to o.name.truncate(60), o
-                    -o.key_results.each do |kr|
-                      .kr.tiny_status style="background: #{kr.status.hex_color}"
-                        h3 =link_to kr.name.truncate(70), kr
+            .col-sm-12 style="margin-top: 0.5rem"
+              =link_to :Back, @team
+          .row
+            .col-sm-12 style="text-align:center"
+              h2 =link_to "#{@team.name} OKRs for #{Date.today.financial_quarter}", @team
+        -if(@original_count > @objectives.count) 
+          .row style="padding: 2rem; background: #f00; text-align: center; color: #Ff0"
+            h1 Wallboard can only display 6 objectives. This team has #{@original_count}.
+        .row
+          - @objectives.each do |o|
+            div class="col-sm-#{(12.0/@objectives.count).floor}" style="padding: 0 8px 0 8px"
+              .objective style="background: #{o.status.hex_color};"
+                =link_to o.name.truncate(100/(@objectives.count/4.0)), o
+              -o.key_results.each do |kr|
+                .key_result style="background: #{kr.status.hex_color}"
+                  =link_to kr.name.truncate(20/(@objectives.count/4.0)), kr

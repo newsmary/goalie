@@ -1,28 +1,54 @@
+@import mixins
+
 .wallboard
   color: #fff
-  background: #666
-  h2
-    font-size: 2rem
-    line-height: 2.6rem
-  h3
-    font-size: 1.4rem
-    line-height: 2rem
+  background: #000
+  margin: 0
 
+  nav
+    h2
+      font-size: 4rem
+      line-height: 2.6rem
+      margin: 0
+      color: #fff
+      padding: 0.5rem 0 1rem 0
+    a
+      color: #fff
+
+  h3
+    font-weight: normal
+  h2
+    font-weight: normal
   h1
     margin: 0
-  margin: 0
-  .top
-    background: #000
-  .o
+  .objective, .key_result
+    padding: 1.5rem
+    /*font-weight: bold*/
+
+    /*background: #000*/
+  .objective
+    font-size: 2.4rem
+    line-height: 3rem
     height: 220px
     margin: 0.5rem 0 1rem 0
-    padding: 1.5rem
-    width: 100%
-  .kr
-    height: 150px
-    width: 100%
-    padding: 1.5rem
+    border-bottom: 1px solid #000
+    @include vertical_center()
+  .key_result
+    font-size: 2rem
+    line-height: 2.8rem
+    margin: 0
+    height: 80px
     margin-bottom: 0.5rem
+    border-left: 25px solid #000
+    /*background: #fffff0*/
+    @include vertical_center()
+
   a
     text-decoration: none
     color: #fff
+
+.truncate
+  white-space: nowrap
+  height: 40px
+  overflow: hidden
+  text-overflow: ellipsis

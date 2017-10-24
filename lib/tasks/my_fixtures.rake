@@ -5,11 +5,11 @@ desc "Load my custom fixtures to popluate the database. Not quite Factory Girl..
     Goal.destroy_all
     #Group.destroy_all
     Team.destroy_all
-    names = "The Cure, Bauhaus, Depeche Mode, B12, Ministry, Pearl Jam, Underworld, Autechre, Tom Jones, New Order, Plaid, Fishbone, Primus"
+    names = "The Cure, Bauhaus, Depeche Mode, B12, Ministry, Pearl Jam, Underworld, Autechre, Tom Jones, New Order, Plaid, Fishbone, Primus, Nirvana, Joy Division, Macklemore"
 
     names.split(", ").each do |name|
       #usually create at the root
-      if rand < 0.5
+      if rand < 0.8
         Team.create!(name: name)
       else
         #but sometimes... if there are existing teams, nest them!
@@ -27,7 +27,7 @@ desc "Load my custom fixtures to popluate the database. Not quite Factory Girl..
     #make_sub_goals(nil,0)
 
     Team.all.each do |team|
-      [*(2..5)].sample.times do
+      [*(8..12)].sample.times do
         g = new_goal(nil,team)
         make_sub_goals(g,1)
       end
@@ -77,7 +77,7 @@ desc "Load my custom fixtures to popluate the database. Not quite Factory Girl..
   #recursive function to make 5 child goals at each level
   def make_sub_goals (parent, depth)
     #make between X and Y sub goals
-    [*(2..4)].sample.times do
+    [*(2..5)].sample.times do
       g = new_goal(parent)
 
       #max depth...
