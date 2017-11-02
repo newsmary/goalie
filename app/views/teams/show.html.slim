@@ -10,7 +10,7 @@
           / = link_to "Read more","javascript: $(this).html('ok')"
         p =link_to "Learn more", @team.url unless @team.url.to_s.empty?
         /p =link_to "Edit this team", edit_team_path(@team)
-    -unless @team.children.empty? 
+    -unless @team.children.empty?
       .row.goals
         .col-sm-12
           H2 Sub-teams
@@ -23,7 +23,7 @@
           = link_to  new_team_path(parent: @team), class: 'btn btn-primary' do
             span.glyphicon.glyphicon-plus
             |  Add sub-team
-        
+
     .row
       .col-sm-12
         -if @team.objectives.empty?
@@ -36,7 +36,8 @@
             = link_to "Create the first objective.", new_goal_path(team: @team), class: "alert-link"
         - else
           - @team.objectives.pluck(:end_date).uniq.each do |end_date|
-            h2.underlined =end_date.financial_quarter
+            - month_range = (end_date - 2.months).strftime("%B") + " - " + end_date.strftime("%B")
+            h2.underlined =end_date.financial_quarter.gsub(/\s+/," #{month_range} ")
             ol.goal
               == render @team.objectives.where(end_date: end_date)
   .col-sm-3
@@ -50,7 +51,7 @@
         h2 Admin actions
         ul.actions
           li = link_to "Edit or move this team", edit_team_path(@team)
-        
+
         /  li = link_to "Import OKRs", "javascript: $('#importOKRs').fadeToggle()"
         #importOKRs style="display:none"
           p Paste text from "Objective: ... to the end of the last Key Result"

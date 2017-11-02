@@ -3,8 +3,7 @@
   .col-md-9
     .page-header
       =link_to "&laquo; Back".html_safe, (@goal.parent || @goal.team)
-      h1 
-        | New #{@goal.type} for #{@goal.team.name}
-        - if (@goal.parent)
-          = " (" + @goal.parent.quarter + ")"
+      h1  New #{@goal.type} for #{@goal.team.name}
+      - if (@goal.parent)
+        h3 = @goal.parent.quarter_label
     = render 'form'

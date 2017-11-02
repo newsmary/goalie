@@ -51,8 +51,9 @@ class Goal < ApplicationRecord
     (parent.present?) ? "key result" : "objective"
   end
 
-  def quarter
-    end_date.financial_quarter
+  def quarter_label
+    month_range = (end_date - 2.months).strftime("%B") + " - " + end_date.strftime("%B")
+    end_date.financial_quarter.gsub(/\s+/," #{month_range} ")
   end
 
   #convenience method to identify goals which are "done"

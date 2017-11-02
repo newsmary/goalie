@@ -19,13 +19,13 @@
           b = link_to @goal.parent.name, @goal.parent
     =f.hidden_field :parent_id, :value=> @goal.parent.id
   =f.hidden_field :team_id, :value=> @goal.team.id
-    
+
   /
     - if @goal.team
       .form-group
         = f.label :Team, class: "col-sm-2 control-label"
         .col-sm-10
-          p 
+          p
             b = link_to @goal.team.name,@goal.team
   .form-group
     = f.label :quarter, class: "col-sm-2 control-label"
@@ -42,22 +42,22 @@
             - start_month_name = date.beginning_of_financial_quarter.strftime("%b")
             - end_month_name = date.end_of_financial_quarter.strftime("%b")
             - end_date = date.end_of_financial_quarter
-            label.block-label for="radio-inline-#{offset_quarter}"        
+            label.block-label for="radio-inline-#{offset_quarter}"
               -if (@goal.end_date == end_date)
                 input title="#{label}" id="radio-inline-#{offset_quarter}" type="radio" checked="true" name="goal[end_date]" value="#{end_date}"
-                  =label    
-                  .hint 
+                  =label
+                  .hint
                     ' (#{start_month_name} - #{end_month_name})
               - else
                 input title="#{label}" id="radio-inline-#{offset_quarter}" type="radio" name="goal[end_date]" value="#{end_date}"
-                  =label    
-                  .hint 
+                  =label
+                  .hint
                     ' (#{start_month_name} - #{end_month_name})
       - else
         p
-          b = @goal.parent.quarter
+          b = @goal.parent.quarter_label
 
-              
+
   .form-group
     = f.label @goal.type.humanize, autofocus: true, class: "col-sm-2 control-label"
     .col-sm-10
@@ -75,6 +75,6 @@
       = link_to "Cancel", "javascript:history.go(-1)"
       / only show destroy when editign (makes no sense when creating)
       -if action_name == "edit"
-        br    
+        br
         br
         = link_to "Delete #{@goal.type}", @goal, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
