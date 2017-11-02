@@ -21,7 +21,8 @@
       - @people.each do | person |
         tr
           td
-            = link_to person.name, person
+            = person.name
+            / link_to person.name, person
           - if current_user.admin?
             td
               = person.email
@@ -29,10 +30,10 @@
             = person.admin
           -if current_user.admin?
             td
-              = link_to 'Edit', edit_person_path(person) 
+              = link_to 'Edit', edit_person_path(person)
 
 
 = paginate @people
 br
-	
+
 i NOTE: Admins may anoint other admins :) Speak to one if you'd like to up your privileges.

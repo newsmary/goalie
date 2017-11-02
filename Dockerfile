@@ -1,10 +1,14 @@
 FROM ruby:latest
 
 #make sure we don't get tripped up by any inherited proxies
-RUN unset HTTP_PROXY
-RUN unset HTTPS_PROXY
+#RUN unset HTTP_PROXY
+#RUN unset HTTPS_PROXY
 
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs vim man postgresql-client
+#NOTE!!!!!! If you're behind a proxy, you'll need to set it explicitly like so
+ENV http_proxy=http://www-cache.reith.bbc.co.uk:80
+ENV https_proxy=https://www-cache.reith.bbc.co.uk:80
+
+RUN apt-get update && apt-get install -y build-essential libpq-dev nodejs vim man postgresql-client
 
 #Nope, use sendmail on the host (port 25)... remember to start postfix on the host
 #sendmail
