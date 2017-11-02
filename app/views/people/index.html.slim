@@ -21,8 +21,12 @@
       - @people.each do | person |
         tr
           td
-            = person.name
+            / HACKY! Link to a "team" if it has the same name as a person... Hack to allow easy access to personal OKRs-
             / link_to person.name, person
+            -if(Team.find_by(name:person.name))
+              =link_to person.name, Team.find_by(name:person.name)
+            - else
+              = person.name
           - if current_user.admin?
             td
               = person.email
