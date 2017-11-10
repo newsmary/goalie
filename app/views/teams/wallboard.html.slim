@@ -33,4 +33,4 @@ html
                 =link_to o.name.truncate(100/(@objectives.count/4.0)), o
               -o.key_results.each do |kr|
                 .key_result style="background: #{kr.status.hex_color}"
-                  =link_to kr.name.truncate(80/(@objectives.count/4.0)), kr
+                  =link_to kr.name.truncate(60/(@objectives.count/4.0)), kr
