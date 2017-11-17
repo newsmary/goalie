@@ -27,7 +27,7 @@ Scenario: Prompt to fill in "Lessons learned" when marking a goal as complete or
   And I click on "Report progress"
   #weird, phantomjs fails to find "Complete" if I dont' wait a second or two
   And I wait 1 second
-  And I click on "Complete"
+  And I click on "Finished"
   Then I should see "Lessons learned"
   When I click "Save"
   Then I should see "Please share what you've learned by working on this"

@@ -6,7 +6,7 @@ html
     meta name="viewport" content="width=device-width, initial-scale=1"
     meta name="description" content=""
     meta name="author" content=""
-    title BBC Objectives & Key Results 
+    title BBC Objectives & Key Results
     = favicon_link_tag
     /! HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
     /[if lt IE 9]
@@ -21,19 +21,23 @@ html
         }
         return(true);
       }
-        
+
     = csrf_meta_tags
   body
     .alpha-banner
       .container
-        p 
-          | <b>Please note:</b> This is a SANDBOX environment. Have a play put don't expect your data to remain intact. 
-          = link_to "Give feedback", ENV['FEEDBACK_URL'], target: "_blank", class: "btn btn-primary btn-xs" if ENV['FEEDBACK_URL'].present?
-          - if (ENV['RAILS_ENV'] == "development")
-            br
-            = link_to "Admin sign in", test_sign_in_path(email: User.first.email)
-            ' &nbsp; || &nbsp;
-            = link_to "Non-admin sign in", test_sign_in_path(email: User.second.email)
+        .row
+          .col-xs-10
+            p
+              | <b>Please note:</b> Data in this tool should be considered public domain and account information is not secure.  Do not re-use passwords. <a href="/about">Learn more</a>. &nbsp;
+              - if (ENV['RAILS_ENV'] == "development")
+                br
+                = link_to "Admin sign in", test_sign_in_path(email: User.first.email)
+                ' &nbsp; || &nbsp;
+                = link_to "Non-admin sign in", test_sign_in_path(email: User.second.email)
+          .col-xs-2
+            .pull-right style="margin-top: 5px"
+              = link_to "Give feedback", ENV['FEEDBACK_URL'], target: "_blank", class: "btn btn-primary btn-xs" if ENV['FEEDBACK_URL'].present?
     nav.navbar-default role="navigation"
       .container
         .navbar-header
@@ -72,14 +76,14 @@ html
           .pull-right
             - if user_signed_in?
               | Hello #{link_to current_user.name, edit_user_registration_path}
-              | : 
+              | :
               =link_to "Sign out", destroy_user_session_path
             - else
               = link_to "Sign in", new_user_session_path
-              | &nbsp; || &nbsp; 
+              | &nbsp; || &nbsp;
               = link_to "Sign up", new_user_registration_path
       - flash.each do |name, msg|
-        - type =  (name == :error.to_s || name == :alert.to_s) ? "danger" : "success" 
+        - type =  (name == :error.to_s || name == :alert.to_s) ? "danger" : "success"
         = content_tag :div, class: "alert alert-#{type} alert-dismissable", role: "alert" do
           button.close type="button" data-dismiss="alert"
             span aria-hidden="true"
@@ -92,12 +96,12 @@ html
       .container
         .row
           .col-sm-8
-            p 
+            p
               = link_to "Home", root_path
               '&nbsp;
               = link_to "About", about_path
           .col-sm-4
-          
+
   javascript:
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

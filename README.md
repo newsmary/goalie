@@ -10,6 +10,8 @@ A goal-setting and tracking platform.
 - Is there a hierarchy of teams? Can a team belong to another team? (e.g RW playback to iPlayer)
 
 # Local development setup
+- For now, we're using Heroku to deploy. You'll want the command line tools:
+- Using brew: `brew install heroku/brew/heroku`
 - copy `env.sample` to `.env` and add your hostname
 - Install Docker
 - first time: Run `docker-compose build` to build it
@@ -21,7 +23,7 @@ A goal-setting and tracking platform.
 - To shut down gracefully, in another terminal window, run `docker-compose down`
 
 ## Adding demo data
-You might wish to add a bunch of users and teams and goals and statuses, etc. you can do this by running: `rake my_fixtures:all` from inside a docker bash session `docker-compose run web bash`
+You might wish to add a bunch of users and teams and goals and statuses, etc. you can do this by running: `rake my_fixtures:all` from inside a docker bash session (`docker-compose run web bash`)
 
 ## Mail testing
 To test emails in development, I recommend using (mailcatcher)[https://mailcatcher.me] which caches and displays emails sent by your app. You can run in via a docker container like so: `docker run -it -p 1080:80 -p 25:25 tophfr/mailcatcher`. Using the `-it` switches will keep the virtual terminal open & connected so you can see if mails are routing correctly through the container. The `config/environments/develoment.rb` file should already be set up to relay mails through the host in your local environment.

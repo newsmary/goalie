@@ -18,7 +18,7 @@ Scenario: Export statuses
   And I click on "Admin"
   And I click on "Export statuses"
   Then I should see "no issues to report"
-  And I should see "Help!"
+  And I should see "In progress"
 
 Scenario: Export scores
   Given I sign in as a non-admin user named "Peter" with the email "peter@wherever.com"

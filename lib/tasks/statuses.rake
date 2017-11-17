@@ -19,19 +19,13 @@ namespace :statuses do
       hex_color: '#5a8c3e'
     },
     {
-      name: "Heads up...",
-      description: "In progress. Has some issues but they're being handled within the team. Check the narrative for details.",
-      ordinal: 2,
-      hex_color: '#facf12'
-    },
-    {
-      name: "Help!",
+      name: "In trouble",
       description: "In progress and experiencing issues which need external help to resolve. Check narrative for details.",
       ordinal: 3,
       hex_color: '#9d1c1f'
     },
     {
-      name: "Complete",
+      name: "Finished",
       description: "Done! Or at least, as done as it's going to get. No further work planned on this goal. Check narrative for final state and 'Lessons Learned'.",
       ordinal: 4,
       require_learnings: true,
