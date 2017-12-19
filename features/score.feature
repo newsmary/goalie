@@ -24,7 +24,7 @@ Scenario: See a new goal with a "0%" and then make an update. Also test that I c
   And I fill in "score[reason]" with "My updated narrative"
   And I click "Save"
   Then I should see "My updated narrative"
-
+  #TODO: show that there is NO edit button if I'm not the owner
 
 
 
