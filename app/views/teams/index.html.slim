@@ -22,8 +22,12 @@
 
     .page-header
       h1 Teams
-    - @teams.each do | team |
-      h2 = link_to team.name, team
+    ul.list-inline
+      - @teams.each do | team |
+        li style="line-height: 4rem; margin-bottom: 2rem; width: 250px"
+          h2 style="display: inline" = link_to team.name, team
+          == render partial: 'indicator', locals: { team: team }
+        
     br
     br
     = link_to new_team_path, class: 'btn btn-primary' do

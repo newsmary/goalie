@@ -16,7 +16,9 @@
           H2 Sub-teams
           ol.subteams
             - @team.children.each do |child|
-              li =link_to child.name, child
+              li 
+                =link_to child.name, child
+                == render partial: 'indicator', locals: {team: child}
     .row
       .col-sm-12
         /

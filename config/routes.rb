@@ -36,8 +36,8 @@ Rails.application.routes.draw do
   #show the results
   get '/search', to: 'home#search'
 
-  #root 'home#index'
-  root 'teams#index'
+  root 'home#index'
+  #root 'teams#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

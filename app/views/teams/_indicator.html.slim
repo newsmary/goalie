@@ -1,0 +1,5 @@
+span style="margin-left: 2rem"
+  ul.list-inline style="display: inline"
+    -team.objectives_this_quarter.to_a.each do |objective|
+     li style="background: #{objective.status.hex_color}"
+      ' &nbsp;
