@@ -1,7 +1,6 @@
 class HomeController < ApplicationController
 before_action :authenticate_user!, except: [:debug_sign_in]
   def index
-
   end
 
   def about

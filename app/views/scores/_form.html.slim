@@ -14,19 +14,26 @@
       ul
         - @score.errors.full_messages.each do |msg|
           li= msg
-  .form-group
+  /.form-group
   /
     .form-group  style="margin-top: 7px"
       = f.label "Team", class: "col-sm-2 control-label"
       .col-sm-10
         p = @score.goal.team.present? ? @score.goal.team.name : "Not assigned to a team"
   .form-group
-    = f.label :amount, class: "col-sm-2 control-label"
+    = f.label :confidence, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :confidence, class: "form-control bignum", style: "display:inline"
+      .bignum_suffix %
+      br
+      .form-hint How confident (out of 100) are you that this #{@goal.type} will be achieved as written? A 0 indicates there's not a chance while 100 means it absolutely will be delivered or already has been.      
+  .form-group
+    = f.label :completion, class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_field :amount, class: "form-control bignum", style: "display:inline"
       .bignum_suffix %
       br
-      .form-hint An integer to represent (roughly) how well this #{@goal.type} is being met (e.g. 50 if you're half-way).
+      .form-hint An integer to represent (roughly) how much of this #{@goal.type} has now been delivered.
   .form-group
     = f.label :status, class: "col-sm-2 control-label"
     .col-sm-10
@@ -68,7 +75,7 @@
       
   .form-group
     .col-sm-offset-2.col-sm-10
-      ul#errorBox.alert.alert-danger.alert-dismissable style="display: none"
+      /ul#errorBox.alert.alert-danger.alert-dismissable style="display: none"
       =f.hidden_field :goal_id, :value=>@score.goal.id
       = f.submit name: :submit, id: :submit_button, class: "btn btn-primary", value: "Save", data: { disable_with: "Please wait..." } 
       br
@@ -130,10 +137,12 @@
     function setupValidation() {
       $("#daForm").validate({
         debug: false,
-        errorLabelContainer: "#errorBox",
-        wrapper: "li",
+        /*errorLabelContainer: "#errorBox",*/
+        wrapper: "div",
+        //wrapper-class: "alert alert-danger",
         rules: {
           "score[amount]": { digits: true, required: true, minlength: 1, maxlength: 3},
+          "score[confidence]": { digits: true, required: true, minlength: 1, maxlength: 3},
           "score[reason]": { required: true}
         },
         messages: {

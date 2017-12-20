@@ -36,6 +36,8 @@ Scenario: Prompt to fill in "Lessons learned" when marking a goal as complete or
   When I fill in "score[learnings]" with "We learned so much."
   And I fill in "score[reason]" with "Here are some reasons why we gave this goal this score."
   And I fill in "score[amount]" with "25"
+  #required now
+  And I fill in "score[confidence]" with "100"
   And I click "Save"
   Then I should see "Successfully"
   And I should see "We learned so much"
