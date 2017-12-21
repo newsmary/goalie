@@ -22,11 +22,12 @@
 
     .page-header
       h1 Teams
-    .row
-      - @teams.each do | team |
-        .col-sm-4 style="margin-bottom: 2rem;"
-          h2 style="display: inline" = link_to team.name, team
-          == render partial: 'indicator', locals: { team: team }
+      - @teams.each_slice(3) do | slice |
+        .row
+          - slice.each do |team|
+            .col-sm-4 style="margin-bottom: 2rem;"
+              h2 style="display: inline" = link_to team.name, team
+              == render partial: 'indicator', locals: { team: team }
         
     br
     br
