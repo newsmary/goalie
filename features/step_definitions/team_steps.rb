@@ -12,7 +12,7 @@ Given(/^the team called "([^"]*)" has a sub\-team called "([^"]*)" with a descri
 end
 
 When(/^I visit the teams page$/) do
-  visit "/"
+  visit "/teams"
 end
 
 Given(/^the team called "([^"]*)" has an objective to "([^"]*)"$/) do |team_name, goal_name|

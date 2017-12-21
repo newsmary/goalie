@@ -2,7 +2,7 @@ Feature: As a user, I need a way to share progress and issues so that other team
 
 Background:
     Given I sign in as a non-admin user
-    Given I've set up the default statuses
+    And I've set up the default statuses
 
 Scenario: See a new goal with a "0%" and then make an update
   And I have a team called "The Buzzards" with an objective to "Have a house party"

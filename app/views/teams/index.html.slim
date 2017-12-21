@@ -22,9 +22,9 @@
 
     .page-header
       h1 Teams
-    ul.list-inline
+    .row
       - @teams.each do | team |
-        li style="line-height: 4rem; margin-bottom: 2rem; width: 250px"
+        .col-sm-4 style="margin-bottom: 2rem;"
           h2 style="display: inline" = link_to team.name, team
           == render partial: 'indicator', locals: { team: team }
         

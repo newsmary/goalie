@@ -1,5 +1,5 @@
-span style="margin-left: 2rem"
+div
   ul.list-inline style="display: inline"
     -team.objectives_this_quarter.to_a.each do |objective|
-     li style="background: #{objective.status.hex_color}"
-      ' &nbsp;
+     li style="margin-top: 0.8rem"
+       =link_to "&nbsp;".html_safe, objective, class: "circle", style: "background: #{objective.status.hex_color}", title: "#{objective.name}"
