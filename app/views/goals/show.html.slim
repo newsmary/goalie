@@ -64,9 +64,18 @@
       - @goal.scores.all[1..-1].each do |score|
         .row.score
           .col-sm-3
-            .tiny_status
-              div style="width: 100%; background: #{score.status.hex_color}"
-                b = score.status.name.humanize.capitalize
+            .row
+              .col-sm-12
+                .tiny_status
+                  div style="width: 100%; background: #{score.status.hex_color}"
+                    b = score.status.name.humanize.capitalize
+            .row
+              .col-xs-6
+                h4 style="margin-bottom: 0" #{score.amount.to_i}%
+                small Complete
+              .col-xs-6
+                h4 style="margin-bottom: 0" #{score.confidence.to_i}%
+                small Confidence
             //.small =score.created_at.strftime("%d %h %y")
           .col-sm-9.progress_history
             p =my_sanitize(score.display_reason)

@@ -5,11 +5,11 @@ desc "Load my custom fixtures to popluate the database. Not quite Factory Girl..
     Goal.destroy_all
     #Group.destroy_all
     Team.destroy_all
-    names = "The Cure, Bauhaus, Depeche Mode, B12, Ministry, Pearl Jam, Underworld, Autechre, Tom Jones, New Order, Plaid, Fishbone, Primus, Nirvana, Joy Division, Macklemore"
+    names = "The Cure, Bauhaus, Depeche Mode, B12, Ministry, Pearl Jam, Underworld, Autechre, Tom Jones, New Order, Plaid, Fishbone, Primus, Nirvana, Joy Division, Macklemore, Roxy Music, Queen, Styxx, Journey, Survivor, Toto, The Police, Spin Doctors, Oingo Boingo, Midnight Oil"
 
     names.split(", ").each do |name|
       #usually create at the root
-      if rand < 0.8
+      if rand < 0.7
         Team.create!(name: name)
       else
         #but sometimes... if there are existing teams, nest them!
@@ -56,7 +56,10 @@ desc "Load my custom fixtures to popluate the database. Not quite Factory Girl..
 
     goal = Goal.create!(name: name, team: team, parent: parent, end_date: end_date)
 
-    add_score(goal)
+    #add several scores
+    [1,2,3,5,7].sample.times do
+      add_score(goal)
+    end
 
     #return our goal
     goal
@@ -71,7 +74,9 @@ desc "Load my custom fixtures to popluate the database. Not quite Factory Girl..
 
     #add a score if it has been started.
     if(status.ordinal != 0)
-      goal.scores << Score.create!(user: User.all.sample, goal: goal, amount: (100*rand).to_i, reason: "This is a fake status update. \nReason, reason, reason, blah blah.", learnings: learnings, status: status)
+      score = Score.create!(user: User.all.sample, goal: goal, amount: (100*rand).to_i, reason: "This is a fake status update. \nReason, reason, reason, blah blah.", learnings: learnings, status: status)
+      score.update_attributes({updated_at: (100*rand).to_i.days.ago, created_at: (100*rand).to_i.days.ago})
+      goal.scores << score
     end
   end
 
