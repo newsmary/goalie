@@ -1,11 +1,24 @@
 class ScoresController < ApplicationController
   before_action :set_score, only: [:show, :edit, :update, :destroy]
-  #before_action :check_admin, only: [:edit, :update, :destroy]
+  before_action :check_if_can_edit_score, only: [:edit, :update, :destroy]
+
+  def check_if_can_edit_score
+    set_score
+    unless(is_admin? || @score.user == current_user)
+      flash['error'] = "Sorry, only administrators or the report owner can update a progress report."
+      redirect_to @score.goal
+    end
+  end
 
   # GET /scores
   # GET /scores.json
   def index
-    @scores = Score.all
+    if(params[:goal_id])
+      @goal = Goal.find(params[:goal_id])
+      @scores = @goal.scores
+    else
+      @scores = Score.all
+    end
     #redirect to goal
     #redirect_to Goal.find(params[:goal_id])
     respond_to do |format|
@@ -28,7 +41,7 @@ class ScoresController < ApplicationController
   # GET /scores/1.json
   def show
     #redirect to goal
-    redirect_to @goal
+    redirect_to @score.goal
   end
 
   # GET /scores/new

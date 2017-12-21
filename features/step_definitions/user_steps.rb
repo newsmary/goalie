@@ -16,11 +16,13 @@ end
 
 
 def create_user_and_sign_in(name, email, is_admin = false)
-  user = User.new({name: name, email: email, password: "password", password_confirmation: "password", admin: is_admin})
-  user.skip_confirmation!
-
-  #don't validate for this... otherwise the tests are dependent on the "allowed domain" env variable
-  user.save(validate:false)
+  user = User.find_by(email: email)
+  unless(user)
+    user = User.new({name: name, email: email, password: "password", password_confirmation: "password", admin: is_admin})
+    user.skip_confirmation!
+    #don't validate for this... otherwise the tests are dependent on the "allowed domain" env variable
+    user.save(validate:false)
+  end
 
   login_as(user, :scope=>:user)
   visit "/"

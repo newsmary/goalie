@@ -34,22 +34,25 @@
 
     - if @goal.done?
       .panel.panel-primary.lessons
-        .panel-heading 
+        .panel-heading
           h4 What did we learn?
         .panel-body = @goal.learnings
-        
+
     h2.underlined Progress updates
     .big_goal_meta
       .row style="margin-bottom: 1rem"
         .col-sm-5
           .big_status style="background: #{@goal.status.hex_color}" title="#{@goal.status.description}"  onclick="window.location.assign('#{new_goal_score_path(@goal)}')"
             h4 = @goal.status.name.humanize.capitalize
-            h3 = @goal.display_amount          
+            h3 = @goal.display_amount
         .col-sm-7
           - if(@goal.scores.any?)
             h3.reason =my_sanitize(@goal.score.display_reason)
-            .hint 
-              | #{time_ago_in_words(@goal.score.created_at).gsub(/about /i,"").humanize} ago by #{@goal.score.user.name}.
+            .hint
+              | #{time_ago_in_words(@goal.score.updated_at).gsub(/about /i,"").humanize} ago by #{@goal.score.user.name}.
+              | &nbsp;
+              -if @goal.score.user == current_user || is_admin?
+                =link_to "Edit", edit_goal_score_path(@goal,@goal.score), class: "edit_score_link"
             br
           -else
             p style="color: red"
@@ -67,13 +70,13 @@
             //.small =score.created_at.strftime("%d %h %y")
           .col-sm-9.progress_history
             p =my_sanitize(score.display_reason)
-            - if is_admin?
+            - if is_admin? || score.user == current_user
               .small class="float:right"
                 = link_to "Edit", edit_goal_score_path(score.goal,score)
             /.small =link_to score.user.name, @goal.score.user
             .small =score.user.name
             .small =score.created_at.strftime("%d %h %y %H:%M")
-            
+
     - if !@goal.key_results.empty?
       h2.underlined Key Results
       ol.goal style="clear:both"
@@ -90,13 +93,13 @@
     aside
       h2 Actions
       ul.actions
-        li = link_to "Edit this #{type}", edit_goal_path        
+        li = link_to "Edit this #{type}", edit_goal_path
         /only allow adding KRs to Os
         li = link_to "Add a key result", new_goal_path(parent: @goal) if @goal.parent.nil?
         - if(current_user.favorite_goals.include? @goal)
-          li = link_to "Remove from favourites", favorite_goal_path 
+          li = link_to "Remove from favourites", favorite_goal_path
         - else
-          li = link_to "Add to favourites", favorite_goal_path 
+          li = link_to "Add to favourites", favorite_goal_path
         li = link_to "Edit linked OKRs", goal_links_path(@goal)
       -if @goal.has_related_goals?
         h2 Linked OKRs
@@ -105,7 +108,5 @@
           -@goal.all_linked_goals.each do |goal|
             li
               =link_to truncate_html(goal.name, length: 100), goal
-              | &nbsp; 
+              | &nbsp;
               =link_to goal.team.name, goal.team, style: "color: #333"
-
-    
