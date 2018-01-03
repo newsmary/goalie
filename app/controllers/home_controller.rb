@@ -1,7 +1,13 @@
 class HomeController < ApplicationController
 before_action :authenticate_user!, except: [:debug_sign_in]
   def index
-
+    if(params[:view] == 'stale')
+      @title = "Stale scores"
+      @scores = Score.order('created_at').limit(10)
+    else
+      @title = "Recently updated scores"
+      @scores = Score.order('created_at desc').limit(10)
+    end
   end
 
   def about

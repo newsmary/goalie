@@ -1,2 +1,17 @@
-h1 Welcome!
-p This is a simple goal-setting app. You'll need the secret password to go any further :). Talk to Peter.
+.row
+  .col-md-4
+    h1 Welcome!
+.row
+  .col-md-12
+    ul.nav.nav-tabs
+      li class="#{params[:view] != 'stale' ? "active" : ''}" role="presentation" 
+        a href="?view=recent" Recently updated scores
+      li class="#{params[:view] == 'stale' ? "active" : ''}"role="presentation" 
+        a href="?view=stale" Stale scores            
+.row
+  .col-md-8
+    h2.underlined =@title
+    ol.goal
+      - @scores.to_a.each do | score |
+        == render score.goal            
+        

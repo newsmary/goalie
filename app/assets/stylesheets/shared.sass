@@ -18,6 +18,14 @@ $secondary-text-colour: #6f777b
   justify-content: center /* align horizontal */
   align-items: center /* align vertical */
 
+.circle
+  border-radius: 50%
+  margin-left: 0rem
+  height: 1.8rem
+  width: 1.8rem
+  display: block
+  &:hover
+    text-decoration: none
 
 h2.underlined
   border-bottom: 1px solid #999
@@ -62,13 +70,13 @@ body
     margin-top: 10px
 
 ol.subteams
-  margin-bottom: 1rem
+  margin-bottom: 0rem
   margin-top: 1.8rem
   padding-left: 2rem
   li
     font-size: 1.8rem
-    line-height: 2rem
-    margin-bottom: 1.3rem
+    line-height: 1.8rem
+    margin-bottom: 1rem
 
 .form-group p
   margin-top: 7px
@@ -273,3 +281,10 @@ ul.actions
 
 input.error, textarea.error
   border: 5px solid #f00
+
+/* for form validation */
+label.error
+  padding: 3rem
+  margin: 2rem 0
+  background: #faa
+  color: #600

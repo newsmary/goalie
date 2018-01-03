@@ -133,6 +133,6 @@ class ScoresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def score_params
-      params.require(:score).permit(:amount, :reason, :learnings, :status_id, :goal_id, :user_id)
+      params.require(:score).permit(:amount, :reason, :learnings, :status_id, :confidence, :goal_id, :user_id)
     end
 end

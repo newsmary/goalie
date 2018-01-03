@@ -14,6 +14,7 @@
           - @teams.each do | team |
             li 
               h3 =link_to truncate_html(team.name, length: 100), team
+              == render partial: 'teams/indicator', locals: { team: team }
               
 
     -if @goals.to_a.count > 0

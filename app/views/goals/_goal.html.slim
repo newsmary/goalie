@@ -1,6 +1,10 @@
 li 
   .goal_col.hover onclick="window.location.assign('#{url_for(goal)}')"
     .col-xs-9
+      - if(goal.score)
+        .hint #{goal.type.humanize} updated #{time_ago_in_words(goal.score.updated_at)} ago
+      - else
+        .hint No check-ins. Sad face.
       = link_to goal.name, goal
     .col-xs-3.tiny_status style="background-color: #{goal.status.hex_color}"
       p = goal.status.name
