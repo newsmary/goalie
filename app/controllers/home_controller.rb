@@ -1,13 +1,14 @@
 class HomeController < ApplicationController
 before_action :authenticate_user!, except: [:debug_sign_in]
   def index
+=begin
+  # TODO someday, latest 5 updates, most stale updates
     if(params[:view] == 'stale')
-      @title = "Stale scores"
-      @scores = Score.order('created_at').limit(10)
+      @scores = Score.order('created_at').limit(5)
     else
-      @title = "Recently updated scores"
-      @scores = Score.order('created_at desc').limit(10)
+      @scores = Score.order('created_at desc').limit(5)
     end
+=end
   end
 
   def about
