@@ -1,7 +1,7 @@
 .row
   .col-md-12
     h2
-      = link_to "See results from last quarter", goals_path(end_date: (Date.today - 3.months).end_of_financial_quarter)
+      /= link_to "See results from last quarter", goals_path(end_date: (Date.today - 3.months).end_of_financial_quarter)
 .row
   .col-md-12
     - @fav_goals = current_user.favorite_goals
