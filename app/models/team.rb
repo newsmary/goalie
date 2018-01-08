@@ -15,6 +15,19 @@ class Team < ApplicationRecord
   #required fields for CSV  export
   HEADERS = %w{id name body parent_id}
 
+  #TODO....
+  def self.teams_with_objectives_ending(end_date)
+    #Team.where(parent: nil).each do |t|
+  end
+
+  def has_objectives_in_quarter?(end_date)
+    if(objectives_by_quarter(end_date) > 0)
+      return true
+    else
+
+    end
+  end
+
   def objectives_next_quarter
     objectives.where(end_date: Date.today.next_financial_quarter.end_of_financial_quarter)
   end

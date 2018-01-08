@@ -17,7 +17,8 @@ class Goal < ApplicationRecord
 
   has_many :inverse_links, class_name: :Link, foreign_key: :linked_goal_id
   has_many :inverse_linked_goals, through: :inverse_links, source: :goal
-
+  scope :current_quarter, -> { where(end_date: Date.today.end_of_financial_quarter)}
+  scope :last_quarter, -> { where(end_date: Date.today.end_of_financial_quarter)}
 
   #belongs_to :goalable, polymorphic: true
   belongs_to :team

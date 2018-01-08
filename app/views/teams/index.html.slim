@@ -1,5 +1,9 @@
 .row
   .col-md-12
+    h2
+      = link_to "See results from last quarter", goals_path(end_date: (Date.today - 3.months).end_of_financial_quarter)
+.row
+  .col-md-12
     - @fav_goals = current_user.favorite_goals
     -if @fav_goals.count > 0
       h1 Favourite goals (#{@fav_goals.count})
@@ -28,7 +32,7 @@
             .col-sm-4 style="margin-bottom: 2rem;"
               h2 style="display: inline" = link_to team.name, team
               == render partial: 'indicator', locals: { team: team }
-        
+
     br
     br
     = link_to new_team_path, class: 'btn btn-primary' do
