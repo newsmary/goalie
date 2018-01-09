@@ -16,7 +16,7 @@
           H2 Sub-teams
           ol.subteams
             - @team.children.each do |child|
-              li 
+              li
                 =link_to child.name, child
                 == render partial: 'indicator', locals: {team: child}
     .row
@@ -38,8 +38,8 @@
             = link_to "Create the first objective.", new_goal_path(team: @team), class: "alert-link"
         - else
           - @team.objectives.pluck(:end_date).uniq.each do |end_date|
-            - month_range = (end_date - 2.months).strftime("%B") + " - " + end_date.strftime("%B")
-            h2.underlined =end_date.financial_quarter.gsub(/\s+/," #{month_range} ")
+            - range = (end_date - 2.months).strftime("%B") + " - " + end_date.strftime("%B %Y")
+            h2.underlined = end_date.financial_quarter.match(/Q\d/)[0] + " " + range
             ol.goal
               == render @team.objectives.where(end_date: end_date)
   .col-sm-3

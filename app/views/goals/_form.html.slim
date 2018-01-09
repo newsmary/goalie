@@ -36,13 +36,13 @@
           - #from -1 quarter to +2 quarters
           - (-1..1).to_a.each do |offset_quarter|
             - date = Date.today + ((offset_quarter*3).months)
-            - label = date.financial_quarter
+            - label = date.financial_quarter.match(/Q\d/)[0]
             / add the next year (e.g. 2017/18) to the label
             /- label += "/#{label.match(/\d{2}$/)[0].to_i+1}"
-            - start_month_name = date.beginning_of_financial_quarter.strftime("%b")
-            - end_month_name = date.end_of_financial_quarter.strftime("%b")
+            - start_month_name = date.beginning_of_financial_quarter.strftime("%b %Y")
+            - end_month_name = date.end_of_financial_quarter.strftime("%b %Y")
             - end_date = date.end_of_financial_quarter
-            label.block-label for="radio-inline-#{offset_quarter}"
+            label.block-label style="width: 250px" for="radio-inline-#{offset_quarter}"
               -if (@goal.end_date == end_date)
                 input title="#{label}" id="radio-inline-#{offset_quarter}" type="radio" checked="true" name="goal[end_date]" value="#{end_date}"
                   =label

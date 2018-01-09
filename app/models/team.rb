@@ -28,15 +28,25 @@ class Team < ApplicationRecord
     end
   end
 
-  def objectives_next_quarter
-    objectives.where(end_date: Date.today.next_financial_quarter.end_of_financial_quarter)
+  def objectives_last_quarter
+    objectives_by_end_date (Date.today - 3.months).end_of_financial_quarter
   end
 
+  def objectives_next_quarter
+    objectives_by_end_date Date.today.next_financial_quarter.end_of_financial_quarter
+  end
+
+  def objectives_by_end_date(end_date)
+    objectives.where(end_date: end_date)
+  end
+
+  #alias... not actually appropriate since the param is a date not a quarter...
+  #better to use _by_end_date above
   def objectives_by_quater(end_date)
     objectives.where(end_date: end_date)
   end
 
   def objectives_this_quarter
-    objectives.where(end_date: Date.today.end_of_financial_quarter)
+    objectives_by_end_date Date.today.end_of_financial_quarter
   end
 end

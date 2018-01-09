@@ -50,8 +50,9 @@ desc "Load my custom fixtures to popluate the database. Not quite Factory Girl..
     #"
 
 
+    #Spread these out chosing quarter end dates between 6 months ago and 6 months in the future
     end_date = (Date.today + (6.months - (rand * 12).to_i.months)).end_of_financial_quarter
-    puts name + " " + end_date.to_s
+    #puts name + " " + end_date.to_s
 
 
     goal = Goal.create!(name: name, team: team, parent: parent, end_date: end_date)
