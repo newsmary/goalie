@@ -26,7 +26,7 @@
       = f.text_field :confidence, class: "form-control bignum", style: "display:inline"
       .bignum_suffix %
       br
-      .form-hint How confident (out of 100) are you that this #{@goal.type} will be achieved as written? A 0 indicates there's not a chance while 100 means it absolutely will be delivered or already has been.      
+      .form-hint How confident (out of 100) are you that this #{@goal.type} will be achieved as written? A 0 indicates there's not a chance while 100 means it absolutely will be delivered or already has been.
   .form-group
     = f.label :completion, class: "col-sm-2 control-label"
     .col-sm-10
@@ -39,11 +39,11 @@
     .col-sm-10
       - Status.all.each do |status|
           label.block-label for="radio-inline-#{status.id}" style="background: #{status.hex_color}; color: #fff"
-            /=f.radio_button :goal_status, key %>          
+            /=f.radio_button :goal_status, key %>
             -if (@score.status == status)
-              input title="#{status.description}" onclick="toggleLessonsLearned('#{status.name}')" id="radio-inline-#{status.id}" type="radio" checked="true" name="score[status_id]" value="#{status.id}" #{status.name.humanize.capitalize}    
+              input title="#{status.description}" onclick="toggleLessonsLearned('#{status.name}')" id="radio-inline-#{status.id}" type="radio" checked="true" name="score[status_id]" value="#{status.id}" #{status.name.humanize.capitalize}
             - else
-              input title="#{status.description}" onclick="toggleLessonsLearned('#{status.name}')" id="radio-inline-#{status.id}" type="radio" name="score[status_id]" value="#{status.id}" #{status.name.humanize.capitalize}    
+              input title="#{status.description}" onclick="toggleLessonsLearned('#{status.name}')" id="radio-inline-#{status.id}" type="radio" name="score[status_id]" value="#{status.id}" #{status.name.humanize.capitalize}
       br style="clear:both"
         .pull-right
         	= link_to "What do these statuses mean?", "javascript:$('#status_expo').slideToggle()"
@@ -61,30 +61,32 @@
   #reason.form-group
     = f.label :Comments, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_area :reason, class: "form-control bigtext", onKeyUp: "wordsLeft(this,'#reason .words-left')"
-      .form-hint Major achievements, setbacks, risks, or issues. Line breaks will be preserved. Limit #{max_word_count} words.
-      .words-left 
+      = f.text_area :reason, class: "form-control bigtext", xonKeyUp: "wordsLeft(this,'#reason .words-left')"
+      .form-hint Major achievements, setbacks, risks, or issues. Line breaks will be preserved.
+      /Limit #{max_word_count} words.
+      /.words-left
 
-      
+
   #learnings.form-group style="#{"display: none" unless @score.status.require_learnings?}"
     = f.label 'Lessons learned', class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_area :learnings, class: "form-control bigtext", onKeyUp: "wordsLeft(this,'#learnings .words-left')"
-      .form-hint Please share what you've learned by working on this #{@goal.type}. What will you do differently in the future? #{max_word_count} words max.
-      .words-left 
-      
+      .form-hint Please share what you've learned by working on this #{@goal.type}. What will you do differently in the future?
+      /#{max_word_count} words max.
+      /.words-left
+
   .form-group
     .col-sm-offset-2.col-sm-10
       /ul#errorBox.alert.alert-danger.alert-dismissable style="display: none"
       =f.hidden_field :goal_id, :value=>@score.goal.id
-      = f.submit name: :submit, id: :submit_button, class: "btn btn-primary", value: "Save", data: { disable_with: "Please wait..." } 
+      = f.submit name: :submit, id: :submit_button, class: "btn btn-primary", value: "Save", data: { disable_with: "Please wait..." }
       br
       br
       .cancel
         =link_to :Cancel, goal_path(@score.goal)
 
-  // Pretty hacky... 
-  // binding specific functionality to customisable status types is very brittle and 
+  // Pretty hacky...
+  // binding specific functionality to customisable status types is very brittle and
   // means we may as well not allow users to customise status names...
   javascript:
     function wordsLeft(field, feedback_div) {
@@ -96,13 +98,13 @@
         return(false);
       }
     }
-    
-    //skip for now since phantomjs can't test 
+
+    //skip for now since phantomjs can't test
     function validate() {
       elements = document.forms['daForm'];
-      
+
       amount = elements['score[amount]'].value;
-      
+
       if (amount > 10000) {
         alert("Come on... really? That's a huge number... Don't be a weenie.");
         //elements['submit'].disabled = false;
@@ -112,28 +114,28 @@
         //button.removeAttr('disabled');
         return(false);
       }
-      
+
       if (amount < 0) {
         alert("Uh.... you did less than zero against this #{@goal.type} ? That sounds pretty bad. We should talk. Wanna try again?");
         elements['submit'].disabled = false;
         elements['submit'].value = "Save";
         return(false);
       }
-        
+
       learnings = elements['score[learnings]'].value;
       //array of status ID's requiring learnings
       require_learnings = [#{Status.where("require_learnings = true").pluck(:id).join(",").to_s}]
       status_id = parseInt(elements['score[status_id]'].value)
-      
+
       //phantom JS doesn't know Array.includes :(
       if(require_learnings.includes(status_id) && learnings == "" ) {
         alert("Please tell us what you've learned.")
         return(false);
       }
-      
+
       return(true);
     }
-    
+
     function setupValidation() {
       $("#daForm").validate({
         debug: false,
@@ -150,7 +152,7 @@
             { maxlength: "Uhhh...I know we like to overdeliver and all but that's a really colossal number. Try again?",
             digits: "That's a weird looking percentage..." },
           "score[reason]" :
-            { required: "Please describe how things are going..."}          
+            { required: "Please describe how things are going..."}
         }
       });
     }
@@ -168,4 +170,3 @@
         //document.forms['daForm'].elements['score[learnings]'].value = "";
       }
     }
-      
