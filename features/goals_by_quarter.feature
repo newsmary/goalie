@@ -13,11 +13,11 @@ Scenario: Let me assign an objective to the current or next quarter. But not pre
   And I click on "Add a new objective"
   Then I should see "Quarter"
   #radio buttons have a different format from the teams/show view where we spell the whole month name
-  And I should see "Q2 2017"
-  And I should see "Q3 2017"
+  And I should see "Q2"
+  And I should see "Q3"
   # Nope... only show one quarter ahead...for now
   #And I should see "Q4 January - March 2017"
-  When I click on "Q3 2017"
+  When I click on "Q3"
   And I fill in "goal[name]" with "What's the frequency, Kenneth?"
   And I click "Save objective"
   Then I should see "successfully created"
