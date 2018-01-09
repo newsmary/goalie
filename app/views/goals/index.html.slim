@@ -6,7 +6,8 @@ p This is a simple list of all the goals (by team) for last quarter. It doesn't 
   h3 =team.name
   ol
     - team.objectives_last_quarter.each do |o|
-      li = o.name
-        ol
+      li
+        b =o.name
+        ol style="list-style-type: upper-alpha; margin-bottom: 3rem"
           - o.key_results.each do |kr|
             li = kr.name
