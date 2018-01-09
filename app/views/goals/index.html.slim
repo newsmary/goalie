@@ -3,7 +3,7 @@ h2.underlined Goals by team for quarter ending #{(Date.today - 3.months).end_of_
 p This is a simple list of all the goals (by team) for last quarter. It doesn't include any status reporting, yet...
 
 - Team.all.each do |team|
-  h3 =team.name
+  h3.underlined =team.name
   ol
     - team.objectives_last_quarter.each do |o|
       li
