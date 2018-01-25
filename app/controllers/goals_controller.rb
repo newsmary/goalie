@@ -7,6 +7,10 @@ class GoalsController < ApplicationController
   # GET /goals.json
   def index
     @goals = Goal.all
+    #@top_level_teams = Team.where(parent_id: nil)
+
+    #for now, continue showing all teams...
+    @top_level_teams = Team.all #where(parent_id: nil)
 
     respond_to do |format|
       format.html
