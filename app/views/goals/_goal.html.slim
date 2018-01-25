@@ -6,8 +6,8 @@ li
       - else
         .hint No check-ins. Sad face.
       = link_to goal.name, goal
-    .col-xs-3.tiny_status style="background-color: #{goal.status.hex_color}"
-      p = goal.status.name
+    .col-xs-3.tiny
+      = render goal.score if goal.score
 
   - if goal.has_children?
     .col-xs-12
@@ -19,8 +19,7 @@ li
               .goal_col.hover
                 .col-xs-9
                   = link_to child.name, child
-                .col-xs-3.tiny_status style="background-color: #{child.status.hex_color}"
-                  | &nbsp;
-                  = child.status.name
+                .col-xs-3.tiny
+                  =render child.score if child.score
 
             /= link_to truncate_html(goal.name, length: 120).gsub(/^./,&:upcase), goal

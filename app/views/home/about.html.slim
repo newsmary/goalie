@@ -5,7 +5,15 @@
     p.lead This proof-of-concept tool aims to make it simple and fast to share team goals and regular progress updates. You can #{link_to "help us to improve", ENV['FEEDBACK_URL'], target: "_blank"}.
 
     h2.underlined Change history
-    
+
+    h3 25 Jan 2018
+    .show_bullets.comfy_list
+      ul
+        li Removed the "expand/collapse" functionality on the "Team" pages as it was causign issues in firefox. Also, several users mentioned they would prefer to have them expanded by default so you can scroll down the page and view all the OKRs at once.
+        li Display Progress and Confidence percentages with each score
+        li New report on "#{link_to "Goals from last quarter", goals_path}" (only shows goals for now, will show scores soon!)
+
+
     h3 21 Dec 2017
     .show_bullets.comfy_list
       ul
