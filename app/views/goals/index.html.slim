@@ -5,4 +5,4 @@ p This is a simple list of all the goals (by team) for last quarter. It doesn't 
 - @top_level_teams.each do |team|
   h3.underlined =team.name
   ol.goal
-    == render team.objectives_last_quarter
+    == render team.objectives.where(end_date: @end_date)
