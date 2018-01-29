@@ -1,9 +1,8 @@
 h1 Goals
-h2.underlined Goals by team for quarter ending #{(Date.today - 3.months).end_of_financial_quarter.strftime("%d %h %Y")}
+h2.underlined Goals by team for quarter ending #{@end_date.end_of_financial_quarter.strftime("%d %h %Y")}
 p This is a simple list of all the goals (by team) for last quarter. It doesn't include any status reporting, yet...
 
 - @top_level_teams.each do |team|
   h3.underlined =team.name
   ol.goal
     == render team.objectives_last_quarter
-      

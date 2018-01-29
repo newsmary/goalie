@@ -1,5 +1,8 @@
 .row
-  .col-md-12
+  .col-md-6
+    h2
+      = link_to "See all goals this quarter", goals_path(end_date: Date.today.end_of_financial_quarter)
+  .col-md-6
     h2
       = link_to "See goals from last quarter", goals_path(end_date: (Date.today - 3.months).end_of_financial_quarter)
 .row
