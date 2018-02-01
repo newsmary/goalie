@@ -21,16 +21,16 @@ class AdminController < ApplicationController
       elsif headers.sort == Goal::HEADERS.sort
         msg = Goal.import(params[:file])
         type = "goal"
-      elsif headers.sort == Status::HEADERS.sort
-        msg = Status.import(params[:file])
-        type = "status"
+      #elsif headers.sort == Status::HEADERS.sort
+      #  msg = Status.import(params[:file])
+      #  type = "status"
         #clean up any statuses with the same name...
         #Status.consolidate
       elsif headers.sort == Score::HEADERS.sort
         msg = Score.import(params[:file])
         type = "score"
       else
-        msg = "No valid headers found in your file. Please check that your CSV has the required headers and try again."
+        msg = "Could not determine model name from headers or no valid headers found in your file. Please check that your CSV has the required headers and try again."
       end
 
       if(msg.to_s.empty? && type.present?)

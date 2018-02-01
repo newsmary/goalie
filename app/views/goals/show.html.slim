@@ -55,7 +55,9 @@
           -else
             p style="color: red"
               | No progress reported, yet.
-          =link_to "Report progress", new_goal_score_path(@goal), class: "btn btn-primary btn-lg"
+          =link_to "Report progress", new_goal_score_path(@goal), class: "btn btn-primary btn-lg" unless @goal.done?
+          ' &nbsp;
+          =link_to "Close this #{@goal.type}", new_goal_score_path(@goal,closing:true), class: "btn btn-primary btn-lg"  unless @goal.done?
       - if !params[:history].present? && @goal.scores.count > 1
         p =link_to "See all progress", "?history=1"
     - if params[:history].present?

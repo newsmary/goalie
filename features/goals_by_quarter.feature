@@ -1,7 +1,6 @@
 Feature: Allow me to assign goals to a specific quarter and then browse by quarter.
 
 Background:
-    Given I've set up the default statuses
     And I sign in as a non-admin user
 
 @time_travel

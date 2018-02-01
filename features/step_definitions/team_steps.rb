@@ -29,10 +29,10 @@ When(/^I nest the team (?:called )?"([^"]*)" under the team (?:called )?"([^"]*)
     t.save!
 end
 
-Given(/^I have a team called "([^"]*)" with an objective to "([^"]*)" and a score of "([^"]*)" given by "([^"]*)" with a status of "([^"]*)" and a reason of "([^"]*)"$/) do |team_name, obj_name, amount, user_name, status_name, reason|
+Given(/^I have a team called "([^"]*)" with an objective to "([^"]*)" and a score of "([^"]*)" given by "([^"]*)" and a reason of "([^"]*)"$/) do |team_name, obj_name, amount, user_name, reason|
   t = Team.create!(name: team_name)
   Goal.create!(name: obj_name, team: t)
-  Score.create!(goal: t.goals.first, amount: amount, reason: reason, status: Status.find_by(name: status_name), user: User.find_by(name: user_name))
+  Score.create!(goal: t.goals.first, amount: amount, reason: reason, user: User.find_by(name: user_name))
 end
 
 Given(/^I have a team called "([^"]*)" with an objective to "([^"]*)" and a body of "([^"]*)"$/) do |team, obj_name, body|

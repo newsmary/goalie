@@ -44,7 +44,7 @@ class Goal < ApplicationRecord
   end
 
   def learnings
-    scores.first.learnings
+    score.nil? ? nil : score.learnings
   end
 
   #untested... a way to say if something is an objective or key result
@@ -61,7 +61,7 @@ class Goal < ApplicationRecord
   def done?
     #assume a status requiring "learnings" designates a "done" state
     #TODO: add a "done" flag to statuses
-    status.require_learnings?
+    score.present? && score.learnings.present?
   end
 
   #alias
@@ -69,9 +69,15 @@ class Goal < ApplicationRecord
     score
   end
 
+  #determine status based on confidence, completion, and whether lessons have been recorded (because we closed it)
   def status
     #default to status with lowest ordinal
-    score.nil? ? Status.where(ordinal:0).first : score.status
+    #score.nil? ? Status.where(ordinal:0).first : score.status
+    if(score.nil?)
+      Status.new(name: "Not started", hex_color: "#566")
+    else
+      score.status
+    end
   end
 
   #for now...

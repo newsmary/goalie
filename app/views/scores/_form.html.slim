@@ -20,21 +20,25 @@
       = f.label "Team", class: "col-sm-2 control-label"
       .col-sm-10
         p = @score.goal.team.present? ? @score.goal.team.name : "Not assigned to a team"
-  .form-group
-    = f.label :confidence, class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.text_field :confidence, class: "form-control bignum", style: "display:inline"
-      .bignum_suffix %
-      br
-      .form-hint How confident (out of 100) are you that this #{@goal.type} will be achieved as written? A 0 indicates there's not a chance while 100 means it absolutely will be delivered or already has been.
+  -unless @closing
+    .form-group
+      = f.label :confidence, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_field :confidence, class: "form-control bignum", style: "display:inline"
+        .bignum_suffix %
+        br
+        .form-hint How confident (out of 100) are you that this #{@goal.type} will be achieved as written? A 0 indicates there's not a chance while 100 means it absolutely will be delivered or already has been.
   .form-group
     = f.label :completion, class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_field :amount, class: "form-control bignum", style: "display:inline"
       .bignum_suffix %
       br
-      .form-hint An integer to represent (roughly) how much of this #{@goal.type} has now been delivered.
-  .form-group
+      - if @closing
+        .form-hint An integer to represent (roughly) how much of this #{@goal.type} was delivered.
+      - else
+        .form-hint An integer to represent (roughly) how much of this #{@goal.type} has been delivered.
+  /.form-group
     = f.label :status, class: "col-sm-2 control-label"
     .col-sm-10
       - Status.all.each do |status|
@@ -58,16 +62,19 @@
         - if is_admin?
           .pull-right
             =link_to "Edit statuses", statuses_path
+
   #reason.form-group
-    = f.label :Comments, class: "col-sm-2 control-label"
+    = f.label @closing ? "Outcome" : "Comments", class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_area :reason, class: "form-control bigtext", xonKeyUp: "wordsLeft(this,'#reason .words-left')"
-      .form-hint Major achievements, setbacks, risks, or issues. Line breaks will be preserved.
+      -if @closing
+        .form-hint Please describe the end state of what was delivered for this #{@goal.type.humanize}.
+      -else
+        .form-hint Major achievements, setbacks, risks, or issues. Line breaks will be preserved.
       /Limit #{max_word_count} words.
       /.words-left
 
-
-  #learnings.form-group style="#{"display: none" unless @score.status.require_learnings?}"
+  #learnings.form-group style="#{"display: none" unless @score.learnings.present? || @closing }"
     = f.label 'Lessons learned', class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_area :learnings, class: "form-control bigtext", onKeyUp: "wordsLeft(this,'#learnings .words-left')"
@@ -124,11 +131,12 @@
 
       learnings = elements['score[learnings]'].value;
       //array of status ID's requiring learnings
-      require_learnings = [#{Status.where("require_learnings = true").pluck(:id).join(",").to_s}]
-      status_id = parseInt(elements['score[status_id]'].value)
+      require_learnings = #{@closing || @goal.learnings.present?};
+      //[#{Status.where("require_learnings = true").pluck(:id).join(",").to_s}]
+      //status_id = parseInt(elements['score[status_id]'].value)
 
       //phantom JS doesn't know Array.includes :(
-      if(require_learnings.includes(status_id) && learnings == "" ) {
+      if(require_learnings && learnings == '') {
         alert("Please tell us what you've learned.")
         return(false);
       }
@@ -145,6 +153,7 @@
         rules: {
           "score[amount]": { digits: true, required: true, minlength: 1, maxlength: 3},
           "score[confidence]": { digits: true, required: true, minlength: 1, maxlength: 3},
+          "score[learnings]": { required: "#{ @closing.present?.to_s}"},
           "score[reason]": { required: true}
         },
         messages: {
@@ -152,21 +161,9 @@
             { maxlength: "Uhhh...I know we like to overdeliver and all but that's a really colossal number. Try again?",
             digits: "That's a weird looking percentage..." },
           "score[reason]" :
-            { required: "Please describe how things are going..."}
+            { required: "Please describe what's happening..."}
         }
       });
     }
     $(document).ready(setupValidation);
     $(document).on('page:load', setupValidation);
-
-    function toggleLessonsLearned(name) {
-      //open the panel if the status name matches the name of a status which requires "lessons learned"
-      if(name.match(/#{Status.where("require_learnings = true").pluck("name").join("|")}/)) {
-        //alert('tell me your lessons....');
-        $('#learnings').fadeIn();
-      }else {
-        $('#learnings').fadeOut();
-        //nah leave it there
-        //document.forms['daForm'].elements['score[learnings]'].value = "";
-      }
-    }

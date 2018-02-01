@@ -2,7 +2,7 @@ Feature: Let people link goals together.
 
 Background:
     Given I sign in as a non-admin user
-    Given I've set up the default statuses
+    ##Given I've set up the default statuses
 
 Scenario: Link a couple of objectives to a primary objective
   Given I have a team called "The Zombies" with an objective to "Eat brains!"

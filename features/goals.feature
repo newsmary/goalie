@@ -1,7 +1,7 @@
 Feature: Do some basic things with teams and goals (CRUD)
 
 Background:
-  Given I've set up the default statuses
+  #Given I've set up the default statuses
 
 Scenario: Make an objective and give it a KR
   Given I sign in as a non-admin named "Paul" with the email "test@test.com"

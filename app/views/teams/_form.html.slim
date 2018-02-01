@@ -28,7 +28,7 @@
     = link_to "Cancel", "javascript:history.go(-1)"
     / only show destroy when editign (makes no sense when creating)
     -if action_name == "edit"
-      br    
+      br
       br
       = link_to 'Destroy team', @team, method: :delete, data: { confirm: 'EXTERMINATE! EXTERMINATE! Are you sure? This cannot be undone.' }, class: "btn btn-danger"
-      /.tiny_hint EXTERMINATE! EXTERMINATE! This will delete the 
+      /.tiny_hint EXTERMINATE! EXTERMINATE! This will delete the

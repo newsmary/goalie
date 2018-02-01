@@ -62,12 +62,12 @@ module ImportExport
           #find related imported goals if relevant (could have a different id)
           parent = self.find_by(imported_id: row['parent_id'].to_s) unless row['parent_id'].to_s.empty?
           user = User.find_by(imported_id: row['user_id']) if row['user_id'].present?
-          status = Status.find_by(imported_id: row['status_id']) if row['status_id'].present?
+          #status = Status.find_by(imported_id: row['status_id']) if row['status_id'].present?
 
           #link them
           t.update!(parent: parent) if parent.present?
           t.update!(user: user) if user.present?
-          t.update!(status: status) if status.present?
+          #t.update!(status: status) if status.present?
 
         end
       end

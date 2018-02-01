@@ -13,14 +13,20 @@ namespace :statuses do
       hex_color: '#566'
     },
     {
-      name: "In progress",
-      description: "In progress with no issues to report.",
+      name: "On track",
+      description: "Confidence above 70%.",
       ordinal: 1,
       hex_color: '#5a8c3e'
     },
     {
+      name: "At risk",
+      description: "Confidence 40",
+      ordinal: 3,
+      hex_color: '#FC0'
+    },
+    {
       name: "In trouble",
-      description: "In progress and experiencing issues which need external help to resolve. Check narrative for details.",
+      description: "Confidence below 40%",
       ordinal: 3,
       hex_color: '#9d1c1f'
     },

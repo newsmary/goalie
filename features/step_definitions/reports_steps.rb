@@ -25,6 +25,6 @@ def create_scored_okrs_by_team_and_quarter(name, month_count)
   end
 
   obj1.key_results.each do |kr|
-    kr.scores << Score.create!(goal: kr, amount: 50, status: Status.find_by(name: "Finished"), reason: "reason", learnings: "We learned a lot", user: User.first)
+    kr.scores << Score.create!(goal: kr, amount: 50, reason: "reason", learnings: "We learned a lot", user: User.first)
   end
 end

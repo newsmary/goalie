@@ -2,14 +2,18 @@
   .col-md-8
     =render "breadcrumb"
     / =link_to "&laquo; Back".html_safe, @goal
-    h1 Report progress
-    .panel.panel-default
+    - if(@closing)
+      h1 Close this #{@goal.type.humanize}
+      .hint Have you finished or cancelled this piece of work? use this form to capture final results and lessons learned.
+    - else
+      h1 Report progress
+      .hint Use this form to record the current status and report progress towards reaching this #{@goal.type}. Progress reports (updates) are cumulative and immutable.
+    .panel.panel-default style="margin-top: 2rem"
+      .panel-heading
+        =@goal.type.humanize
       .panel-body
-        h3 =@goal.type.humanize
         h2 =@goal.name
-    .hint Use this form to record the current status and report progress towards reaching this #{@goal.type}. Progress reports (updates) are cumulative and immutable.
 .row
   .col-md-8
-    hr
     = render 'form'
   = render 'sub_goal_scores', locals: {goal: @goal}

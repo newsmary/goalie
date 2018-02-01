@@ -1,7 +1,7 @@
 Feature: As a user, I'd like a common starting place where I can quickly get an overview of things relevant to me and dive into other areas of the site for more detail.
 
 Background:
-    Given I've set up the default statuses
+    #Given I've set up the default statuses
     And I sign in as a non-admin user
     And the team called "The Walruses" has some scored OKRs from last quarter
     And I have a team called "The Walruses" has some scored OKRs from this quarter

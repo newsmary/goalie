@@ -53,6 +53,9 @@ class ScoresController < ApplicationController
       redirect_to root_path
     end
 
+    #ask for learnings if we're trying to close the goal
+    @closing = params['closing'].present?
+
     #otherwise... we're good to go...
 
     #should we have learnings but we don't?
@@ -63,12 +66,12 @@ class ScoresController < ApplicationController
       #copy it
       @score = @goal.score.dup
       #but not the comments... want people to make new ones
-      @score.reason = @score.learnings =  ''
+      #@score.reason = @score.learnings =  ''
 
     else
       #make a blank one
       @score = Score.new
-      @score.status = Status.first
+      #@score.status = Status.first
 
       #assign it to this goal
       @score.goal = @goal
@@ -78,6 +81,7 @@ class ScoresController < ApplicationController
 
   # GET /scores/1/edit
   def edit
+    @require_learnings = @score.learnings.present?
   end
 
   # POST /scores
@@ -133,6 +137,6 @@ class ScoresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def score_params
-      params.require(:score).permit(:amount, :reason, :learnings, :status_id, :confidence, :goal_id, :user_id)
+      params.require(:score).permit(:amount, :reason, :learnings, :confidence, :goal_id, :user_id)
     end
 end

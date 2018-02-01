@@ -2,7 +2,7 @@ Feature: A nice looking wall-board that shows the realtime status of everything.
 
 Background:
     Given I sign in as an admin user
-    Given I've set up the default statuses
+    #Given I've set up the default statuses
 
 Scenario: Create goals and show wallboard
   Given I have a team called "The Protons" with an objective to "Be massively awesome"

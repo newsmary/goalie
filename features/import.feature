@@ -2,7 +2,7 @@ Feature: As an administrator, I may need to import my saved data after a catacly
 
 Background:
     Given I sign in as an admin user
-    Given I've set up the default statuses
+    ##Given I've set up the default statuses
 
 Scenario: Import teams, users, goals, and scores
   When I import teams
@@ -14,25 +14,16 @@ Scenario: Import Users
   When I click on "People" within ".nav"
   Then I should see "Mabuse"
 
-#TODO: a scenario that tests updating data based on an import
+@wip
 Scenario: Import goals & scores
   When I import teams
+  Then I should see "Successfully imported"
   And I import people
-  When I import statuses
+  Then I should see "Successfully imported"
   And I import goals
   Then I should see "Successfully imported"
   And I import scores
   Then I should see "Successfully imported"
-  When I click on "Admin"
-  And I visit "/statuses"
-  Then I should see "In progress" within "td" 1 time
-  When I import statuses
-  And I import goals
-  Then I should see "Successfully imported"
-  And I import scores
-  And I visit "/statuses"
-  Then I should see "In progress" within "td" 1 time
-
 
   #now look at the data.
   When I click "Teams" within ".nav"

@@ -7,42 +7,60 @@ Background:
     And I visit the goal called "Shock the monkey"
 
 
-Scenario: See "not started" for new goals
-  Then I should see "Not started"
+#Not implemented yet...
+#Scenario: See "not started" for new goals
+#  Then I should see "Not started"
 
-Scenario: Update a new goal and see the progress. Also test that I can edit the update after the fact.
+Scenario Outline: Update a new goal and see progress in various ways.
   When I click on "Report progress"
-  And I fill in "score[amount]" with "20"
-  #have to fill this in...
-  And I fill in "score[confidence]" with "30"
-  And I fill in "score[reason]" with "I've started."
+  Then I should NOT see "Finished"
+  And I fill in "score[amount]" with "<progress>"
+  And I fill in "score[confidence]" with "<confidence>"
+  And I fill in "score[reason]" with "<narrative>"
   And I click on "Save"
-  Then I should see "20%"
-  And I should see "In progress"
-  #now edit it
-  When I click on "Edit" within ".edit_score_link"
-  And I should see "Edit progress update"
-  And I fill in "score[reason]" with "My updated narrative"
-  And I click "Save"
-  Then I should see "My updated narrative"
-  #TODO: show that there is NO edit button if I'm not the owner
+  Then I should see "<progress>%"
+  And I should see "<confidence>%"
+  And I should see "<narrative>"
+  And I should see "<status>"
 
+  Examples:
+    | progress | confidence | narrative            | status      |
+    |  12      |  5         |  I've started        | In trouble  |
+    |  50      |  50        |  Getting there       | At risk     |
+    |  50      |  75        |  Feeling better      | On track    |
+
+Scenario Outline: Close a goal and see Results
+  When I click on "Close this"
+  Then I should NOT see "Finished"
+  And I should NOT see "Confidence"
+  And I should see "Outcome"
+  And I fill in "score[amount]" with "<progress>"
+  And I fill in "score[reason]" with "<narrative>"
+  And I fill in "score[learnings]" with "What we learned..."
+  And I click on "Save"
+  Then I should see "<progress>%"
+  And I should see "<narrative>"
+  And I should see "<status>"
+
+  Examples:
+    | progress | confidence | narrative            | status      |
+    |  12      |  5         |  I've started        | Not delivered  |
+    |  60      |  50        |  Getting there       | Partially delivered     |
+    |  75      |  75        |  Feeling better      | Delivered    |
 
 
 @javascript
 Scenario: Prompt to fill in "Lessons learned" when marking a goal as complete or cancelled.
-  When I click on "Report progress"
-  #weird, phantomjs fails to find "Complete" if I dont' wait a second or two
-  And I wait 1 second
-  And I click on "Finished"
+  When I click on "Close this objective"
   Then I should see "Lessons learned"
   When I click "Save"
-  Then I should see "Please share what you've learned by working on this"
+  Then I should see "This field is required."
   When I fill in "score[learnings]" with "We learned so much."
   And I fill in "score[reason]" with "Here are some reasons why we gave this goal this score."
   And I fill in "score[amount]" with "25"
   #required now
-  And I fill in "score[confidence]" with "100"
+  And I should NOT see "Confidence"
+  #And I fill in "score[confidence]" with "100"
   And I click "Save"
   Then I should see "Successfully"
   And I should see "We learned so much"
@@ -61,7 +79,7 @@ Scenario: Form validation
   When I fill in "score[amount]" with "25"
   And I fill in "score[reason]" with ""
   And I click "Save"
-  Then I should see "Please describe" within ".error"
+  Then I should see "This field is required" within ".error"
   And I fill in "score[reason]" with "Things are going great."
   And I click "Save"
   #for the confidence
