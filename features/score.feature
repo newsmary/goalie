@@ -3,24 +3,22 @@ Feature: As a user, I need a way to share progress and issues so that other team
 Background:
     Given I sign in as a non-admin user
     And I've set up the default statuses
+    And I have a team called "Peter Gabriel" with an objective to "Shock the monkey"
+    And I visit the goal called "Shock the monkey"
 
-Scenario: See a new goal with no percentage and then make an update. Also test that I can edit the update after the fact.
-  And I have a team called "The Buzzards" with an objective to "Have a house party"
-  And the objective "Have a house party" has a key result "Slice lime wedges"
-  When I visit the objective called "Slice lime wedges"
-  #right now, unstarted goals don't show anything...
-  #Then I should see "0%"
+
+Scenario: See "not started" for new goals
+  Then I should see "Not started"
+
+Scenario: Update a new goal and see the progress. Also test that I can edit the update after the fact.
   When I click on "Report progress"
-  #And I click "Save"
-  #Then I should see "cannot"
   And I fill in "score[amount]" with "20"
   #have to fill this in...
   And I fill in "score[confidence]" with "30"
-  And I click on "In progress"
-  And I fill in "score[reason]" with "Sliced 1 out of 5 limes."
+  And I fill in "score[reason]" with "I've started."
   And I click on "Save"
   Then I should see "20%"
-  #And I should see "20"
+  And I should see "In progress"
   #now edit it
   When I click on "Edit" within ".edit_score_link"
   And I should see "Edit progress update"
@@ -33,10 +31,7 @@ Scenario: See a new goal with no percentage and then make an update. Also test t
 
 @javascript
 Scenario: Prompt to fill in "Lessons learned" when marking a goal as complete or cancelled.
-  Given I have a team called "The Windowlickers" with an objective to "Shock Saatchi"
-  And the objective "Shock Saatchi" has a key result "Paint 5 murals"
-  When I visit the goal called "Paint 5 murals"
-  And I click on "Report progress"
+  When I click on "Report progress"
   #weird, phantomjs fails to find "Complete" if I dont' wait a second or two
   And I wait 1 second
   And I click on "Finished"
@@ -54,8 +49,6 @@ Scenario: Prompt to fill in "Lessons learned" when marking a goal as complete or
 
 @javascript
 Scenario: Form validation
-  Given I have a team called "Peter Gabriel" with an objective to "Shock the monkey"
-  When I visit the goal called "Shock the monkey"
   And I click on "Report progress"
   #weird, phantomjs fails to find "Complete" if I don't wait a second or two
   And I wait 1 second

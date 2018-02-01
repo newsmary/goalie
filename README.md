@@ -45,3 +45,4 @@ To test emails in development, I recommend using (mailcatcher)[https://mailcatch
 #testing
 Use cucumber...
 To test WIP tests in dev run `rake cucumber:wip`
+To run all tests: `rake cucumber:wip`
