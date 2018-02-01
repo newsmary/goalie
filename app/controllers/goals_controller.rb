@@ -8,7 +8,7 @@ class GoalsController < ApplicationController
   def index
     require "date"
     #end date for printing on the page...
-    @end_date = Date.parse(params['end_date'])
+    @end_date = Date.parse(params['end_date']) if params['end_date']
     @goals = Goal.all
     #@top_level_teams = Team.where(parent_id: nil)
 
