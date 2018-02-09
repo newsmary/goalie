@@ -30,6 +30,7 @@ To test emails in development, I recommend using (mailcatcher)[https://mailcatch
 
 ## Troublshooting:
 - If you get a message that a server is already running (because you didn't gracefully shut down) just log into the machine `docker-compose run web bash` and `rm /tmp/pids/server.pids`
+- If you're using Heroku behind a proxy, you might not be able to run things like `heroku run bash` since it uses a TCP socket (not HTTP) So you'll need to connect via an open network
 
 
 #deploy to production
