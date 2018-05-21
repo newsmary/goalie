@@ -9,7 +9,7 @@ A goal-setting and tracking platform.
 - Think about other kinds of OKRs (e.g. discipline)
 - Is there a hierarchy of teams? Can a team belong to another team? (e.g RW playback to iPlayer)
 
-# Local development setup
+## Local development setup
 - For now, we're using Heroku to deploy. You'll want the command line tools:
 - Using brew: `brew install heroku/brew/heroku`
 - copy `env.sample` to `.env` and add your hostname
@@ -25,6 +25,13 @@ A goal-setting and tracking platform.
 ## Adding demo data
 You might wish to add a bunch of users and teams and goals and statuses, etc. you can do this by running: `rake my_fixtures:all` from inside a docker bash session (`docker-compose run web bash`)
 
+## Testing
+
+## Running cucumber
+
+To test WIP tests in dev run `rake cucumber:wip`
+To run all tests: `rake cucumber`
+
 ## Mail testing
 To test emails in development, I recommend using (mailcatcher)[https://mailcatcher.me] which caches and displays emails sent by your app. You can run in via a docker container like so: `docker run -it -p 1080:80 -p 25:25 tophfr/mailcatcher`. Using the `-it` switches will keep the virtual terminal open & connected so you can see if mails are routing correctly through the container. The `config/environments/develoment.rb` file should already be set up to relay mails through the host in your local environment.
 
@@ -33,17 +40,12 @@ To test emails in development, I recommend using (mailcatcher)[https://mailcatch
 - If you're using Heroku behind a proxy, you might not be able to run things like `heroku run bash` since it uses a TCP socket (not HTTP) So you'll need to connect via an open network
 
 
-#deploy to production
+# Deploy to production
 - Use heroku
 - Set the "host" env variable
 - `heroku run rake db:migrate --app <APPNAME>`
 - Seed the "statuses" via `rake statuses:seed`
 - You should now be up and running
 
-#TODOs
+# TODOs
 - allow email allowable domains and return addresses to be configured via env vars
-
-#testing
-Use cucumber...
-To test WIP tests in dev run `rake cucumber:wip`
-To run all tests: `rake cucumber:wip`

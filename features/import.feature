@@ -14,7 +14,6 @@ Scenario: Import Users
   When I click on "People" within ".nav"
   Then I should see "Mabuse"
 
-@wip
 Scenario: Import goals & scores
   When I import teams
   Then I should see "Successfully imported"
